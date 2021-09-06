@@ -7,6 +7,7 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { CompanyAddComponent } from './company-add/company-add.component';
 import { CompanyOverviewComponent } from './company-overview/company-overview.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -22,6 +23,7 @@ import { CompanyOverviewComponent } from './company-overview/company-overview.co
     HttpClientModule,
     RouterModule,
     CustomMaterialModule,
+    FormsModule,
   ],
   exports: [
     CompanyListComponent,

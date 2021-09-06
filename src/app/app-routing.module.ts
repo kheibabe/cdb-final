@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'computers',
+    redirectTo: '/',
     pathMatch: 'full'
   }
 ];

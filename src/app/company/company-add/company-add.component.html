@@ -1,1 +1,25 @@
 <p>company-add works!</p>
+<form>
+    <div class="submit-form">
+  
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            required
+            [(ngModel)]="company.name"
+            name="name"
+          />
+        </div>
+     
+    </div>
+        <button (click)="saveCompany()">Submit</button>
+      
+      <div *ngIf="submitted">
+        <p> Bien joué gros ! </p>
+        <button class="newcompany" (click)="newCompany()">Add</button>
+      </div>
+  
+  </form>
