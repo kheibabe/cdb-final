@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ComputerService } from 'src/app/computer.service';
+import { ComputerService } from 'src/app/services/computer.service';
 import { Computer } from '../model/computer.model';
 
 @Component({

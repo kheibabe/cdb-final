@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ComputerService } from '../../computer.service';
+import { ComputerService } from 'src/app/services/computer.service';
 import { Computer } from '../model/computer.model';
 
 @Component({

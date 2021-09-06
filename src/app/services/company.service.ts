@@ -13,15 +13,18 @@ import { Company } from '../company/company.model';
 export class CompanyService {
 
 baseUrl = 'http://10.0.1.217:8080';
+apiUrl = 'training-java-webapp/service';
+getAllEndpoint = 'companies/all';
+getIdEndpoint = 'companies?id=';
 
 constructor(private readonly http: HttpClient) { }
 
   getCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.baseUrl}`)
+    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}`)
   }
 
   getCompany(id: number): Observable<Company> {
-    return this.http.get<Company>(`${this.baseUrl}/${id}`);
+    return this.http.get<Company>(`${this.baseUrl}/${this.apiUrl}/${this.getIdEndpoint}${id}`);
   }
 
   addCompany(company: Company): Observable<Company> {
@@ -29,7 +32,7 @@ constructor(private readonly http: HttpClient) { }
   }
 
   deleteCompany(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${this.apiUrl}/${id}`);
   }
 
 }
