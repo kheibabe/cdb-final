@@ -5,7 +5,23 @@
       </a>
     </div>
   </div>
+  <span>List a Computer/Company (CDB)</span>
   <div class="nav-btn">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/']">
+        Home
+      </button>
+      <button mat-menu-item [routerLink]="['computers']">
+        Computers
+      </button>
+      <button mat-menu-item [routerLink]="['companies']">
+        Companies
+      </button>
+    </mat-menu>
+    
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button>

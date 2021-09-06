@@ -10,7 +10,7 @@ import { CompanyModule } from './company/company.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CoreModule,

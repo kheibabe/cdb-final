@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  background-color: white;
+  background-color: rgb(219, 203, 224);
   border-color: black;
 }
 .logo {
@@ -11,5 +11,7 @@
 }
 
 .excilys-logo {
-  width: 30%;
+  //width: 30%;
+  height: 82px;
+  width:auto;
 }
