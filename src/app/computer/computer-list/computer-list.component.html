@@ -1,0 +1,7 @@
+<ol class="computer-list-class">
+  Je dois afficher le nom des ordinateurs
+
+  <li *ngFor="let computer of computerList">
+    {{computer.id}} {{computer.name}} {{computer.introduced}} {{computer.discontinued}} {{computer.company ? computer.company.name: '' }}
+  </li>
+</ol>

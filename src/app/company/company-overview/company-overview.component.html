@@ -1,0 +1,23 @@
+<p>company-overview works!</p>
+<mat-card class="example-card">
+
+  <mat-card-header>
+    <mat-card-title>{{ company.name }}</mat-card-title>
+    <mat-card-subtitle>{{company.id}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>
+      Je suis une company
+    </p>
+  </mat-card-content>
+
+
+  <mat-card-actions>
+
+    <a mat-button routerLink="/companies/{{ company.id }}">Details</a>
+    <button mat-button (click) = "deleteCompany()">
+      Delete
+    </button>
+  </mat-card-actions>
+</mat-card>

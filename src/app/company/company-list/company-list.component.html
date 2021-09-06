@@ -1,0 +1,9 @@
+<p>company-list works!</p>
+<p>
+  <ul>
+    <li class="container-list" *ngFor="let item of companyList">
+      <app-company-overview [company] = "item" (delete) = "deleteCompany($event)">
+
+    </app-company-overview>
+    </li>
+  </ul>
