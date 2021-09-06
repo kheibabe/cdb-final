@@ -1,13 +1,13 @@
 <mat-toolbar class="navigation">
-  <div class="logo">
-    <div><a class="lien-menu" [routerLink]="['/']" >
-      <img class="excilys-logo" src="https://excilys.com/wp-content/uploads/2017/01/excilys495-295.png" alt="logo excilys">
-      </a>
+  <div class = "right-side">
+    <div class="logo">
+      <div><a class="lien-menu" [routerLink]="['/']" >
+        <img class="excilys-logo" src="https://excilys.com/wp-content/uploads/2017/01/excilys495-295.png" alt="logo excilys">
+        </a>
+      </div>
     </div>
-  </div>
-  <span>List a Computer/Company (CDB)</span>
-  <div class="nav-btn">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu">
+    
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu" class = "menu">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -21,12 +21,10 @@
         Companies
       </button>
     </mat-menu>
-    
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button>
+  </div>
+  
+  <span>List a Computer/Company (CDB)</span>
+  <div class="nav-btn">    
+    <span *ngIf="login"></span><a routerLink="{{login? '/logout' : '/login'}}">{{login? ' (Logout)' : 'Login'}}</a>
   </div>
 </mat-toolbar>

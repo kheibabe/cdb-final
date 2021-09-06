@@ -10,6 +10,20 @@
   flex-direction: row;
 }
 
+.menu
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.right-side
+{
+  display: flex;
+  flex-direction: right;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
 .excilys-logo {
   //width: 30%;
   height: 82px;
