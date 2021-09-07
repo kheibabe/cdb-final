@@ -12,24 +12,28 @@ export class ComputerService {
     throw new Error('Method not implemented.');
   }
 
-  baseUrl = 'http://10.0.1.217:8080';
+ // baseUrl = 'http://10.0.1.217:8080'; //localhost de Lisa
+  baseUrl ='http://localhost:8080';
   apiUrl = 'training-java-webapp/service';
-  //getAllEndpoint = 'computers/all';
+  getComputersEndpoint = 'computers?';
   getIdEndpoint = 'computers?id=';
-  getPage = 'computers?page=';
-  getSizeEndpoint ='&size='
+  getPage = 'page=';
+  getSize ='&size=';
   numPage = 1;
   pageSize = 100;
-
-  orderBy = 'cp.name'
-  dir = 'ASC';
+  getDirection = '&direction=';
+  getOrder = '&order=';
+  order = 'cp.name';
+  direction = 'ASC';
   nbElementDB = 0;
+
+  getSearch = '&search='
   research = '';
 
-  getData(){
-
-  }
-
+  getComputersOrdered(direction: String, order: String): Observable<Computer[]> {
+    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}`);
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}`);
+}
   setNumPage(num: number) : void {
     this.numPage =  num;
   }
@@ -43,7 +47,7 @@ export class ComputerService {
 }
 
   getComputers(pageSize: number, pageIndex: number): Observable<Computer[]> {
-    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getPage}${pageIndex }${this.getSizeEndpoint}${ pageSize}`);
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${pageIndex }${this.getSize}${ pageSize}`);
 }
 
   getComputerById(id: number): Observable<Computer> {

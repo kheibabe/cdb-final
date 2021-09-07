@@ -20,7 +20,7 @@ export class ComputerListComponent implements OnInit {
   computerList : Computer[] = [];
 
   length = 0;
-  pageSize = 100; 
+  pageSize = 10; 
   pageIndex = 0;
   pageSizeOptions: number[] = [10, 50, 100];
 
@@ -55,6 +55,23 @@ export class ComputerListComponent implements OnInit {
     this.length = pageEvent.length;
     this.getData();
     return pageEvent;
+  }
+
+  setOrderBy(direction: String, order: String) {
+    console.log("je veux order");
+    this.pageIndex = 0;
+    this.computerService.getComputersOrdered(direction, order).subscribe(
+      (result: Computer[]) => {
+        //console.log("J'ai reçu les computers suivantes ", result);
+          this.computerList = result;
+      },
+      (error) => {
+        console.log("Il y a eu une erreur lors du chragement des données avec order")
+    }
+    );
+    this.computerService.countComputers().subscribe(
+      (result: Number) => {this.length = result.valueOf();}
+    );
   }
 
 }
