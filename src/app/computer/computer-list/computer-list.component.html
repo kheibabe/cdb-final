@@ -20,7 +20,7 @@
         <button mat-button (click)="setOrderBy('asc','computer.name')" >
           <mat-icon [inline]="true">expand_less</mat-icon>
         </button>
-         Name 
+         {{'name' | translate}} 
          <button mat-button (click)="setOrderBy('desc','computer.name')" >
           <mat-icon [inline]="true">expand_more</mat-icon>
         </button>
@@ -34,7 +34,7 @@
         <button mat-button (click)="setOrderBy('asc','computer.introduced')" >
           <mat-icon [inline]="true">expand_less</mat-icon>
         </button>
-         Introduced
+         {{'introduced' | translate}}
          <button mat-button (click)="setOrderBy('desc','computer.introduced')" >
           <mat-icon [inline]="true">expand_more</mat-icon>
         </button>
@@ -48,7 +48,7 @@
         <button mat-button (click)="setOrderBy('asc','computer.discontinued')" >
           <mat-icon [inline]="true">expand_less</mat-icon>
         </button>
-        Disocnituned
+        {{'discontinued' | translate}}
         <button mat-button (click)="setOrderBy('desc','computer.discontinued')" >
           <mat-icon [inline]="true">expand_more</mat-icon>
         </button>
@@ -62,7 +62,7 @@
         <button mat-button (click)="setOrderBy('asc','company.name')" >
           <mat-icon [inline]="true">expand_less</mat-icon>
         </button>
-        Company
+        {{'company' | translate }}
         <button mat-button (click)="setOrderBy('desc','company.name')" >
           <mat-icon [inline]="true">expand_more</mat-icon>
         </button>

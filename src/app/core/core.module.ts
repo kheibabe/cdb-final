@@ -4,7 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
-
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { CustomMaterialModule } from '../custom-material/custom-material.module'
   imports: [
     CommonModule,
     RouterModule,
-    CustomMaterialModule
+    CustomMaterialModule,
+    SharedModule,
   ],
   exports: [
     HeaderComponent,

@@ -12,19 +12,19 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item [routerLink]="['/']">
-        Home
+        {{ 'home' | translate }}
       </button>
       <button mat-menu-item [routerLink]="['computers']">
-        Computers
+        {{ 'computers' | translate }}
       </button>
       <button mat-menu-item [routerLink]="['companies']">
-        Companies
+        {{ 'companies' | translate }}
       </button>
     </mat-menu>
   </div>
   
-  <span>List a Computer/Company (CDB)</span>
+  <span>{{'appName' | translate }}</span>
   <div class="nav-btn">    
-    <span *ngIf="login"></span><a routerLink="{{login? '/logout' : '/login'}}">{{login? ' (Logout)' : 'Login'}}</a>
+    <span *ngIf="login"></span><a routerLink="{{login? '/logout' : '/login'}}">{{login? " (" + ('logout' | translate)+ ")" : 'login' | translate}}</a>
   </div>
 </mat-toolbar>

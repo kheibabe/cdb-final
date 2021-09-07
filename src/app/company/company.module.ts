@@ -8,6 +8,7 @@ import { CompanyDetailComponent } from './company-detail/company-detail.componen
 import { CompanyAddComponent } from './company-add/company-add.component';
 import { CompanyOverviewComponent } from './company-overview/company-overview.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -24,6 +25,7 @@ import { FormsModule } from '@angular/forms';
     RouterModule,
     CustomMaterialModule,
     FormsModule,
+    SharedModule,
   ],
   exports: [
     CompanyListComponent,
