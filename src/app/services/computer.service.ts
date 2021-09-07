@@ -46,8 +46,8 @@ export class ComputerService {
     return this.http.get<Number>(`${this.baseUrl}/${this.apiUrl}/computers/nb`);
 }
 
-  getComputers(pageSize: number, pageIndex: number): Observable<Computer[]> {
-    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${pageIndex }${this.getSize}${ pageSize}`);
+  getComputers(pageSize: number, pageIndex: number, direction: String, order: String): Observable<Computer[]> {
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${pageIndex }${this.getSize}${ pageSize}${this.getDirection}${direction}${this.getOrder}${order}`);
 }
 
   getComputerById(id: number): Observable<Computer> {

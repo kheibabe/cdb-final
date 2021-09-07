@@ -24,6 +24,9 @@ export class ComputerListComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions: number[] = [10, 50, 100];
 
+  order = 'computer.id';
+  direction = 'asc';
+
   constructor(private computerService: ComputerService) { }
 
   ngOnInit(): void {
@@ -32,7 +35,7 @@ export class ComputerListComponent implements OnInit {
 
 
  getData() {
-  this.computerService.getComputers(this.pageSize, this.pageIndex+1).subscribe(
+  this.computerService.getComputers(this.pageSize, this.pageIndex+1, this.direction, this.order).subscribe(
     (result: Computer[]) => {
       //console.log("J'ai reçu les computers suivantes ", result);
         this.computerList = result;
@@ -57,9 +60,11 @@ export class ComputerListComponent implements OnInit {
     return pageEvent;
   }
 
-  setOrderBy(direction: String, order: String) {
+  setOrderBy(direction: string, order: string) {
     console.log("je veux order");
     this.pageIndex = 0;
+    this.direction = direction;
+    this.order = order;
     this.computerService.getComputersOrdered(direction, order).subscribe(
       (result: Computer[]) => {
         //console.log("J'ai reçu les computers suivantes ", result);
