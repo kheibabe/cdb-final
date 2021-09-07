@@ -3,6 +3,7 @@ import { ComputerService } from 'src/app/services/computer.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Computer } from '../model/computer.model';
+import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-computer-list',
@@ -23,6 +24,8 @@ export class ComputerListComponent implements OnInit {
   pageSize = 10; 
   pageIndex = 0;
   pageSizeOptions: number[] = [10, 50, 100];
+  widthSearch = (window.innerWidth - 400 )/2;
+  widthTable = 400;
 
   order = 'computer.id';
   direction = 'asc';

@@ -1,11 +1,19 @@
-table {
+
+
+table{
     width: 75%;
     margin-left: auto;
     margin-right: auto;
   }
+
   
   th.mat-sort-header-sorted {
     color: black;
   }
 
-
+ .search-full-width{
+    width: 400px;
+    margin-left: 441px;
+   // [style.width.px]=400 [style.fontSize.px]=17 [style.margin-left.px]= widthSearch
+  
+  }
