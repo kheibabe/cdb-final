@@ -1,8 +1,86 @@
-<ol class="computer-list-class">
+
   Je dois afficher le nom des ordinateurs
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="computerList" matSort class="mat-elevation-z8">
 
-  <li *ngFor="let computer of computerList">
-    {{computer.id}} {{computer.name}} {{computer.introduced}} {{computer.discontinued}} {{computer.company ? computer.company.name: '' }}
-  </li>
-</ol>
+    <!-- Position Column -->
+    <div *ngIf="hiddenId">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+          No. 
+        </th>
+        <td mat-cell *matCellDef="let computer"> {{computer.id}} </td>
+      </ng-container>
+    </div>
+    
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <button mat-button (click)="setOrderBy('asc','computer.name')" >
+          <mat-icon [inline]="true">expand_less</mat-icon>
+        </button>
+         Name 
+         <button mat-button (click)="setOrderBy('desc','computer.name')" >
+          <mat-icon [inline]="true">expand_more</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let computer"> {{computer.name}} </td>
+    </ng-container>
+  
+    <!-- Introduced Column -->
+    <ng-container matColumnDef="introduced">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <button mat-button (click)="setOrderBy('asc','computer.introduced')" >
+          <mat-icon [inline]="true">expand_less</mat-icon>
+        </button>
+         Introduced
+         <button mat-button (click)="setOrderBy('desc','computer.introduced')" >
+          <mat-icon [inline]="true">expand_more</mat-icon>
+        </button>
+        </th>
+      <td mat-cell *matCellDef="let computer"> {{computer.introduced}} </td>
+    </ng-container>
+  
+    <!-- Discontinued Column -->
+    <ng-container matColumnDef="discontinued">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+        <button mat-button (click)="setOrderBy('asc','computer.discontinued')" >
+          <mat-icon [inline]="true">expand_less</mat-icon>
+        </button>
+        Disocnituned
+        <button mat-button (click)="setOrderBy('desc','computer.discontinued')" >
+          <mat-icon [inline]="true">expand_more</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let computer"> {{computer.discontinued}} </td>
+    </ng-container>
 
+    <!-- Company Column -->
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+        <button mat-button (click)="setOrderBy('asc','company.name')" >
+          <mat-icon [inline]="true">expand_less</mat-icon>
+        </button>
+        Company
+        <button mat-button (click)="setOrderBy('desc','company.name')" >
+          <mat-icon [inline]="true">expand_more</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let computer"> {{computer.company ? computer.company.name: '' }} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>
+
+<mat-paginator [length]="length"
+  [pageIndex]="pageIndex"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="pageEvent = getServerData($event)"
+  aria-label="Select page">
+
+</mat-paginator>
