@@ -14,7 +14,7 @@ export class CompanyService {
 
 baseUrl = 'http://10.0.1.217:8080';
 apiUrl = 'training-java-webapp/service';
-getAllEndpoint = 'companies/all';
+getAllEndpoint = 'companies?page=1&size=10';
 getIdEndpoint = 'companies?id=';
 
 constructor(private readonly http: HttpClient) { }
@@ -32,7 +32,7 @@ constructor(private readonly http: HttpClient) { }
   }
 
   deleteCompany(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${this.apiUrl}/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${this.apiUrl}/${this.getIdEndpoint}${id}`);
   }
 
 }

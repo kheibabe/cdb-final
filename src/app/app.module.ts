@@ -7,10 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { ComputerModule } from './computer/computer.module';
 import { CompanyModule } from './company/company.module';
+import { LoginComponent } from './login/login.component';
+import { LoginModule } from './login/login.module';
+import { HomeComponent } from './home/home.component';
+import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CoreModule,
@@ -19,6 +24,10 @@ import { CompanyModule } from './company/company.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     CompanyModule,
+    LoginModule,
+    
+    FormsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
