@@ -1,0 +1,14 @@
+<label>
+
+
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu" class = "menu">
+    <mat-icon>translate</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="translate.use('en')" >
+    {{ 'english' | translate }}
+  </button>
+  <button mat-menu-item (click)="translate.use('fr')">
+    {{ 'french' | translate }}
+  </button>
+</mat-menu>

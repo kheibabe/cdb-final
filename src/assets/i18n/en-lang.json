@@ -1,7 +1,7 @@
 {
-    "lang.change" : "Change the language",
-    "lang.eng" : "English",
-    "lang.fr" : "French",
+    "lang-change" : "Change the language",
+    "lang-eng" : "English",
+    "lang-fr" : "French",
     "appName" : "Application - Computers Database",
     "home" : "Home",
     "computers" : "Computers",

@@ -11,6 +11,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { MenuComponent } from './core/menu/menu.component';
+import { LangChoiceComponent } from './core/lang-choice/lang-choice.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'http://localhost:4200/assets/i18n/', '-lang.json');

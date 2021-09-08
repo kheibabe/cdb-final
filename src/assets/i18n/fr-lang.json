@@ -1,13 +1,13 @@
 {
-    "lang.change" : "Changer la langue",
-    "lang.eng" : "Anglais",
-    "lang.fr" : "Français",
+    "lang-change" : "Changer la langue",
+    "lang-eng" : "Anglais",
+    "lang-fr" : "Français",
     "appName" : "Application - Base de données d'ordinateurs",
     "home" : "Accueil",
     "computers" : "Ordinateurs",
     "companies" : "Compagnies",
-    "login" : "Connection",
-    "logout" : "Deconnection",
+    "login" : "Connexion",
+    "logout" : "Deconnexion",
 
     "computersFound" : "Ordinateurs trouvés",
     "search" : "Chercher le nom",
