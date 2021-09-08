@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Company } from '../company/company.model';
+import { LoginService } from './login.service';
 
 
 
@@ -17,10 +18,10 @@ apiUrl = 'training-java-webapp/service';
 getAllEndpoint = 'companies?page=1&size=10';
 getIdEndpoint = 'companies?id=';
 
-constructor(private readonly http: HttpClient) { }
+constructor(private readonly http: HttpClient, loginService : LoginService) { }
 
   getCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}`)
+    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}`);
   }
 
   getCompany(id: number): Observable<Company> {

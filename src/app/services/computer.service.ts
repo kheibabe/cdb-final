@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Computer } from '../computer/model/computer.model';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,5 @@ export class ComputerService {
     return this.http.get<Computer>(`${this.baseurl}/${this.apiUrl}/${this.computersEndpoint}/${ id }`);
 }
 
-  constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient,loginService : LoginService) { }
 }
