@@ -1,11 +1,16 @@
 <br>
+<!-- Search bar -->
 <form class="search-form">
   <mat-form-field class="search-full-width" appearance="fill">
-      <input matInput placeholder="Ex. Apple Inc" value="">
+      <input matInput placeholder="Ex. Apple Inc" [(ngModel)]=searchword name="search" (input)="searchThis()">
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 </form>
-Je dois afficher le nom des ordinateurs
+- bar de recherches effective 
+- button toggle pour l'orderby, savoir ce que nous avons order
+- button add  et delete (visible que par les admins)
+- modification des computer avec un clic (uniquement par les admins)
+- chips pour delete le contenue de la bar de recherche
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="computerList" matSort class="mat-elevation-z8"
   >

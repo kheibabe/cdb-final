@@ -30,6 +30,9 @@ export class ComputerListComponent implements OnInit {
   order = 'computer.id';
   direction = 'asc';
 
+  searchword = '';
+
+
   constructor(private computerService: ComputerService) { }
 
   ngOnInit(): void {
@@ -38,7 +41,7 @@ export class ComputerListComponent implements OnInit {
 
 
  getData() {
-  this.computerService.getComputers(this.pageSize, this.pageIndex+1, this.direction, this.order).subscribe(
+  this.computerService.getComputers(this.pageSize, this.pageIndex+1, this.direction, this.order, this.searchword).subscribe(
     (result: Computer[]) => {
       //console.log("J'ai reçu les computers suivantes ", result);
         this.computerList = result;
@@ -47,7 +50,7 @@ export class ComputerListComponent implements OnInit {
       console.log("Il y a eu une erreur lors du chragement des données")
   }
   );
-  this.computerService.countComputers().subscribe(
+  this.computerService.countComputersSearch(this.searchword).subscribe(
     (result: Number) => {this.length = result.valueOf();}
   );
 }
@@ -70,14 +73,30 @@ export class ComputerListComponent implements OnInit {
     this.order = order;
     this.computerService.getComputersOrdered(direction, order).subscribe(
       (result: Computer[]) => {
-        //console.log("J'ai reçu les computers suivantes ", result);
+        //console.log("J'ai reçu les computers suivantes order", result);
           this.computerList = result;
       },
       (error) => {
         console.log("Il y a eu une erreur lors du chragement des données avec order")
     }
     );
-    this.computerService.countComputers().subscribe(
+    this.computerService.countComputersSearch(this.searchword).subscribe(
+      (result: Number) => {this.length = result.valueOf();}
+    );
+  }
+
+  searchThis(){
+    console.log(this.searchword);
+    this.computerService.getComputersSearch(this.searchword).subscribe(
+      (result: Computer[]) => {
+        //console.log("J'ai reçu les computers suivantes search ", result);
+          this.computerList = result;
+      },
+      (error) => {
+        console.log("Il y a eu une erreur lors du chragement des données avec order")
+    }
+    );
+    this.computerService.countComputersSearch(this.searchword).subscribe(
       (result: Number) => {this.length = result.valueOf();}
     );
   }
