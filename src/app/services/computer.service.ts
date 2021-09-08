@@ -23,16 +23,24 @@ export class ComputerService {
   pageSize = 100;
   getDirection = '&direction=';
   getOrder = '&order=';
-  order = 'cp.name';
+  order = 'computer.name';
   direction = 'ASC';
   nbElementDB = 0;
 
   getSearch = '&search='
   research = '';
 
-  getComputersOrdered(direction: String, order: String): Observable<Computer[]> {
-    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}`);
-    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}`);
+  getComputersSearch(searchword: string): Observable<Computer[]> {
+    this.research=searchword;
+    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${this.direction}${this.getOrder}${this.order}${this.getSearch}${searchword}`);
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${this.direction}${this.getOrder}${this.order}${this.getSearch}${searchword}`);
+  }
+
+  getComputersOrdered(direction: string, order: string): Observable<Computer[]> {
+    this.direction = direction;
+    this.order = order;
+    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
 }
   setNumPage(num: number) : void {
     this.numPage =  num;
@@ -46,8 +54,12 @@ export class ComputerService {
     return this.http.get<Number>(`${this.baseUrl}/${this.apiUrl}/computers/nb`);
 }
 
-  getComputers(pageSize: number, pageIndex: number, direction: String, order: String): Observable<Computer[]> {
-    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${pageIndex }${this.getSize}${ pageSize}${this.getDirection}${direction}${this.getOrder}${order}`);
+  countComputersSearch(searchword: string): Observable<Number> {
+    return this.http.get<Number>(`${this.baseUrl}/${this.apiUrl}/computers/nb?search=${searchword}`);
+}
+
+  getComputers(pageSize: number, pageIndex: number, direction: String, order: String, searchword: string): Observable<Computer[]> {
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${pageIndex }${this.getSize}${ pageSize}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
 }
 
   getComputerById(id: number): Observable<Computer> {
