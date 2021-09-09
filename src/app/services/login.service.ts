@@ -1,30 +1,52 @@
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { User } from "../login/user.model";
 import { Md5 } from 'ts-md5/dist/md5';
+import { AuthenticationInterceptor } from "./authentication.interceptor";
+import { AuthInfos } from "../login/auth-infos.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
 
-    baseUrl = 'http://10.0.1.217:8080';
-    apiUrl = 'training-java-webapp/service';
+    baseUrl = 'http://localhost:8080';
+    apiUrl = '/training-java-webapp/';
 
-    constructor(private readonly http: HttpClient) {}
+    constructor(private readonly http: HttpClient, private authInfos : AuthInfos) {}
 
 
-    login(user : User, callback : any)
+    login(user : User, callbackSuccess : any, callbackFailure : any)
     {
-       this.http.get('user', { observe: 'response'}).subscribe(response => {
-            if (response) {
-                //this.authenticated = true;
-            } else {
-                //this.authenticated = false;
-            }
-            return callback && callback();
-        });
+        
+        this.authInfos.authenticated = true;
+        this.authInfos.user = user;
+
+        this.http.get<any>(this.baseUrl + this.apiUrl,{observe : "response"}).subscribe(response => {    
+            return callbackSuccess && callbackSuccess();
+        },
+        (error: HttpErrorResponse) => {
+            if (error.status == 401)
+            {
+                this.http.get<any>(this.baseUrl + this.apiUrl,{observe : "response"}).subscribe(response => {    
+                    return callbackSuccess && callbackSuccess();
+                },
+                (error: HttpErrorResponse) => {
+                    if (error.status == 401)
+                    {
+                       this.authInfos.authenticated = false; 
+                       return callbackFailure && callbackFailure();
+                    }
+                    return callbackSuccess && callbackSuccess();
+                }
+                )
+
+            } 
+            return callbackSuccess && callbackSuccess();
+        }
+            
+        );
 
     }
 }

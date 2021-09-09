@@ -14,12 +14,15 @@ export class LoginComponent implements OnInit {
 
   credentials: User = {username: '', password: ''};
 
-  constructor(private readonly app: LoginService, private http: HttpClient, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   login() {
-    this.app.authenticate(this.credentials, () => {
+    this.loginService.login(this.credentials, () => {
         this.router.navigateByUrl('/');
+    }, () =>
+    {
+      
     });
     return false;
   }

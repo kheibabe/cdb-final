@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { AuthInfos } from '../login/auth-infos.model';
+import { AuthenticationInterceptor } from '../services/authentication.interceptor';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -12,13 +14,9 @@ export class HomeComponent implements OnInit {
   title = 'Demo';
   greeting = {};
 
-  constructor(private app: LoginService, private http: HttpClient) {
-    http.get('http://localhost:8080/training-java-webapp/').subscribe(data => this.greeting = data);
-  }
+  constructor(private loginService: LoginService, private readonly authInfos : AuthInfos) { }
 
-  
-
-  authenticated() { ; }
+  authenticated() { return this.authInfos.authenticated; }
 
   ngOnInit(): void {
   }

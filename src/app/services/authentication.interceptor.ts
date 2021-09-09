@@ -5,100 +5,138 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpHeaderResponse,
+  HttpProgressEvent
 } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "../login/user.model";
 import { Md5 } from 'ts-md5/dist/md5';
-import 'rxjs/add/operator/do';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { tap, map, catchError, elementAt } from 'rxjs/operators';
+import { AuthInfos } from '../login/auth-infos.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  authenticated = false;
-  realm!: string | null;
-  nonce!:string | null;
-  qop! : string | null;
-  uri!: string | null;
-  cnonce = "0a4f113b";
-  useCount = 0;
-  algorithm = "MD5";
-  user ?: User;
-
-  constructor() {}
+  constructor(private authInfos : AuthInfos) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(map((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-        this.updateCredentials(event,request.urlWithParams);
-      }
-      this.useCount++;
-      return event;
-  }));
+    let authReq = request.clone();
+
+    if(this.authInfos.authenticated)
+    {
+      authReq = request.clone({
+        headers: this.getHeader()
+      });
+    }
+
+    return next.handle(authReq).pipe(
+      tap((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            const header : string[] | undefined = event.headers.get("WWW-Authenticate")?.split(",");
+            this.updateCredentials(header,request.urlWithParams);
+          }
+          if (event instanceof HttpErrorResponse) {
+            const header : string[] | undefined = event.headers.get("WWW-Authenticate")?.split(",");
+            this.updateCredentials(header,request.urlWithParams);
+          }
+          if (event instanceof HttpHeaderResponse) {
+            const header : string[] | undefined = event.headers.get("WWW-Authenticate")?.split(",");
+            this.updateCredentials(header,request.urlWithParams);
+          }
+          this.authInfos.useCount++;
+          return event;
+        },
+        (error:HttpErrorResponse ) => {
+
+          const header : string[] | undefined = error.headers.get("WWW-Authenticate")?.split(",");
+          this.updateCredentials(header,request.urlWithParams);
+          return error;
+          
+        }
+      )
+    );
   }
 
 
   getHeader() :HttpHeaders
   {
-      this.useCount++;
+      this.authInfos.useCount++;
       let nc = "";
-      for (let i = this.useCount.toString().length; i < 8; i++)
+      for (let i = this.authInfos.useCount.toString().length; i < 8; i++)
       {
           nc += "0";
       }
-      nc += this.useCount;
+      nc += this.authInfos.useCount;
 
-      let headers = new HttpHeaders(this.user ? {
-          authorization : 'Digest realm=' + this.realm + ", qop=" + this.qop + ", cnonce" + this.cnonce + ", nonce" + this.nonce + ", nc=" + nc
-          + ", algorithm" + this.algorithm + ", user=" + this.user.username + ", response=" + this.encodeResponse(this.user)
+      let headers = new HttpHeaders(this.authInfos.user ? {
+          Authorization : 'Digest realm="' + this.authInfos.realm + '", qop=' + this.authInfos.qop + ', cnonce="' + this.authInfos.cnonce + '", nonce="' + this.authInfos.nonce + 
+          '", nc=' + nc + ', uri="' + this.authInfos.uri
+          + '", algorithm="' + this.authInfos.algorithm + '", username="' + this.authInfos.user.username + '", response=' + this.encodeResponse(this.authInfos.user)
       } : {});
       return headers;
   }
 
   encodeResponse(user : User) : string
   {
-      const password = Md5.hashStr( user.username+":"+user.password);
-      const rebelote = Md5.hashStr("GET:"+this.uri);
+      const password = Md5.hashStr( user.username+":" +this.authInfos.realm + ":"+user.password);
+      const cryptedUri = Md5.hashStr("GET:"+this.authInfos.uri);
       let nc = "";
-      for (let i = this.useCount.toString().length; i < 8; i++)
+      for (let i = this.authInfos.useCount.toString().length; i < 8; i++)
       {
           nc += "0";
       }
-      const response = password + ":" + this.nonce + ":" + nc + ":" + this.cnonce + ":" + this.qop + ":"+ rebelote;
-      return response;
+      nc += this.authInfos.useCount;
+      const response = password + ":" + this.authInfos.nonce + ":" + nc + ":" + this.authInfos.cnonce + ":" + this.authInfos.qop + ":"+ cryptedUri;
+      return Md5.hashStr(response);
   }
 
-  updateCredentials(response : HttpResponse<Object>, newUri :string)
+  updateCredentials(header : string[] | undefined, newUrl : string)
   {
-    if (response.headers.get("nonce"))
+    header?.map( (elem : string) =>
     {
-      if (response.headers.get("nonce") !== this.nonce)
+      elem = elem.trim();
+      const pos = elem.search('=');
+      let tuple : string[] = [ elem.substr(0,pos),elem.substr(pos+1)];
+      if (tuple[1].startsWith('"') && tuple[1].endsWith('"'))
       {
-        this.useCount = 0;
+        tuple[1] = tuple[1].substr(1,tuple[1].length-2);
+       
       }
-        this.nonce = response.headers.get("nonce");
-    }
+      this.updateAttributs(tuple[0],tuple[1]);     
+    });
+    this.authInfos.uri = newUrl;
+  }
 
-      if (response.headers.get("realm"))
-      {
-        this.realm = response.headers.get("realm");
-      }
-
-      if (response.headers.get("nextnonce"))
-      {
-        if (response.headers.get("nextnonce") !== this.nonce)
+  updateAttributs(key : string, value : string)
+  {
+    switch (key) {
+      case "nextnonce":
+        if (value !== this.authInfos.nonce)
         {
-          this.useCount = 0;
+          this.authInfos.useCount = 0;
         }
-        this.nonce = response.headers.get("nextnonce");
-
-      }
-      if (response.headers.get("qop"))
-      {
-        this.qop = response.headers.get("qop");
-      }
-      this.uri = newUri;
+        this.authInfos.nonce = value;
+        break;
+      case "nonce":
+        if (value !== this.authInfos.nonce)
+        {
+          this.authInfos.useCount = 0;
+        }
+        this.authInfos.nonce = value;
+        break;
+      case "Digest realm":
+        this.authInfos.realm = value;
+        break;
+      case "qop":
+        this.authInfos.qop = value;
+        break;
+      default:
+        break;
     }
+    
+  }
 }
