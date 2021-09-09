@@ -1,23 +1,38 @@
-<p>company-overview works!</p>
-<mat-card class="example-card">
+<div>
+  <table mat-table [dataSource]="companyList" class="mat-elevation-z8">
+  
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Id </th>
+      <td mat-cell *matCellDef="let company"> {{company.id}} </td>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let company"> 
+        <button mat-icon-button (click)="deleteCompanies(company.id)">
+          <mat-icon>
+            delete
+          </mat-icon>
+        </button>
+          {{company.name}} 
 
-  <mat-card-header>
-    <mat-card-title>{{ company.name }}</mat-card-title>
-    <mat-card-subtitle>{{company.id}}</mat-card-subtitle>
-  </mat-card-header>
+          <button mat-icon-button>
+            <a routerLink="/companies/{{ company.id }}"><mat-icon>zoom_in</mat-icon></a>
+          </button>
+      </td>
+    </ng-container>
 
-  <mat-card-content>
-    <p>
-      Je suis une company
-    </p>
-  </mat-card-content>
+    <ng-container matColumnDef="add">
+      <th mat-header-cell *matHeaderCellDef> <mat-icon>add_box</mat-icon> </th>
+      <td mat-cell *matCellDef="let company"> 
+    </ng-container>
+    
 
 
-  <mat-card-actions>
-
-    <a mat-button routerLink="/companies/{{ company.id }}">Details</a>
-    <button mat-button (click) = "deleteCompany()">
-      Delete
-    </button>
-  </mat-card-actions>
-</mat-card>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+  

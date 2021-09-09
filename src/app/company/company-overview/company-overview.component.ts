@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { CompanyService } from 'src/app/services/company.service';
 import { Company } from '../company.model';
 import { MOCK_COMPANY } from '../mock/company.mock';
 
@@ -9,26 +10,50 @@ import { MOCK_COMPANY } from '../mock/company.mock';
 })
 export class CompanyOverviewComponent implements OnInit, OnChanges {
 
-  companyList: Company[] = MOCK_COMPANY;
-
+  companyList: Company[] = [];
+  displayedColumns: string[] = ['id', 'name', 'add'];
+  
+  
   @Input()
   company!: Company;
-
-  @Output()
-  delete = new EventEmitter<number>();
-
-  constructor() { }
+  
+  
+  
+  constructor(private readonly companyService: CompanyService) { }
 
   ngOnInit(): void {
+    this.getCompanies();
   }
-
+  
+  
   ngOnChanges(): void {
-    console.log(this.company);
+  console.log(this.company);
+  }
+  
+  
+
+  getCompanies(): void {
+    this.companyService.getCompanies().subscribe(
+      (result: Company[]) => {
+        this.companyList = result;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
-  deleteCompany(): void {
-    this.delete.emit(this.company.id);
+  deleteCompanies(id: number): void {
+    this.companyService.deleteCompany(id).subscribe(
+      response => {
+        this.getCompanies();
+      },
+      error => {
+        console.log("je suis nulle");
+      }
+    )
   }
+  
 
 }
 
