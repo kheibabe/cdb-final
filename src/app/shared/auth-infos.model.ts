@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { User } from "./user.model";
+import { User } from "../model/user.model";
 
 @Injectable(
     {
@@ -8,7 +8,7 @@ import { User } from "./user.model";
 )
 export class AuthInfos
 {
-    authenticated: boolean = true;
+    authenticated: boolean = false;
     realm!: string | null;
     nonce!:string | null;
     qop! : string | null;

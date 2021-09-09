@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthInfos } from './auth-infos.model';
 
 
 
@@ -10,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule
   ],
   exports: [
-    TranslateModule
+    TranslateModule,
   ]
 })
 export class SharedModule { }

@@ -10,11 +10,11 @@ import {
   HttpProgressEvent
 } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { User } from "../login/user.model";
+import { User } from "../model/user.model";
 import { Md5 } from 'ts-md5/dist/md5';
 import {Observable} from 'rxjs';
 import { tap, map, catchError, elementAt } from 'rxjs/operators';
-import { AuthInfos } from '../login/auth-infos.model';
+import { AuthInfos } from '../shared/auth-infos.model';
 
 @Injectable({
   providedIn: 'root'

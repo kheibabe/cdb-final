@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/services/company.service';
-import { Company } from '../company.model';
+import { Company } from '../../model/company.model';
 
 @Component({
   selector: 'app-company-list',

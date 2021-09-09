@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ComputerService } from 'src/app/services/computer.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Computer } from '../model/computer.model';
+import { Computer } from '../../model/computer.model';
 import { style } from '@angular/animations';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 

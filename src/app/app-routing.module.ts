@@ -6,6 +6,7 @@ import { CompanyListComponent } from './company/company-list/company-list.compon
 import { ComputerDetailsComponent } from './computer/computer-details/computer-details.component';
 import { ComputerListComponent } from './computer/computer-list/computer-list.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
 
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent,
     pathMatch: 'full'
   },
   {

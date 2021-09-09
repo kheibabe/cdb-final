@@ -1,4 +1,4 @@
-import { Computer } from '../model/computer.model';
+import { Computer } from '../../model/computer.model';
 
 export const MOCK: Computer[] = [
   {

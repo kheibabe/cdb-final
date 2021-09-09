@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthInfos } from 'src/app/login/auth-infos.model';
+import { AuthInfos } from 'src/app/shared/auth-infos.model';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({

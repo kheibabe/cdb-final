@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AuthInfos } from '../login/auth-infos.model';
+import { AuthInfos } from '../shared/auth-infos.model';
 import { AuthenticationInterceptor } from '../services/authentication.interceptor';
 import { LoginService } from '../services/login.service';
 

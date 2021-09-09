@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Company } from '../company.model';
+import { Company } from '../../model/company.model';
 import { MOCK_COMPANY } from '../mock/company.mock';
 
 @Component({

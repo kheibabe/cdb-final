@@ -1,10 +1,10 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { User } from "../login/user.model";
+import { User } from "../model/user.model";
 import { Md5 } from 'ts-md5/dist/md5';
 import { AuthenticationInterceptor } from "./authentication.interceptor";
-import { AuthInfos } from "../login/auth-infos.model";
+import { AuthInfos } from "../shared/auth-infos.model";
 
 @Injectable({
     providedIn: 'root'
