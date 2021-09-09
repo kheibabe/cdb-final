@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ComputerDetailsComponent } from './computer-details/computer-details.component';
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,6 +19,7 @@ import { CustomMaterialModule } from '../custom-material/custom-material.module'
     HttpClientModule,
     RouterModule,
     CustomMaterialModule,
+    SharedModule,
   ],
   exports: [
     ComputerDetailsComponent,

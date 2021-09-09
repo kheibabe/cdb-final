@@ -1,0 +1,14 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Main menu" class = "menu">
+    <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [routerLink]="['/']">
+    {{ 'home' | translate }}
+  </button>
+  <button mat-menu-item [routerLink]="['computers']">
+    {{ 'computers' | translate }}
+  </button>
+  <button mat-menu-item [routerLink]="['companies']">
+    {{ 'companies' | translate }}
+  </button>
+</mat-menu>
