@@ -7,14 +7,16 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatChipsModule} from '@angular/material/chips'; 
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
-
+import {MatStepperModule} from '@angular/material/stepper';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
@@ -37,6 +39,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+
   ],
   exports:[
     MatToolbarModule,
@@ -53,6 +61,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ]
 })
 export class CustomMaterialModule { }

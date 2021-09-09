@@ -12,15 +12,16 @@ import { Company } from '../company/company.model';
 
 export class CompanyService {
 
-baseUrl = 'http://10.0.1.217:8080';
+// baseUrl = 'http://10.0.1.217:8080'; //localhost de Lisa
+baseUrl ='http://localhost:8080';
 apiUrl = 'training-java-webapp/service';
-getAllEndpoint = 'companies/all';
+getAllEndpoint = 'companies';
 getIdEndpoint = 'companies?id=';
 
 constructor(private readonly http: HttpClient) { }
 
   getCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}`)
+    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}?page=1&size=100`)
   }
 
   getCompany(id: number): Observable<Company> {
