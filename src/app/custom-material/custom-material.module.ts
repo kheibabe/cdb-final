@@ -10,6 +10,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatChipsModule} from '@angular/material/chips'; 
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
+
 
 
 
@@ -29,6 +34,9 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatToolbarModule,
     MatInputModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatCheckboxModule,
   ],
   exports:[
     MatToolbarModule,
@@ -42,6 +50,9 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatToolbarModule,
     MatInputModule,
+    MatButtonToggleModule,
+    MatChipsModule,
+    MatCheckboxModule,
   ]
 })
 export class CustomMaterialModule { }

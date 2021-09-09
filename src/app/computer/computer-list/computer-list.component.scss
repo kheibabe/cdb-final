@@ -1,17 +1,37 @@
-
-
+//affichage tableau
 table{
     width: 75%;
     margin-left: auto;
     margin-right: auto;
   }
 
-  
-  th.mat-sort-header-sorted {
-    color: black;
-  }
-
+//affichage de la bar de recherche au centre (sur mon écran)
  .search-full-width{
     width: 400px;
+    height: 52px;
+    height:min-content;
     margin-left: 441px;
+  }
+
+  //affichage des entêtes de colonnes
+  p {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+//affichage du chip delete en dehors de la barre de recherche
+  .mat-chip{
+    left: 400px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  
+//mettre une bordure après l'id
+  mat-column-id {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
   }

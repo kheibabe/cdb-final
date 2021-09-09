@@ -23,7 +23,7 @@ export class ComputerService {
   pageSize = 100;
   getDirection = '&direction=';
   getOrder = '&order=';
-  order = 'computer.name';
+  order = 'computer.id';
   direction = 'ASC';
   nbElementDB = 0;
 
@@ -36,11 +36,11 @@ export class ComputerService {
     return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${this.direction}${this.getOrder}${this.order}${this.getSearch}${searchword}`);
   }
 
-  getComputersOrdered(direction: string, order: string): Observable<Computer[]> {
+  getComputersOrdered(direction: string, order: string, pageSize: number): Observable<Computer[]> {
     this.direction = direction;
     this.order = order;
-    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
-    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
+    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${pageSize}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
+    return this.http.get<Computer[]>(`${this.baseUrl}/${this.apiUrl}/${this.getComputersEndpoint}${this.getPage}${1}${this.getSize}${pageSize}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
 }
   setNumPage(num: number) : void {
     this.numPage =  num;
@@ -67,11 +67,12 @@ export class ComputerService {
 }
 
   addComputer(computer: Computer): Observable<Computer> {
-  return this.http.post<Computer>(`${this.baseUrl}`, computer)
+    return this.http.post<Computer>(`${this.baseUrl}`, computer)
 }
 
-  deleteComputer(id: number): Observable<void> {
-  return this.http.delete<void>(`${this.baseUrl}/${this.apiUrl}/${id}`);
+  deleteComputer(id: Number): Observable<void> {
+    console.log(`${this.baseUrl}/${this.apiUrl}/${this.getIdEndpoint}${id}`)
+    return this.http.delete<void>(`${this.baseUrl}/${this.apiUrl}/${this.getIdEndpoint}${id}`);
 }
 
 
