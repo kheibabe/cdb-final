@@ -12,7 +12,7 @@ import { AuthInfos } from "../shared/auth-infos.model";
 export class LoginService {
 
     baseUrl = 'http://localhost:8080';
-    apiUrl = '/training-java-webapp/';
+    apiUrl = '/training-java-webapp/service/login?username=';
 
     constructor(private readonly http: HttpClient, private authInfos : AuthInfos) {}
 
@@ -23,14 +23,16 @@ export class LoginService {
         this.authInfos.authenticated = true;
         this.authInfos.user = user;
 
-        this.http.get<any>(this.baseUrl + this.apiUrl,{observe : "response"}).subscribe(response => {    
+        this.http.get<any>(this.baseUrl + this.apiUrl + user.username,{observe : "response"}).subscribe(response => {    
             return callbackSuccess && callbackSuccess();
         },
         (error: HttpErrorResponse) => {
             if (error.status == 401)
             {
-                this.http.get<any>(this.baseUrl + this.apiUrl,{observe : "response"}).subscribe(response => {    
+                this.http.get<any>(this.baseUrl + this.apiUrl + user.username,{observe : "response"}).subscribe(response => { 
+                    if (this.authInfos.user) this.authInfos.user.authorities =response.body.data;
                     return callbackSuccess && callbackSuccess();
+                    
                 },
                 (error: HttpErrorResponse) => {
                     if (error.status == 401)

@@ -12,7 +12,7 @@ import { User } from '../model/user.model';
 
 export class LoginComponent implements OnInit {
 
-  credentials: User = {username: '', password: ''};
+  credentials: User = {username: '', password: '', authorities:[]};
 
   constructor(private loginService: LoginService, private router: Router) {
   }
