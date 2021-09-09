@@ -8,7 +8,7 @@ import { Company } from '../company.model';
   styleUrls: ['./company-list.component.scss']
 })
 
-
+@Injectable()
 
 export class CompanyListComponent implements OnInit {
 

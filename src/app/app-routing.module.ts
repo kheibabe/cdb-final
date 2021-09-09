@@ -5,6 +5,7 @@ import { CompanyDetailComponent } from './company/company-detail/company-detail.
 import { CompanyListComponent } from './company/company-list/company-list.component';
 import { ComputerDetailsComponent } from './computer/computer-details/computer-details.component';
 import { ComputerListComponent } from './computer/computer-list/computer-list.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,11 @@ const routes: Routes = [
   {
     path: 'companies/add',
     component: CompanyAddComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
     pathMatch: 'full'
   },
   {
