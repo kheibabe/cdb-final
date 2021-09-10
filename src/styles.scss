@@ -2,3 +2,39 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:root
+{
+    font-size:100%;
+}
+
+
+@media only screen and (max-width: 500px) and (orientation:landscape) {
+	
+	:root {
+		font-size:60%;
+	}
+	  
+}
+
+@media only screen and (max-width: 500px) and (orientation:portrait) {
+	
+	:root {
+		font-size:60%;
+	}
+}
+
+@media only screen and (min-width: 501px) and (max-width: 900) and (orientation: portrait) {
+	
+	:root {
+		font-size:100%;
+	}
+}
+
+@media only screen and (min-width: 501px) and (max-width: 900) and (orientation: landscape) {
+	
+	:root {
+		font-size:80%;
+	}
+}
+

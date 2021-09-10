@@ -13,6 +13,6 @@
   <span>{{'appName' | translate }}</span>
   <div class="nav-btn">
     <app-lang-choice></app-lang-choice>
-    <span *ngIf="authInfos.authenticated"></span><a routerLink="{{authInfos.authenticated? '/logout' : '/login'}}">{{authInfos.authenticated ? authInfos.user?.username + " (" + ('logout' | translate)+ ")" : 'login' | translate}}</a>
+    <span *ngIf="authInfos.authenticated">{{authInfos.user?.username}} (<span *ngFor="let item of authInfos.user?.authorities">{{item.authority}}</span>) </span><a routerLink="{{authInfos.authenticated? '/logout' : '/login'}}">{{authInfos.authenticated ? ('logout' | translate) : 'login' | translate}}</a>
   </div>
 </mat-toolbar>

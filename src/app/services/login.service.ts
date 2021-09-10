@@ -5,6 +5,7 @@ import { User } from "../model/user.model";
 import { Md5 } from 'ts-md5/dist/md5';
 import { AuthenticationInterceptor } from "./authentication.interceptor";
 import { AuthInfos } from "../shared/auth-infos.model";
+import { Authority } from "../model/authority.model";
 
 @Injectable({
     providedIn: 'root'
@@ -23,19 +24,20 @@ export class LoginService {
         this.authInfos.authenticated = true;
         this.authInfos.user = user;
 
-        this.http.get<any>(this.baseUrl + this.apiUrl + user.username,{observe : "response"}).subscribe(response => {    
+        this.http.get<Authority[]>(this.baseUrl + this.apiUrl + user.username,).subscribe(response => {    
+            if (this.authInfos.user) this.authInfos.user.authorities =response;
             return callbackSuccess && callbackSuccess();
         },
         (error: HttpErrorResponse) => {
             if (error.status == 401)
             {
-                this.http.get<any>(this.baseUrl + this.apiUrl + user.username,{observe : "response"}).subscribe(response => { 
-                    if (this.authInfos.user) this.authInfos.user.authorities =response.body.data;
+                this.http.get<Authority[]>(this.baseUrl + this.apiUrl + user.username).subscribe(nextResponse => { 
+                    if (this.authInfos.user) this.authInfos.user.authorities =nextResponse;
                     return callbackSuccess && callbackSuccess();
                     
                 },
-                (error: HttpErrorResponse) => {
-                    if (error.status == 401)
+                (nextError: HttpErrorResponse) => {
+                    if (nextError.status == 401)
                     {
                        this.authInfos.authenticated = false; 
                        return callbackFailure && callbackFailure();
