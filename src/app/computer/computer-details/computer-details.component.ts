@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComputerService } from 'src/app/services/computer.service';
 import { CompanyService } from 'src/app/services/company.service'
@@ -22,12 +22,18 @@ export class ComputerDetailsComponent implements OnInit {
   thirdFormGroup!: FormGroup;
   dateDiscontinued = new Date();
   fourthFormGroup!: FormGroup;
+  companySelect!: any;
+  companyName = '';
   computer!: Computer;
   companyList : Company[] = []
   computerAdd!: Computer;
+  companyId!: number;
+  initDate = new Date();
+  todayDate:Date = new Date();
+  firstDate: Date = new Date();
 
   constructor(private _formBuilder: FormBuilder, private route : ActivatedRoute, private computerService : ComputerService, private companyService : CompanyService) {}
-
+  
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
@@ -41,7 +47,13 @@ export class ComputerDetailsComponent implements OnInit {
     this.fourthFormGroup = this._formBuilder.group({
       fourthCtrl: ['', Validators.required]
     });
-
+    
+    this.firstDate.setDate(7);
+    this.firstDate.setMonth(7);
+    this.firstDate.setFullYear(1944);
+    this.dateIntroduced.setDate(this.dateIntroduced.getDate()+1);
+    this.dateDiscontinued.setDate(this.dateDiscontinued.getDate()+1);
+    this.initDate.setDate(this.initDate.getDate()+1);
 
     this.companyService.getCompanies().subscribe(
       (result: Company[]) => {
@@ -52,7 +64,7 @@ export class ComputerDetailsComponent implements OnInit {
         console.log("Il y a eu une erreur lors du chragement des données de companyList")
     }
     )
-
+    /* pour le edit pas le add !
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.computerService.getComputerById(id).subscribe(
       (result: Computer) => {
@@ -62,26 +74,46 @@ export class ComputerDetailsComponent implements OnInit {
       (error) => {
           console.log("Il y a eu une erreur lors du chragement des données")
       }
-    );
-  }
+    );*/
+  } 
 
-  updateComputerAdd(){
-    console.log("update");
-    this.computerAdd = { id: 0,
-      name: this.nameComputer,
-      introduced: this.dateIntroduced,
-      discontinued: this.dateDiscontinued,
-      company: {
-        name: this.fourthFormGroup.value,
+  getDate(date: Date) : String{
+    return date.getDate() + ' ' + this.getMonth(date.getMonth()) + ' ' + date.getFullYear() ;
+  } 
+
+  getMonth(month : number) : String{
+    var months  = new Array ('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+    return months[month];
+  }
+   
+
+
+  onChange(){
+    let id =  this.companySelect;
+    for(let i = 0; i<this.companyList.length; i++){
+      if( this.companyList[i].id == id){
+        this.companySelect = this.companyList[i];
+        this.companyId = id;
       }
     }
-  }
-  addComputer(){
-    
-    console.log(this.computerAdd+" "+this.computerAdd.company.name);
-    /*this.computerService.addComputer(this.computerAdd).subscribe(
 
-    );*/
+  }
+
+  addComputer(){
+    this.computerAdd = {
+      name : this.nameComputer,
+      introduced : this.dateIntroduced,
+      discontinued : this.dateDiscontinued,
+      company : {
+        id : this.companyId,
+        name : this.companySelect
+      }
+
+    }
+    console.log(this.computerAdd);
+    //this.computerService.addComputer(this.computerAdd).subscribe(
+
+    //);
 
   }
 
