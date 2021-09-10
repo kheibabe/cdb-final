@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CompanyService } from 'src/app/services/company.service';
+import { CompanyAddComponent } from '../company-add/company-add.component';
 import { Company } from '../company.model';
 import { MOCK_COMPANY } from '../mock/company.mock';
 
@@ -19,7 +21,7 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
   
   
   
-  constructor(private readonly companyService: CompanyService) { }
+  constructor(private readonly companyService: CompanyService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getCompanies();
@@ -53,6 +55,16 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
       }
     )
   }
+  
+  openDialog() {
+    const dialogRef = this.dialog.open(CompanyAddComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+   
+  
   
 
 }
