@@ -28,6 +28,10 @@
     "company" : "Compagnie",
     "jully" : "Juillet",
 
+    "welcome" : "Bienvenue",
+    "homepage" : "Vous avez besoin de vous connecter pour voir les listes et d'être admin pour supprimer quoi que ce soit. Amusez-vous avec ce petit site !",
+
+
     "alertName" : "Le nom est vide !",
     "alertIntroduced" : "Mauvais format de date d'introduction ! Le format doit �tre aaaa-mm-jj.",
     "alertEmptyIntroduce" : "La date d'introduction ne peut �tre vide si la date d'abandon ne l'est pas !",

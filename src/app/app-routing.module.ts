@@ -5,6 +5,7 @@ import { CompanyDetailComponent } from './company/company-detail/company-detail.
 import { CompanyOverviewComponent } from './company/company-overview/company-overview.component';
 import { ComputerDetailsComponent } from './computer/computer-details/computer-details.component';
 import { ComputerListComponent } from './computer/computer-list/computer-list.component';
+import { HomeComponent } from './core/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -49,6 +50,11 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
     pathMatch: 'full'
   },
   {

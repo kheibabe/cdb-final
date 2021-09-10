@@ -28,6 +28,9 @@
     "company" : "Company",
     "jully" : "Jully",
 
+    "welcome" : "Welcome",
+    "homepage" : "You need to be connected to see the lists and to be admin to delete anything. Please enjoy this little website!",
+
     "alertName" : "The name is empty!",
     "alertIntroduced" : "Wrong introduced date format! The format must be yyyy-MM-dd.",
     "alertEmptyIntroduce" : "The introduced date can't be empty if the discontinued date isn't!",
