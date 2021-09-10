@@ -24,15 +24,15 @@ export class LoginService {
         this.authInfos.authenticated = true;
         this.authInfos.user = user;
 
-        this.http.get<Authority[]>(this.baseUrl + this.apiUrl + user.username,).subscribe(response => {    
-            if (this.authInfos.user) this.authInfos.user.authorities =response;
+        this.http.get<Authority>(this.baseUrl + this.apiUrl + user.username,).subscribe(response => {    
+            if (this.authInfos.user) this.authInfos.user.authority =response.authority;
             return callbackSuccess && callbackSuccess();
         },
         (error: HttpErrorResponse) => {
             if (error.status == 401)
             {
-                this.http.get<Authority[]>(this.baseUrl + this.apiUrl + user.username).subscribe(nextResponse => { 
-                    if (this.authInfos.user) this.authInfos.user.authorities =nextResponse;
+                this.http.get<Authority>(this.baseUrl + this.apiUrl + user.username).subscribe(nextResponse => { 
+                    if (this.authInfos.user) this.authInfos.user.authority =nextResponse.authority;
                     return callbackSuccess && callbackSuccess();
                     
                 },
@@ -46,7 +46,7 @@ export class LoginService {
                 }
                 )
 
-            } 
+            }
             return callbackSuccess && callbackSuccess();
         }
             
