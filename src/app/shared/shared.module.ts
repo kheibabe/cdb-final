@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthInfos } from './auth-infos.model';
 
 
-
 @NgModule({
   declarations: [],
   imports: [

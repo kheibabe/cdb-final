@@ -5,7 +5,7 @@ export const MOCK_COMPANY : Company[] = [
   {
 
     id: 0,
-    name: 'Apple',
+    name: 'Apple', 
   },
   {
     id: 1,

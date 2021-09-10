@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CompanyAddComponent } from './company/company-add/company-add.component';
 import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
-import { CompanyListComponent } from './company/company-list/company-list.component';
+import { CompanyOverviewComponent } from './company/company-overview/company-overview.component';
 import { ComputerDetailsComponent } from './computer/computer-details/computer-details.component';
 import { ComputerListComponent } from './computer/computer-list/computer-list.component';
 import { LoginComponent } from './login/login.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
   // ROUTES COMPANIES //
   {
     path: 'companies',
-    component: CompanyListComponent,
+    component: CompanyOverviewComponent,
     pathMatch: 'full'
   },
   {

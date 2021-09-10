@@ -10,12 +10,12 @@ import { Company } from '../model/company.model';
 
 export class CompanyService {
 
-baseUrl = 'http://10.0.1.217:8080';
-apiUrl = 'training-java-webapp/service';
-getAllEndpoint = 'companies?page=1&size=10';
-getIdEndpoint = 'companies?id=';
+  baseUrl = 'http://localhost:8080';
+  apiUrl = 'training-java-webapp/service';
+  getAllEndpoint = 'companies?page=1&size=10';
+  getIdEndpoint = 'companies?id=';
 
-constructor(private readonly http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}`);
@@ -26,7 +26,7 @@ constructor(private readonly http: HttpClient) { }
   }
 
   addCompany(company: Company): Observable<Company> {
-    return this.http.post<Company>(`${this.baseUrl}`, company)
+    return this.http.post<Company>(`${this.baseUrl}/${this.apiUrl}/companies`, company)
   }
 
   deleteCompany(id: number): Observable<void> {
