@@ -27,6 +27,13 @@
     "discontinued" : "Discontinued date",
     "company" : "Company",
     "jully" : "Jully",
+    "username" : "Username",
+    "password" : "Password",
+    "errorLogin" : "Impossible to log in",
+    "errorRegister" : "Impossible to sign up",
+    "successRegister" : "You can now log in",
+    "successLogout" : "You have been logged out",
+    "errorAuthorization" : "You don't have the authorization to access",
 
     "welcome" : "Welcome",
     "homepage" : "You need to be connected to see the lists and to be admin to delete anything. Please enjoy this little website!",
