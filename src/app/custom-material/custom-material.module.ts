@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatChipsModule} from '@angular/material/chips'; 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -37,6 +38,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatDialogModule,
   ],
   exports:[
     MatToolbarModule,
@@ -53,6 +55,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonToggleModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatDialogModule,
   ]
 })
 export class CustomMaterialModule { }

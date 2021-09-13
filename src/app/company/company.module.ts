@@ -15,7 +15,7 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     CompanyDetailComponent,
     CompanyAddComponent,
-    CompanyOverviewComponent
+    CompanyOverviewComponent,
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-<p>company-add works!</p>
+<div mat-dialog-content>
 <form>
     <div class="submit-form">
   
@@ -23,3 +23,9 @@
       </div>
   
   </form>
+</div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="company.name" cdkFocusInitial>Ok</button>
+  </div>
+  
