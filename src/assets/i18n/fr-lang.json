@@ -27,18 +27,25 @@
     "discontinued" : "Date d'abandon",
     "company" : "Compagnie",
     "jully" : "Juillet",
+    "username" : "Nom utilisateur ",
+    "password" : "Mot de passe ",
+    "errorLogin" : "Impossible de se connecter",
+    "errorRegister" : "Impossible de s'inscrire",
+    "successRegister" : "Vous pouvez maintenant vous connecter",
+    "successLogout" : "Vous avez été déconnecté",
+    "errorAuthorization" : "Vous n'avez pas l'authorisation d'y accéder",
 
     "welcome" : "Bienvenue",
     "homepage" : "Vous avez besoin de vous connecter pour voir les listes et d'être admin pour supprimer quoi que ce soit. Amusez-vous avec ce petit site !",
 
 
     "alertName" : "Le nom est vide !",
-    "alertIntroduced" : "Mauvais format de date d'introduction ! Le format doit �tre aaaa-mm-jj.",
-    "alertEmptyIntroduce" : "La date d'introduction ne peut �tre vide si la date d'abandon ne l'est pas !",
-    "alertDiscontinued" : "Mauvais format de date d'abandon ! Le format doit �tre aaaa-mm-jj.",
+    "alertIntroduced" : "Mauvais format de date d'introduction ! Le format doit être aaaa-mm-jj.",
+    "alertEmptyIntroduce" : "La date d'introduction ne peut être vide si la date d'abandon ne l'est pas !",
+    "alertDiscontinued" : "Mauvais format de date d'abandon ! Le format doit être aaaa-mm-jj.",
 
     "error401" : "Erreur 401: Authentification requise !",
     "error403" : "Erreur 403: Accés refusé!",
-    "error404" : "Erreur 404: Page non trouv�e. Dommage femme de petite vertu !",
+    "error404" : "Erreur 404: Page non trouvée. Dommage femme de petite vertu !",
     "error500" : "Erreur 500: Une erreur a eu lieu!"
 }

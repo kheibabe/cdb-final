@@ -14,10 +14,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatChipsModule} from '@angular/material/chips'; 
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
-
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -39,6 +36,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatChipsModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   exports:[
     MatToolbarModule,
@@ -56,6 +54,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatChipsModule,
     MatCheckboxModule,
     MatDialogModule,
+    MatSnackBarModule,
   ]
 })
 export class CustomMaterialModule { }
