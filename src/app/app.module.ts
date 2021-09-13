@@ -18,6 +18,7 @@ import { environment } from 'src/environments/environment';
 import { MenuComponent } from './core/menu/menu.component';
 import { LangChoiceComponent } from './core/lang-choice/lang-choice.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'http://localhost:4200/assets/i18n/', '-lang.json');
@@ -27,6 +28,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   declarations: [
     AppComponent,
     LogoutComponent,
+    RegisterComponent,
   ],
   imports: [
     TranslateModule.forRoot({
