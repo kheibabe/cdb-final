@@ -75,6 +75,9 @@ export class ComputerService {
     return this.http.delete<void>(`${this.baseUrl}/${this.apiUrl}/${this.getIdEndpoint}${id}`);
 }
 
+  editComputer(computer: Computer): Observable<Computer>{
+    return this.http.put<Computer>(`${this.baseUrl}`, computer)
+  }
 
   constructor(private readonly http: HttpClient) { }
 }

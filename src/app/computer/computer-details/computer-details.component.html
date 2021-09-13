@@ -1,4 +1,5 @@
-<mat-grid-list cols="2" rowHeight="540px">
+<h1 class="title"> Edit Computer</h1>
+<mat-grid-list cols="2" rowHeight="500px">
   <mat-grid-tile>
 
 <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
@@ -76,7 +77,7 @@
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>
     <div>
-      <button mat-button (click)="addComputer()">Add Computer</button>
+      <button mat-raised-button color="primary" (click)="editComputer()">Edit Computer</button>
     </div>
   </mat-step>
 </mat-stepper>
@@ -88,9 +89,10 @@
 
   <mat-grid-tile>
     <mat-card>
+      <h1 class="sumup">To sum up :</h1>
       <h1>Computer's name : {{nameComputer ? nameComputer : 'not defined'}}</h1>
-      <h1>Introduced Date : {{getDate(dateIntroduced) != getDate(initDate) ? getDate(dateIntroduced) : 'not defined'}}</h1>
-      <h1>Discontinued Date : {{getDate(dateDiscontinued) != getDate(initDate) ? getDate(dateDiscontinued) : 'not defined'}}</h1>
+      <h1>Introduced Date : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? getAllDate(dateIntroduced) : 'not defined'}}</h1>
+      <h1>Discontinued Date : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? getAllDate(dateDiscontinued) : 'not defined'}}</h1>
       <h1>Company's name : {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
     </mat-card>
   </mat-grid-tile>

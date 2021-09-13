@@ -5,6 +5,7 @@ import { CompanyDetailComponent } from './company/company-detail/company-detail.
 import { CompanyListComponent } from './company/company-list/company-list.component';
 import { ComputerDetailsComponent } from './computer/computer-details/computer-details.component';
 import { ComputerListComponent } from './computer/computer-list/computer-list.component';
+import { NewComputerComponent } from './computer/new-computer/new-computer.component';
 
 const routes: Routes = [
 
@@ -19,6 +20,12 @@ const routes: Routes = [
   {
     path: 'computers/:id',
     component: ComputerDetailsComponent,
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'computer/add',
+    component: NewComputerComponent,
     pathMatch: 'full'
   },
 

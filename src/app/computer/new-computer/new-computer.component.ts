@@ -3,15 +3,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ComputerService } from 'src/app/services/computer.service';
 import { CompanyService } from 'src/app/services/company.service'
 import { Computer } from '../model/computer.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { Company } from 'src/app/company/company.model';
 
 @Component({
-  selector: 'app-computer-details',
-  templateUrl: './computer-details.component.html',
-  styleUrls: ['./computer-details.component.scss']
+  selector: 'app-new-computer-component',
+  templateUrl: './new-computer.component.html',
+  styleUrls: ['./new-computer.component.scss']
 })
-export class ComputerDetailsComponent implements OnInit {
+export class NewComputerComponent implements OnInit {
 
   isLinear = true;
   isOptional = true;
@@ -24,7 +24,7 @@ export class ComputerDetailsComponent implements OnInit {
   fourthFormGroup!: FormGroup;
   companySelect!: any;
   companyName = '';
-  
+  computer!: Computer;
   companyList : Company[] = []
   computerAdd!: Computer;
   companyId!: number;
@@ -34,26 +34,7 @@ export class ComputerDetailsComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private route : ActivatedRoute, private computerService : ComputerService, private companyService : CompanyService) {}
   
-  computerEdit!: Computer;
   ngOnInit() {
-
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.computerService.getComputerById(id).subscribe(
-      (result: Computer) => {
-        console.log("J'ai reçu les recettes suivantes ", result);
-          this.computerEdit = result;
-          this.nameComputer = this.computerEdit.name;
-          console.log(this.computerEdit.company)
-          this.dateIntroduced = this.computerEdit.introduced != null ? this.setNewDate(this.computerEdit.introduced.toString()) : this.initDate;
-          this.dateDiscontinued = this.computerEdit.discontinued != null ? this.setNewDate(this.computerEdit.discontinued.toString()) : this.initDate;
-          this.companySelect = this.computerEdit.company ;
-
-      },
-      (error) => {
-          console.log("Il y a eu une erreur lors du chragement des données")
-      }
-    );
-
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
@@ -80,48 +61,13 @@ export class ComputerDetailsComponent implements OnInit {
         this.companyList = result;
       }, 
       (error) => {
-        console.log("Il y a eu une erreur lors du chargement des données de companyList")
+        console.log("Il y a eu une erreur lors du chragement des données de companyList")
     }
     )
-    
-    
+
   } 
 
-  setNewDate(date: String) : Date{
-    let dateTmp = new Date();
-    let tmp =''
-    let count = 0;
-    let year = '';
-    let month = '';
-    let day = '';
-    for(let j = 0; j< date.length; j++){
-      
-      if(date[j] == '-'){
-        if(count == 0){
-          year = tmp;
-        }
-        if(count == 1){
-          month = tmp;
-        }
-        if(count == 2){
-          day = tmp;
-        }
-        tmp = '';
-        count ++;
-      }
-      else{
-        tmp = tmp + date[j];
-      }
-
-    }
-    dateTmp.setDate(parseInt(day))
-    dateTmp.setMonth(parseInt(month))
-    dateTmp.setFullYear(parseInt(year))
-    return dateTmp;
-
-  }
-
-  getAllDate(date: Date) : String{
+  getDate(date: Date) : String{
     return date.getDate() + ' ' + this.getMonth(date.getMonth()) + ' ' + date.getFullYear() ;
   } 
 
@@ -143,7 +89,7 @@ export class ComputerDetailsComponent implements OnInit {
 
   }
 
-  editComputer(){
+  addComputer(){
     this.computerAdd = {
       name : this.nameComputer,
       introduced : this.dateIntroduced,
@@ -155,8 +101,8 @@ export class ComputerDetailsComponent implements OnInit {
 
     }
     console.log(this.computerAdd);
-    //this.computerService.editComputer(this.computerAdd).subscribe(
-
+    //this.computerService.addComputer(this.computerAdd).subscribe(
+//demander à Kheira pour comment s'en servir
     //);
 
   }

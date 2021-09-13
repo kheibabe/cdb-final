@@ -2,7 +2,7 @@ import {Company} from '../../company/company.model'
 
 export interface Computer{
   id?: Number;
-  name: String;
+  name: string;
   introduced: Date; 
   discontinued: Date; 
   company: Company;
