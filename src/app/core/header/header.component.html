@@ -2,7 +2,7 @@
   <div class = "right-side">
     <div class="logo">
       <div><a class="lien-menu" [routerLink]="['/']" >
-        <img class="excilys-logo" src="https://excilys.com/wp-content/uploads/2017/01/excilys495-295.png" alt="logo excilys">
+        <img class="oxyl-logo" src="../../../assets/oxyl-logo.png" alt="logo excilys">
         </a>
       </div>
     </div>
@@ -12,7 +12,10 @@
   
   <span>{{'appName' | translate }}</span>
   <div class="nav-btn">
+    <span *ngIf="authInfos.authenticated">{{authInfos.user?.username}} ({{authInfos.user?.authority}}) </span>
+    <button mat-icon-button routerLink="{{authInfos.authenticated? '/logout' : '/login'}}" [attr.aria-label]="authInfos.authenticated? ('login' | translate): ('logout'| translate)" >
+      <mat-icon >{{authInfos.authenticated ? 'logout'  : 'login'}}</mat-icon>
+    </button>
     <app-lang-choice></app-lang-choice>
-    <span *ngIf="authInfos.authenticated">{{authInfos.user?.username}} ({{authInfos.user?.authority}}) </span><a routerLink="{{authInfos.authenticated? '/logout' : '/login'}}">{{authInfos.authenticated ? ('logout' | translate) : 'login' | translate}}</a>
   </div>
 </mat-toolbar>
