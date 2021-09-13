@@ -7,6 +7,7 @@ import { CustomMaterialModule } from '../custom-material/custom-material.module'
 import { SharedModule } from '../shared/shared.module';
 import { LangChoiceComponent } from './lang-choice/lang-choice.component';
 import { MenuComponent } from './menu/menu.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MenuComponent } from './menu/menu.component';
     FooterComponent,
     MenuComponent,
     LangChoiceComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,
