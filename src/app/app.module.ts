@@ -10,15 +10,11 @@ import { CompanyModule } from './company/company.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
-import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { MenuComponent } from './core/menu/menu.component';
-import { LangChoiceComponent } from './core/lang-choice/lang-choice.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
+import { RouteGuard} from './shared/route-guard';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'http://localhost:4200/assets/i18n/', '-lang.json');
@@ -50,7 +46,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 
   ],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    RouteGuard,
   ],
   bootstrap: [AppComponent]
 })

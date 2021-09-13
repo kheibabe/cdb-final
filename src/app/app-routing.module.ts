@@ -9,6 +9,7 @@ import { HomeComponent } from './core/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
+import { RouteGuard } from './shared/route-guard';
 
 const routes: Routes = [
 
@@ -17,13 +18,15 @@ const routes: Routes = [
   {
     path: 'computers',
     component: ComputerListComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
 
   {
     path: 'computers/:id',
     component: ComputerDetailsComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
 
 
@@ -31,17 +34,20 @@ const routes: Routes = [
   {
     path: 'companies',
     component: CompanyOverviewComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'companies/:id',
     component: CompanyDetailComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'companies/add',
     component: CompanyAddComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'login',
@@ -51,12 +57,13 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'logout',
     component: LogoutComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'home',
@@ -73,7 +80,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 
 export class AppRoutingModule { }
