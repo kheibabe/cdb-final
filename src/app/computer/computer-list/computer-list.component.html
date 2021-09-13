@@ -18,6 +18,15 @@
     
   </mat-form-field>
 </form>
+
+<div class="addButton">
+  <span *ngIf="adminRights"> 
+    <button mat-raised-button color="primary" (click)="addComputer()">Add Computer</button>
+
+  </span> 
+  
+
+</div>
 - button add  et delete (visible que par les admins)
 - chips pour delete le contenue de la bar de recherche
 

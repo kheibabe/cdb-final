@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import { RouteGuard } from './shared/route-guard';
+import { NewComputerComponent } from './computer/new-computer/new-computer.component';
 
 const routes: Routes = [
 
@@ -27,6 +28,12 @@ const routes: Routes = [
     component: ComputerDetailsComponent,
     pathMatch: 'full',
     canActivate : [RouteGuard],
+  },
+
+  {
+    path: 'computer/add',
+    component: NewComputerComponent,
+    pathMatch: 'full'
   },
 
 

@@ -31,6 +31,10 @@ export class CompanyService {
   getCompanies(pageSize: number, pageIndex: number): Observable<Company[]> {
     return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${pageIndex }${this.getSize}${pageSize}`);
   }
+  
+  getCompaniesAll(): Observable<Company[]> {
+    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}?page=1&size=100`)
+  }
 
 
   getCompany(id: number): Observable<Company> {
