@@ -9,19 +9,22 @@ import {
   HttpHeaderResponse,
   HttpProgressEvent
 } from '@angular/common/http';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { User } from "../model/user.model";
+import { HttpHeaders } from "@angular/common/http";
+import { Store } from '@ngrx/store';
 import { Md5 } from 'ts-md5/dist/md5';
 import {Observable} from 'rxjs';
 import { tap, map, catchError, elementAt } from 'rxjs/operators';
+import { User } from "../model/user.model";
 import { AuthInfos } from '../shared/auth-infos.model';
+import { updateData } from '../state/auth.actions';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  constructor(private authInfos : AuthInfos) {}
+  constructor(private authInfos : AuthInfos, private store: Store<{ authStored: AuthInfos }>) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request.clone();
@@ -109,6 +112,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       this.updateAttributs(tuple[0],tuple[1]);     
     });
     this.authInfos.uri = newUrl;
+    this.store.dispatch(updateData({authInfos : this.authInfos}));
   }
 
   updateAttributs(key : string, value : string)
