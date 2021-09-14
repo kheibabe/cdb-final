@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Computer } from '../../model/computer.model';
 import { style } from '@angular/animations';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-computer-list',
@@ -105,6 +106,10 @@ export class ComputerListComponent implements OnInit {
     }
   }
 
+  addComputer(){
+    this.router.navigateByUrl('/computer/add');
+  }
+
   displayedColumns = this.adminRights ? ['id','name','introduced','discontinued','company'] :['name','introduced','discontinued','company'];
 
   @ViewChild(MatPaginator)
@@ -123,7 +128,7 @@ export class ComputerListComponent implements OnInit {
   direction = 'asc';
   searchword = '';
 
-  constructor(private computerService: ComputerService) { }
+  constructor(private computerService: ComputerService, private router: Router) { }
 
   ngOnInit(): void {
     this.getData();

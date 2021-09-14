@@ -8,6 +8,9 @@ import { ComputerListComponent } from './computer/computer-list/computer-list.co
 import { HomeComponent } from './core/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
+import { RouteGuard } from './shared/route-guard';
+import { NewComputerComponent } from './computer/new-computer/new-computer.component';
 
 const routes: Routes = [
 
@@ -16,12 +19,20 @@ const routes: Routes = [
   {
     path: 'computers',
     component: ComputerListComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
 
   {
     path: 'computers/:id',
     component: ComputerDetailsComponent,
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
+  },
+
+  {
+    path: 'computer/add',
+    component: NewComputerComponent,
     pathMatch: 'full'
   },
 
@@ -30,17 +41,20 @@ const routes: Routes = [
   {
     path: 'companies',
     component: CompanyOverviewComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'companies/:id',
     component: CompanyDetailComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'companies/add',
     component: CompanyAddComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'login',
@@ -48,9 +62,15 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'register',
+    component: RegisterComponent,
+    pathMatch: 'full',
+  },
+  {
     path: 'logout',
     component: LogoutComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
   {
     path: 'home',
@@ -67,7 +87,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 
 export class AppRoutingModule { }

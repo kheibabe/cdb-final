@@ -1,0 +1,105 @@
+<h1 class="title">Add Computer</h1>
+<mat-grid-list cols="2" rowHeight="500px">
+    <mat-grid-tile>
+  
+  <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Fill out your New Computer's name</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Name (required)</mat-label>
+          <input matInput placeholder="Computer's name" formControlName="firstCtrl" required 
+          [(ngModel)]=nameComputer name="name" >
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+  
+  
+    <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your Computer's introduced date</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Introduced date</mat-label>
+          <input matInput [matDatepicker]="dp3" [(ngModel)]=dateIntroduced  [ngModelOptions]="{standalone: true}"  
+          [min]="firstDate" [max]="todayDate"  disabled>
+          <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+          <mat-datepicker #dp3 disabled="false" ></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+  
+  
+    <mat-step [stepControl]="thirdFormGroup" [optional]="isOptional">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Fill out your Computer's discontinued date</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Discontinued date</mat-label>
+          <input matInput [matDatepicker]="dp2" [(ngModel)]=dateDiscontinued  [ngModelOptions]="{standalone: true}" 
+          [min]="dateIntroduced" [max]="todayDate" disabled>
+          <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+          <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+  
+  
+    <mat-step [stepControl]="fourthFormGroup" [optional]="isOptional">
+      <form [formGroup]="fourthFormGroup">
+        <ng-template matStepLabel>Fill out your Computer's company</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Company's name</mat-label>
+          <mat-select  [(ngModel)]=companySelect [ngModelOptions]="{standalone: true}" (selectionChange)="onChange()">
+            <mat-option>None</mat-option>
+            <mat-option 
+              *ngFor="let company of companyList" [value]="company.id" >{{company.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+  
+    
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-raised-button color="primary" (click)="addComputer()">Add Computer</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+  
+  
+  
+    </mat-grid-tile>
+  
+  
+    <mat-grid-tile>
+      <mat-card>
+        <h1 class="sumup">To sum up :</h1>
+        <h1>Computer's name : {{nameComputer ? nameComputer : 'not defined'}}</h1>
+        <h1>Introduced Date : {{getDate(dateIntroduced) != getDate(initDate) ? getDate(dateIntroduced) : 'not defined'}}</h1>
+        <h1>Discontinued Date : {{getDate(dateDiscontinued) != getDate(initDate) ? getDate(dateDiscontinued) : 'not defined'}}</h1>
+        <h1>Company's name : {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
+      </mat-card>
+    </mat-grid-tile>
+  
+  </mat-grid-list>
+  
+  
+  
+  
+  
