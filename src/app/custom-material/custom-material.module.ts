@@ -20,6 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 
 
@@ -49,6 +50,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatSortModule,
   ],
   exports:[
     MatToolbarModule,
@@ -73,6 +75,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSelectModule,
     MatGridListModule,
     MatSnackBarModule,
+    MatSortModule,
   ]
 })
 export class CustomMaterialModule { }

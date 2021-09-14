@@ -1,0 +1,31 @@
+<p>edit-company works!</p>
+<div mat-dialog-content>
+    <form>
+        <div class="submit-form">
+      
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                required
+                [(ngModel)]="company.name"
+                name="name"
+              />
+            </div>
+         
+        </div>
+            <button (click)="editCompany()">Submit</button>
+          
+          <div *ngIf="submitted">
+            <p> Le nom de l'entreprise a bien été mis à jour.</p>
+          </div>
+      
+      </form>
+    </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button [mat-dialog-close]="company.name" cdkFocusInitial (click)="redirect()">Ok</button>
+      </div>
+      

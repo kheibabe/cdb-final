@@ -1,50 +1,86 @@
 
-<mat-form-field appearance="standard">
+<mat-form-field appearance="standard" class="filter">
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter()" placeholder="Ex. Microsoft" #input>
+  <input matInput placeholder="Ex. Microsoft" [(ngModel)]=searchword name="name" (input)="applyFilter()">
+  <div class="mat-suffix" matSuffix>
+    <button *ngIf="removable" mat-icon-button (click)="removeSearch()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <mat-icon>search</mat-icon>
+  </div>
+ 
 </mat-form-field>
 
 <div>
   <table mat-table [dataSource]="companyList" matSort class="mat-elevation-z8">
   
     <!-- Id Column -->
-    <ng-container matColumnDef="id" >
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header="id"> Id </th>
+    <div *ngIf="adminRights">
+    <ng-container *ngIf="adminRights" matColumnDef="id" >
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header="id">
+        Id
+        </th>
       <td mat-cell *matCellDef="let company"> {{company.id}} </td>
     </ng-container>
+    </div>
     
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header="name"> Name </th>
+      <th mat-header-cell *matHeaderCellDef   >
+          <mat-button-toggle-group name="nameButton" aria-label="buttonOrderByName">
+         
+            <mat-button-toggle (click)="setOrderBy('asc','company.name')" >
+              <mat-icon [inline]="true">expand_less</mat-icon>
+            </mat-button-toggle>
+            <p>{{'name'}} </p>
+            <mat-button-toggle (click)="setOrderBy('desc','company.name')" >
+              <mat-icon [inline]="true">expand_more</mat-icon>
+            </mat-button-toggle>
+  
+          </mat-button-toggle-group>
+
+      </th>
 
       <td mat-cell *matCellDef="let company" > 
-        <button mat-icon-button (click)="deleteCompanies(company.id)">
-          <mat-icon>
-            delete
-          </mat-icon>
-        </button>
-          {{company.name}} 
+        <div  *ngIf="adminRights; else userRights">
+          <button mat-icon-button (click)="deleteCompanies(company.id)">
+            <mat-icon>
+              delete
+            </mat-icon>
+          </button>
+          {{ company.name }}
+        </div>
+        
+       
 
-          <button mat-icon-button>
+        <ng-template #userRights>
+          {{ company.name }}
+        </ng-template>
+          
+        <div class="mat-loop">
+          <button mat-icon-button >
             <a routerLink="/companies/{{ company.id }}">
               <mat-icon>zoom_in</mat-icon>
             </a>
           </button>
+          </div>
       </td>
     </ng-container>
 
     
-
-    <ng-container matColumnDef="add">
-      <th mat-header-cell *matHeaderCellDef> 
-        <button mat-icon-button (click)="openDialog()">
-          <mat-icon>
-            add_box
-          </mat-icon> 
-        </button>
-      </th>
-      <td mat-cell *matCellDef="let company"> 
-    </ng-container>
+    <div *ngIf="adminRights">
+      <ng-container  matColumnDef="add">
+        <th mat-header-cell *matHeaderCellDef> 
+          <button mat-icon-button (click)="openDialog()">
+            <mat-icon>
+              add_box
+            </mat-icon> 
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let company"> 
+      </ng-container>
+    </div>
+    
     
 
 

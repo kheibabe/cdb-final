@@ -20,7 +20,7 @@ export class CompanyService {
 
   getPage = 'page=';
   getSize ='&size=';
-  getDirection = '&direction';
+  getDirection = '&direction=';
   getOrder = '&order=';
   getSearch = '&search='
 
@@ -61,13 +61,23 @@ export class CompanyService {
     this.pageSize =  size;
   }
 
-  getCompaniesOrdered(direction: string, order: string, pageSize: number): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${1}${this.getSize}${pageSize}${this.getDirection}${direction}${this.getOrder}${order}`);
-}
-
 getCompaniesSearch(searchword: string): Observable<Company[]> {
   this.research=searchword;
   return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getSearch}${searchword}`);
+}
+
+countCompaniesSearch(searchword: string): Observable<Number> {
+  return this.http.get<Number>(`${this.baseUrl}/${this.apiUrl}/companies/nb?search=${searchword}`);
+}
+
+getCompaniesOrdered(direction: string, order: string, pageSize: number): Observable<Company[]> {
+  this.direction = direction;
+  this.order = order;
+  return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${1}${this.getSize}${pageSize}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
+}
+
+updateCompany(id: any, company: Company) : Observable<Company> {
+  return this.http.put<Company>(`${this.baseUrl}/${this.apiUrl}/companies/${id}`, company)
 }
 
 }

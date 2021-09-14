@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { Company } from '../../model/company.model';
+import { EditCompanyComponent } from '../edit-company/edit-company.component';
 
 @Component({
   selector: 'app-company-detail',
@@ -14,15 +16,21 @@ import { Company } from '../../model/company.model';
 export class CompanyDetailComponent implements OnInit {
 
 
-  company: Company | null = null;
+
+  company: Company = {
+    name: '',
+  };
+  message = '';
+  
   constructor(private readonly companyService: CompanyService,
-    private route: ActivatedRoute,) {
+    private route: ActivatedRoute,  public dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'))
     this.getCompany(id);
+    this.message = '';
   }
 
   getCompany(id: number): void {
@@ -35,6 +43,18 @@ export class CompanyDetailComponent implements OnInit {
       }
     );
   }
+
+ 
+
+  openDialog() {
+    const dialogRef = this.dialog.open(EditCompanyComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`)
+    });
+  }
+
+
+   
 
 }
 
