@@ -26,10 +26,12 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request.clone();
 
+    this.authInfos.uri = request.urlWithParams;
+
     if(this.authInfos.authenticated)
     {
       authReq = request.clone({
-        headers: this.getHeader()
+        headers: this.getHeader(request.method)
       });
     }
 
@@ -62,7 +64,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   }
 
 
-  getHeader() :HttpHeaders
+  getHeader(method : string) :HttpHeaders
   {
       this.authInfos.useCount++;
       let nc = "";
@@ -75,15 +77,16 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       let headers = new HttpHeaders(this.authInfos.user ? {
           Authorization : 'Digest realm="' + this.authInfos.realm + '", qop=' + this.authInfos.qop + ', cnonce="' + this.authInfos.cnonce + '", nonce="' + this.authInfos.nonce + 
           '", nc=' + nc + ', uri="' + this.authInfos.uri
-          + '", algorithm="' + this.authInfos.algorithm + '", username="' + this.authInfos.user.username + '", response=' + this.encodeResponse(this.authInfos.user)
+          + '", algorithm="' + this.authInfos.algorithm + '", username="' + this.authInfos.user.username + '", response=' + this.encodeResponse(this.authInfos.user,method)
       } : {});
       return headers;
   }
 
-  encodeResponse(user : User) : string
+  encodeResponse(user : User,method : string) : string
   {
       const password = Md5.hashStr( user.username+":" +this.authInfos.realm + ":"+user.password);
-      const cryptedUri = Md5.hashStr("GET:"+this.authInfos.uri);
+      const cryptedUri = Md5.hashStr(method +":"+this.authInfos.uri);
+      console.log(method);
       let nc = "";
       for (let i = this.authInfos.useCount.toString().length; i < 8; i++)
       {

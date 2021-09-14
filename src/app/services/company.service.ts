@@ -22,8 +22,12 @@ export class CompanyService {
   getSize ='&size=';
   getDirection = '&direction';
   getOrder = '&order=';
+  getSearch = '&search='
 
+  research = '';
   pageSize = 100;
+  order = 'company.id';
+  direction = 'ASC';
 
 
   constructor(private readonly http: HttpClient) { }
@@ -59,6 +63,11 @@ export class CompanyService {
 
   getCompaniesOrdered(direction: string, order: string, pageSize: number): Observable<Company[]> {
     return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${1}${this.getSize}${pageSize}${this.getDirection}${direction}${this.getOrder}${order}`);
+}
+
+getCompaniesSearch(searchword: string): Observable<Company[]> {
+  this.research=searchword;
+  return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${1}${this.getSize}${10}${this.getSearch}${searchword}`);
 }
 
 }

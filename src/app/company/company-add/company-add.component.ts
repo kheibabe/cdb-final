@@ -36,12 +36,7 @@ export class CompanyAddComponent implements OnInit {
     )
   }
 
-  newCompany(): void {
-    this.submitted = false;
-    this.company = {
-      name: '',
-    }
-  }
+  
 
 }
 

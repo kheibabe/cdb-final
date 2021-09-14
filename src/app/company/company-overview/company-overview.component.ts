@@ -2,9 +2,10 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort, SortDirection } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Company } from 'src/app/model/company.model';
 import { CompanyService } from 'src/app/services/company.service';
+import { AuthInfos } from 'src/app/shared/auth-infos.model';
 import { CompanyAddComponent } from '../company-add/company-add.component';
 
 @Component({
@@ -17,9 +18,11 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
   companyList: Company[] = [];
   // sortedData: Company[];
   displayedColumns: string[] = ['id', 'name', 'add'];
+  dataSource: MatTableDataSource<Company>;
   
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   
   @Input()
@@ -30,28 +33,39 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageIndex = 0;
+  searchword = '';
   
   
   
-  constructor( private readonly companyService: CompanyService, public dialog: MatDialog) {
+  constructor( private readonly companyService: CompanyService, public dialog: MatDialog, private authInfos : AuthInfos) {
+    this.dataSource = new MatTableDataSource(this.companyList);
     //this.sortedData = this.companyList.slice();
    }
 
-  
+   ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
   ngOnInit(): void {
     this.getCompanies();
     this.getData;
+    console.log(this.authInfos.authenticated);
+    console.log(this.authInfos.user?.authority);
+
   }
   
   
   ngOnChanges(): void {
   console.log(this.company);
   }
+
+  
   
   getData() {
     this.companyService.getCompanies(this.pageSize, this.pageIndex+1).subscribe(
       (result: Company[]) => {
-        //console.log("J'ai reçu les computers suivantes ", result);
+        console.log("J'ai reçu les computers suivantes ", result);
           this.companyList = result;
       },
       (error) => {
@@ -62,6 +76,17 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
       (result: Number) => {this.length = result.valueOf();}
     );
   }
+
+  pageEvent!: PageEvent;
+
+    getServerData(pageEvent:PageEvent) : PageEvent{
+      this.pageIndex = pageEvent.pageIndex;
+      this.pageSize = pageEvent.pageSize;
+      this.length = pageEvent.length;
+      this.getData();
+      return pageEvent;
+    } 
+
 
   getCompanies(): void {
     this.companyService.getCompanies(this.pageSize, this.pageIndex+1).subscribe(
@@ -94,14 +119,22 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
   }
    
  
-    pageEvent!: PageEvent;
 
-    getServerData(pageEvent:PageEvent) : PageEvent{
-      this.pageSize = pageEvent.pageSize;
-      this.length = pageEvent.length;
-      this.getData();
-      return pageEvent;
-    } }
+    applyFilter() {
+      this.companyService.getCompaniesSearch(this.searchword).subscribe(
+        (result: Company[]) => {
+          console.log("Tadaaaam: ", result);
+            this.companyList = result;
+        },
+        (error) => {
+          console.log("Il y a eu une erreur lors du chargement des données avec order")
+      }
+      );
+      /*this.companyService.countCompanies().subscribe(
+        (result: Number) => {this.length = result.valueOf();}
+      );*/
+    }
+  }
      /*
     sortData(sort: Sort) {
     const data = this.companyList.slice();

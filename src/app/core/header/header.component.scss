@@ -5,11 +5,11 @@
   background-color: rgb(219, 203, 224);
   border-color: black;
   margin: 0px 0px 10px 0px;
-  padding: 10px;
+  padding: 0px 10px 0px 10px;
+  height:fit-content;
 }
 .logo {
-  display: flex;
-  flex-direction: row;
+  display: block;
 }
 
 .menu
@@ -26,7 +26,7 @@
   align-items: center;
 }
 
-.excilys-logo {
+.oxyl-logo {
   //width: 30%;
   height: 82px;
   width:auto;
