@@ -5,6 +5,7 @@ import { CompanyService } from 'src/app/services/company.service'
 import { Computer } from 'src/app/model/computer.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Company } from 'src/app/model/company.model';
+import { CDBDate } from 'src/app/model/date.enum';
 
 @Component({
   selector: 'app-computer-details',
@@ -32,6 +33,13 @@ export class ComputerDetailsComponent implements OnInit {
   todayDate:Date = new Date();
   firstDate: Date = new Date();
 
+  isDiscontinuedDate = true;
+  isIntroducedDate = true;
+
+  public get cdbDate(): typeof CDBDate {
+    return CDBDate; 
+  }
+
   constructor(private _formBuilder: FormBuilder, private route : ActivatedRoute, private computerService : ComputerService, private companyService : CompanyService) {}
   
   computerEdit!: Computer;
@@ -40,7 +48,7 @@ export class ComputerDetailsComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.computerService.getComputerById(id).subscribe(
       (result: Computer) => {
-        console.log("J'ai reçu les recettes suivantes ", result);
+        //console.log("J'ai reçu les computers suivantes ", result);
           this.computerEdit = result;
           this.nameComputer = this.computerEdit.name;
           console.log(this.computerEdit.company)
@@ -50,7 +58,7 @@ export class ComputerDetailsComponent implements OnInit {
 
       },
       (error) => {
-          console.log("Il y a eu une erreur lors du chragement des données")
+          console.log("Il y a eu une erreur lors du chargement des données")
       }
     );
 
@@ -121,7 +129,16 @@ export class ComputerDetailsComponent implements OnInit {
 
   }
 
-  getAllDate(date: Date) : String{
+  newDate(date: Date, type : string) : string{
+    if(type == 'introduced'){
+      this.isIntroducedDate = false;
+    } else{
+      this.isDiscontinuedDate = false
+    }
+    return this.getAllDate(date);
+  }
+  
+  getAllDate(date: Date) : string{
     return date.getDate() + ' ' + this.getMonth(date.getMonth()) + ' ' + date.getFullYear() ;
   } 
 
@@ -154,11 +171,27 @@ export class ComputerDetailsComponent implements OnInit {
       }
 
     }
-    console.log(this.computerAdd);
-    //this.computerService.editComputer(this.computerAdd).subscribe(
-
-    //);
+    //console.log(this.computerAdd);
+    this.computerService.editComputer(this.computerAdd).subscribe(
+    );
 
   }
+
+  removeDate(cdbDate : CDBDate){
+
+    switch(cdbDate){
+      case CDBDate.INTRODUCED:
+        this.dateIntroduced.setDate(this.initDate.getDate());
+        this.isIntroducedDate = true
+        break;
+      case CDBDate.DISCONTINUED :
+        this.dateDiscontinued.setDate(this.initDate.getDate());
+        this.isDiscontinuedDate = true
+        break;
+
+    }
+
+  }
+
 
 }

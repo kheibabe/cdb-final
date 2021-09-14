@@ -55,7 +55,7 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
           this.companyList = result;
       },
       (error) => {
-        console.log("Il y a eu une erreur lors du chragement des données")
+        console.log("Il y a eu une erreur lors du chargement des données")
     }
     );
     this.companyService.countCompanies().subscribe(

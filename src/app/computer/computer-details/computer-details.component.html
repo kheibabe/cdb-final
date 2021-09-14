@@ -23,10 +23,16 @@
       <ng-template matStepLabel>Fill out your Computer's introduced date</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Introduced date</mat-label>
-        <input matInput [matDatepicker]="dp3" [(ngModel)]=dateIntroduced  [ngModelOptions]="{standalone: true}"  
+        <input matInput [matDatepicker]="dp3" [hidden]='isIntroducedDate' [(ngModel)]=dateIntroduced  [ngModelOptions]="{standalone: true}"  
         [min]="firstDate" [max]="todayDate"  disabled>
-        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-        <mat-datepicker #dp3 disabled="false" ></mat-datepicker>
+        <div class="mat-suffix" matSuffix>
+          <mat-datepicker-toggle  [for]="dp3"></mat-datepicker-toggle>
+          <mat-datepicker #dp3 disabled="false" ></mat-datepicker>
+          <button mat-icon-button (click)="removeDate(cdbDate.INTRODUCED)" >
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+       
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -41,10 +47,15 @@
       <ng-template matStepLabel>Fill out your Computer's discontinued date</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Discontinued date</mat-label>
-        <input matInput [matDatepicker]="dp2" [(ngModel)]=dateDiscontinued  [ngModelOptions]="{standalone: true}" 
+        <input matInput [matDatepicker]="dp2" [hidden]='isDiscontinuedDate' [(ngModel)]=dateDiscontinued  [ngModelOptions]="{standalone: true}" 
         [min]="dateIntroduced" [max]="todayDate" disabled>
+        <div class="mat-suffix" matSuffix>
         <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
         <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+        <button mat-icon-button (click)="removeDate(cdbDate.DISCONTINUED)" >
+          <mat-icon>clear</mat-icon>
+        </button>
+        </div>
       </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
@@ -91,8 +102,8 @@
     <mat-card>
       <h1 class="sumup">To sum up :</h1>
       <h1>Computer's name : {{nameComputer ? nameComputer : 'not defined'}}</h1>
-      <h1>Introduced Date : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? getAllDate(dateIntroduced) : 'not defined'}}</h1>
-      <h1>Discontinued Date : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? getAllDate(dateDiscontinued) : 'not defined'}}</h1>
+      <h1>Introduced Date : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? newDate(dateIntroduced, 'introduced') : 'not defined'}}</h1>
+      <h1>Discontinued Date : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? newDate(dateDiscontinued, 'discontinued') : 'not defined'}}</h1>
       <h1>Company's name : {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
     </mat-card>
   </mat-grid-tile>
