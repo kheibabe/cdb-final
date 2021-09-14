@@ -1,2 +1,38 @@
-<h2>{{'welcome' | translate}}</h2>
-<p>{{'homepage' | translate}}</p>
+<mat-card >
+    <mat-card-content>
+        <p class="explication">
+            To see our website, please log you in the <mat-icon class="login">login</mat-icon> button.
+            <br>
+            Only Adminisatrators can add, edit or delete a Computer or a Company.
+            <br>
+            After that, you 'll be able to search computers and companies in one click just below ! 
+        </p>
+    </mat-card-content>
+</mat-card>
+
+<mat-grid-list cols="2" rowHeight="150px">
+    <mat-grid-tile>
+        <mat-icon class="crossleft">south_west</mat-icon>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <mat-icon class="crossright">south_east</mat-icon>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="2" rowHeight="100px">
+    <mat-grid-tile>
+  
+    <div >
+    <button mat-button class="company-button" (click)="routeCompanyPage()">
+        Show Companies
+    </button>
+    </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+    <div >
+    <button mat-button class="computer-button" (click)="routeComputerPage()">
+        Show Computers
+    </button>
+    </div>
+    </mat-grid-tile>
+</mat-grid-list>

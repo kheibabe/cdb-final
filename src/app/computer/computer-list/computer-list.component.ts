@@ -111,7 +111,7 @@ export class ComputerListComponent implements OnInit {
     }
   }
 
-  addComputer(){
+    addComputer(){
     this.router.navigateByUrl('/computer/add');
   }
 
