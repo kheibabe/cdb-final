@@ -37,6 +37,7 @@
     "username" : "Username",
     "password" : "Password",
     "errorLogin" : "Impossible to log in",
+    "successLogin" : "You're logged in",
     "errorRegister" : "Impossible to sign up",
     "successRegister" : "You can now log in",
     "successLogout" : "You have been logged out",

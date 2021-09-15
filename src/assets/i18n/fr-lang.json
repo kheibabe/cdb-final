@@ -37,6 +37,7 @@
     "username" : "Nom utilisateur ",
     "password" : "Mot de passe ",
     "errorLogin" : "Impossible de se connecter",
+    "successLogin" : "Vous êtes connecté",
     "errorRegister" : "Impossible de s'inscrire",
     "successRegister" : "Vous pouvez maintenant vous connecter",
     "successLogout" : "Vous avez été déconnecté",
