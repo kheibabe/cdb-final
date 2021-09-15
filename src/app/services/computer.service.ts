@@ -67,7 +67,7 @@ export class ComputerService {
 }
 
   addComputer(computer: Computer): Observable<Computer> {
-    return this.http.post<Computer>(`${this.baseUrl}`, computer)
+    return this.http.post<Computer>(`${this.baseUrl}/${this.apiUrl}/computers`, computer);
 }
 
   deleteComputer(id: Number): Observable<void> {
@@ -76,7 +76,7 @@ export class ComputerService {
 }
 
   editComputer(computer: Computer): Observable<Computer>{
-    return this.http.put<Computer>(`${this.baseUrl}`, computer)
+    return this.http.put<Computer>(`${this.baseUrl}/${this.apiUrl}/computers`, computer);
   }
 
   constructor(private readonly http: HttpClient) { }

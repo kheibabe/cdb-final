@@ -1,18 +1,18 @@
-<h1 class="title">Add Computer</h1>
+<h1 class="title">{{ "addTitle" | translate}}</h1>
 <mat-grid-list cols="2" rowHeight="500px">
   <mat-grid-tile>
 
     <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Fill out your New Computer's name</ng-template>
+          <ng-template matStepLabel>{{"fillComputerName" | translate}}</ng-template>
           <mat-form-field appearance="fill">
-            <mat-label>Name (required)</mat-label>
+            <mat-label>{{'name' | translate}} ({{"required" | translate}})</mat-label>
             <input matInput placeholder="Computer's name" formControlName="firstCtrl" required [(ngModel)]=nameComputer
               name="name">
           </mat-form-field>
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -20,9 +20,9 @@
 
       <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
         <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Fill out your Computer's introduced date</ng-template>
+          <ng-template matStepLabel>{{"fillComputerIntroduced" | translate}}</ng-template>
           <mat-form-field appearance="fill">
-            <mat-label>Introduced date</mat-label>
+            <mat-label>{{ "introduced" | translate}}</mat-label>
             <input matInput [matDatepicker]="dp3" [hidden]='isIntroducedDate' [(ngModel)]=dateIntroduced [ngModelOptions]="{standalone: true}"
               [min]="firstDate" [max]="todayDate" disabled>
             <div class="mat-suffix" matSuffix>
@@ -34,8 +34,8 @@
             </div>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperPrevious>{{"back" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -43,9 +43,9 @@
 
       <mat-step [stepControl]="thirdFormGroup" [optional]="isOptional">
         <form [formGroup]="thirdFormGroup">
-          <ng-template matStepLabel>Fill out your Computer's discontinued date</ng-template>
+          <ng-template matStepLabel>{{"fillComputerDiscontinued" | translate}}</ng-template>
           <mat-form-field appearance="fill">
-            <mat-label>Discontinued date</mat-label>
+            <mat-label>{{"discontinued" | translate }}</mat-label>
             <input matInput [matDatepicker]="dp2" [hidden]='isDiscontinuedDate' [(ngModel)]=dateDiscontinued [ngModelOptions]="{standalone: true}"
               [min]="dateIntroduced" [max]="todayDate" disabled>
             <div class="mat-suffix" matSuffix>
@@ -57,8 +57,8 @@
             </div>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperPrevious>{{"back" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
           </div>
         </form>
       </mat-step>
@@ -66,27 +66,27 @@
 
       <mat-step [stepControl]="fourthFormGroup" [optional]="isOptional">
         <form [formGroup]="fourthFormGroup">
-          <ng-template matStepLabel>Fill out your Computer's company</ng-template>
+          <ng-template matStepLabel>{{"fillComputerCompany" | translate}}</ng-template>
           <mat-form-field appearance="fill">
-            <mat-label>Company's name</mat-label>
+            <mat-label>{{"name" | translate}}</mat-label>
             <mat-select [(ngModel)]=companySelect [ngModelOptions]="{standalone: true}" (selectionChange)="onChange()">
-              <mat-option>None</mat-option>
+              <mat-option>{{"none" | translate}}</mat-option>
               <mat-option *ngFor="let company of companyList" [value]="company.id">{{company.name}}</mat-option>
             </mat-select>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperPrevious>{{"back" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
           </div>
         </form>
       </mat-step>
 
 
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
+        <ng-template matStepLabel>{{"done" | translate}}</ng-template>
+        <p>{{"doneText" | translate}}</p>
         <div>
-          <button mat-raised-button color="primary" (click)="addComputer()">Add Computer</button>
+          <button mat-raised-button color="primary" (click)="addComputer()">{{"add" | translate}}</button>
         </div>
       </mat-step>
     </mat-stepper>
@@ -98,11 +98,11 @@
 
   <mat-grid-tile>
     <mat-card>
-      <h1 class="sumup">To sum up :</h1>
-      <h1>Computer's name : {{nameComputer ? nameComputer : 'not defined'}}</h1>
-      <h1>Introduced Date : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? newDate(dateIntroduced,'introduced') : 'not defined'}}</h1>
-      <h1>Discontinued Date : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? newDate(dateDiscontinued,'discontinued') : 'not defined'}}</h1>
-      <h1>Company's name : {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
+      <h1 class="sumup">{{"sumUp" | translate}} :</h1>
+      <h1>{{"name" | translate}} : {{nameComputer ? nameComputer : 'not defined'}}</h1>
+      <h1>{{"introduced" | translate}} : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? newDate(dateIntroduced,'introduced') : 'not defined'}}</h1>
+      <h1>{{"discontinued" | translate}} : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? newDate(dateDiscontinued,'discontinued') : 'not defined'}}</h1>
+      <h1>{{"company" | translate}}: {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
     </mat-card>
   </mat-grid-tile>
 

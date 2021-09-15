@@ -27,6 +27,13 @@
     "discontinued" : "Discontinued date",
     "company" : "Company",
     "jully" : "Jully",
+    "back" : "Back",
+    "next" : "Next",
+    "clear" : "Clear",
+    "none" : "None",
+    "required" : "Required",
+    "sumUp" : "To sum up",
+
     "username" : "Username",
     "password" : "Password",
     "errorLogin" : "Impossible to log in",
@@ -34,6 +41,14 @@
     "successRegister" : "You can now log in",
     "successLogout" : "You have been logged out",
     "errorAuthorization" : "You don't have the authorization to access",
+
+    "addTitle" : "Add Computer",
+    "fillComputerName" : "Fill out your New Computer's name",
+    "fillComputerIntroduced" :"Fill out your Computer's introduced date",
+    "fillComputerDiscontinued" : "Fill out your Computer's discontinued date",
+    "fillComputerCompany" : "Fill out your Computer's company",
+    "done" : "Done",
+    "doneText" :"You are now done.",
 
     "welcome" : "Welcome",
     "homepage" : "You need to be connected to see the lists and to be admin to delete anything. Please enjoy this little website!",

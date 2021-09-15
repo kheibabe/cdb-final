@@ -120,7 +120,9 @@ export class NewComputerComponent implements OnInit {
     }
     //console.log(this.computerAdd);
     this.computerService.addComputer(this.computerAdd).subscribe(
-    
+      result => {
+        console.log("plop" + result);
+      }
     );
 
   }
