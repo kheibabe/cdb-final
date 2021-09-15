@@ -126,7 +126,7 @@ export class NewComputerComponent implements OnInit {
     {
       this.computerAdd.discontinued = "";
     }
-    console.log(this.computerAdd);
+    //console.log(this.computerAdd);
     this.computerService.addComputer(this.computerAdd).subscribe(
   
     );
