@@ -15,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import { RouteGuard} from './shared/route-guard';
-import { getAuthReducer } from './state/auth.reducer';
 import { StoreModule } from '@ngrx/store';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -36,7 +35,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot({ authReducer: getAuthReducer }),
     CoreModule,
     ComputerModule,
     BrowserModule,

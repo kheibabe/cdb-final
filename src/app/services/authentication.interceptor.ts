@@ -16,7 +16,6 @@ import {Observable} from 'rxjs';
 import { tap, map, catchError, elementAt } from 'rxjs/operators';
 import { User } from "../model/user.model";
 import { AuthInfos } from '../shared/auth-infos.model';
-import { updateData } from '../state/auth.actions';
 
 
 @Injectable({
@@ -24,7 +23,7 @@ import { updateData } from '../state/auth.actions';
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  constructor(private authInfos : AuthInfos, private store: Store<{ authStored: AuthInfos }>) {}
+  constructor(private authInfos : AuthInfos) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request.clone();
@@ -35,7 +34,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         headers: this.getHeader()
       });
     }
-
+    this.authInfos.uri = request.urlWithParams;
     return next.handle(authReq).pipe(
       tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
@@ -112,7 +111,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       this.updateAttributs(tuple[0],tuple[1]);     
     });
     this.authInfos.uri = newUrl;
-    this.store.dispatch(updateData({authInfos : this.authInfos}));
+    this.authInfos.updateStorage();
+    //this.store.dispatch(updateData({authInfos : this.authInfos}));
   }
 
   updateAttributs(key : string, value : string)
