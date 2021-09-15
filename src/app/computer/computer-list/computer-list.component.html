@@ -28,7 +28,7 @@
     <!-- Id Column -->
     <div *ngIf="adminRights">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <th mat-header-cell *matHeaderCellDef>
 
           <span *ngIf="adminRights;"> </span>
           <button mat-icon-button aria-label="delete-button" (click)="deleteComputers()">
@@ -55,7 +55,7 @@
 
     <!-- Name Column -->
     <ng-container class="name" matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <th mat-header-cell *matHeaderCellDef>
         <mat-button-toggle-group name="nameButton" aria-label="buttonOrderByName">
           <!--<button mat-button (click)="setPageOne()" >
           <mat-icon [inline]="true">home</mat-icon>
@@ -84,7 +84,7 @@
 
     <!-- Introduced Column -->
     <ng-container matColumnDef="introduced">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <th mat-header-cell *matHeaderCellDef>
         <mat-button-toggle-group name="introducedButton" aria-label="buttonOrderByIntroduced">
           <mat-button-toggle [checked]='CpIntASC' (click)="setOrderBy('asc','computer.introduced')">
             <mat-icon [inline]="true">expand_less</mat-icon>
@@ -100,7 +100,7 @@
 
     <!-- Discontinued Column -->
     <ng-container matColumnDef="discontinued">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <th mat-header-cell *matHeaderCellDef>
         <mat-button-toggle-group name="discontinuedButton" aria-label="buttonOrderByDiscontinued">
 
           <mat-button-toggle [checked]='CpDiscASC' (click)="setOrderBy('asc','computer.discontinued')">
