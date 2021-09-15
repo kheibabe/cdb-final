@@ -110,19 +110,25 @@ export class NewComputerComponent implements OnInit {
   addComputer() {
     this.computerAdd = {
       name: this.nameComputer,
-      introduced: this.dateIntroduced,
-      discontinued: this.dateDiscontinued,
+      introduced: this.dateIntroduced.toISOString().split("T")[0],
+      discontinued: this.dateDiscontinued.toISOString().split("T")[0],
       company: {
         id: this.companyId,
         name: this.companySelect
       }
 
     }
-    //console.log(this.computerAdd);
+    if (this.isIntroducedDate)
+    {
+      this.computerAdd.introduced = "";
+    }
+    if (this.isDiscontinuedDate)
+    {
+      this.computerAdd.discontinued = "";
+    }
+    console.log(this.computerAdd);
     this.computerService.addComputer(this.computerAdd).subscribe(
-      result => {
-        console.log("plop" + result);
-      }
+  
     );
 
   }
@@ -132,11 +138,11 @@ export class NewComputerComponent implements OnInit {
     switch(cdbDate){
       case CDBDate.INTRODUCED:
         this.dateIntroduced.setDate(this.initDate.getDate());
-        this.isIntroducedDate = true
+        this.isIntroducedDate = true;
         break;
       case CDBDate.DISCONTINUED :
         this.dateDiscontinued.setDate(this.initDate.getDate());
-        this.isDiscontinuedDate = true
+        this.isDiscontinuedDate = true;
         break;
 
     }

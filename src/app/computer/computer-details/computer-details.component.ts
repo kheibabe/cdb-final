@@ -163,13 +163,21 @@ export class ComputerDetailsComponent implements OnInit {
   editComputer(){
     this.computerAdd = {
       name : this.nameComputer,
-      introduced : this.dateIntroduced,
-      discontinued : this.dateDiscontinued,
+      introduced : this.isIntroducedDate? "" : this.dateIntroduced.toISOString().split("T")[0],
+      discontinued : this.isIntroducedDate? "" : this.dateDiscontinued.toISOString().split("T")[0],
       company : {
         id : this.companyId,
         name : this.companySelect
       }
 
+    }
+    if (this.isIntroducedDate)
+    {
+      this.computerAdd.introduced = "";
+    }
+    if (this.isDiscontinuedDate)
+    {
+      this.computerAdd.discontinued = "";
     }
     //console.log(this.computerAdd);
     this.computerService.editComputer(this.computerAdd).subscribe(
