@@ -27,7 +27,7 @@ export class NewComputerComponent implements OnInit {
   fourthFormGroup!: FormGroup;
   companySelect!: any;
   companyName = '';
-  computer!: Computer;
+
   companyList: Company[] = []
   computerAdd!: Computer;
   companyId!: number;
@@ -145,7 +145,7 @@ export class NewComputerComponent implements OnInit {
 
     
 
-  }
+  } 
 
     removeDate(cdbDate : CDBDate){
 
@@ -153,6 +153,8 @@ export class NewComputerComponent implements OnInit {
       case CDBDate.INTRODUCED:
         this.dateIntroduced.setDate(this.initDate.getDate());
         this.isIntroducedDate = true;
+        this.dateDiscontinued.setDate(this.initDate.getDate());
+        this.isDiscontinuedDate = true;
         break;
       case CDBDate.DISCONTINUED :
         this.dateDiscontinued.setDate(this.initDate.getDate());
@@ -163,4 +165,7 @@ export class NewComputerComponent implements OnInit {
 
   }
 
+  redirect(){
+    this.router.navigateByUrl('/computers')
+  }
 }

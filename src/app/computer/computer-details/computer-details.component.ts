@@ -55,10 +55,10 @@ export class ComputerDetailsComponent implements OnInit {
         this.computerEdit = result;
         this.idComputer = this.computerEdit.id?.valueOf() == undefined ? 0 : this.computerEdit.id.valueOf();
         this.nameComputer = this.computerEdit.name;
-        console.log(this.computerEdit.company)
         this.dateIntroduced = this.computerEdit.introduced != null ? this.setNewDate(this.computerEdit.introduced.toString()) : this.initDate;
         this.dateDiscontinued = this.computerEdit.discontinued != null ? this.setNewDate(this.computerEdit.discontinued.toString()) : this.initDate;
         this.companySelect = this.computerEdit.company.name;
+        this.companyName = this.computerEdit.company.name;
 
       },
       (error) => {
@@ -99,6 +99,8 @@ export class ComputerDetailsComponent implements OnInit {
   }
 
   setNewDate(date: String): Date {
+    console.log(date)
+    date = date + '-'
     let dateTmp = new Date();
     let tmp = ''
     let count = 0;
@@ -125,9 +127,12 @@ export class ComputerDetailsComponent implements OnInit {
       }
 
     }
-    dateTmp.setDate(parseInt(day))
-    dateTmp.setMonth(parseInt(month))
+    console.log('day : '+day+', month : '+month+', year : '+year)
+    
     dateTmp.setFullYear(parseInt(year))
+    dateTmp.setMonth(parseInt(month)-1)
+    dateTmp.setDate(parseInt(day))
+    console.log(dateTmp)
     return dateTmp;
 
   }
@@ -203,16 +208,27 @@ export class ComputerDetailsComponent implements OnInit {
     switch (cdbDate) {
       case CDBDate.INTRODUCED:
         this.dateIntroduced.setDate(this.initDate.getDate());
-        this.isIntroducedDate = true
+        this.dateIntroduced.setMonth(this.initDate.getMonth())
+        this.dateIntroduced.setFullYear(this.initDate.getFullYear())
+        this.isIntroducedDate = true;
+        this.dateDiscontinued.setDate(this.initDate.getDate());
+        this.dateDiscontinued.setMonth(this.initDate.getMonth())
+        this.dateDiscontinued.setFullYear(this.initDate.getFullYear())
+        this.isDiscontinuedDate = true;
         break;
       case CDBDate.DISCONTINUED:
         this.dateDiscontinued.setDate(this.initDate.getDate());
-        this.isDiscontinuedDate = true
+        this.dateDiscontinued.setMonth(this.initDate.getMonth())
+        this.dateDiscontinued.setFullYear(this.initDate.getFullYear())
+        this.isDiscontinuedDate = true;
         break;
 
     }
 
   }
 
+  redirect(){
+    this.router.navigateByUrl('/computers')
+  }
 
 }

@@ -127,12 +127,6 @@ export class ComputerListComponent implements OnInit {
   }
 
     addComputer(){
-      this.searchword='';
-      this.getData();
-      this.intialisationListCheckbox(this.computerList.length);
-      this.setAdminRights();
-     this.displayedColumns = this.adminRights ? ['id','name','introduced','discontinued','company'] :['name','introduced','discontinued','company'];
- 
       this.router.navigateByUrl('/computer/add');
   }
 
@@ -160,7 +154,7 @@ export class ComputerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchword='';
-    this.getData();
+    this.searchThis();
     this.intialisationListCheckbox(this.computerList.length);
     this.setAdminRights();
     this.displayedColumns = this.adminRights ? ['id','name','introduced','discontinued','company'] :['name','introduced','discontinued','company'];
