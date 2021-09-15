@@ -76,8 +76,8 @@ getCompaniesOrdered(direction: string, order: string, pageSize: number): Observa
   return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}${this.getPage}${1}${this.getSize}${pageSize}${this.getDirection}${direction}${this.getOrder}${order}${this.getSearch}${this.research}`);
 }
 
-updateCompany(id: any, company: Company) : Observable<Company> {
-  return this.http.put<Company>(`${this.baseUrl}/${this.apiUrl}/companies/${id}`, company)
+updateCompany(company: Company): Observable<Company> {
+  return this.http.put<Company>(`${this.baseUrl}/${this.apiUrl}/companies`, company)
 }
 
 }

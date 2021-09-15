@@ -5,7 +5,7 @@ table{
 }
 
 .filter {
-
+    align-items: flex-end;
 }
 
 .mat-suffix{
@@ -13,3 +13,13 @@ table{
     flex-direction: row;
     align-items: center;
 }
+
+.tdbox {
+    display: flex;
+}
+
+.orderby {
+    display: flex;
+    flex-direction: row;
+}
+
