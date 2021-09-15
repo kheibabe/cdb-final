@@ -49,7 +49,7 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.getCompanies();
-    this.getData;
+    this.getData();
     console.log(this.authInfos.authenticated);
     console.log(this.authInfos.user?.authority);
 

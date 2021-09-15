@@ -1,7 +1,7 @@
 
 <mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter()" placeholder="Ex. Microsoft" #input>
+  <mat-label>{{"filter" | translate}}</mat-label>
+  <input matInput (keyup)="applyFilter()" placeholder="Ex. Microsoft"  [(ngModel)]=searchword name="search" #input>
 </mat-form-field>
 
 <div>
@@ -15,7 +15,7 @@
     
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header="name"> Name </th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header="name"> {{"name" | translate}} </th>
 
       <td mat-cell *matCellDef="let company" > 
         <button mat-icon-button (click)="deleteCompanies(company.id)">
