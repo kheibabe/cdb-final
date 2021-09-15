@@ -37,7 +37,7 @@ export class CompanyService {
   }
   
   getCompaniesAll(): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}?page=1&size=100`)
+    return this.http.get<Company[]>(`${this.baseUrl}/${this.apiUrl}/${this.getAllEndpoint}page=1&size=100`);
   }
 
 
@@ -46,7 +46,7 @@ export class CompanyService {
   }
 
   addCompany(company: Company): Observable<Company> {
-    return this.http.post<Company>(`${this.baseUrl}/${this.apiUrl}/companies`, company)
+    return this.http.post<Company>(`${this.baseUrl}/${this.apiUrl}/companies`, company);
   }
 
   deleteCompany(id: number): Observable<void> {

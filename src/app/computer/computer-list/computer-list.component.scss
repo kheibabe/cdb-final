@@ -35,3 +35,37 @@ table{
     padding-right: 24px;
     text-align: center;
   }
+
+.mat-suffix{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header-form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.addButton{
+  margin: auto;
+}
+
+.mat-column-id{
+  text-align: center;
+}
+
+.mat-column-introduced{
+  width: 200px;
+  text-align: center;
+}
+
+.mat-column-discontinued{
+  width: 200px;
+  text-align: center;
+}
+.mat-column-company{
+  width: 200px;
+  text-align: center;
+}

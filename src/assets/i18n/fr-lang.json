@@ -27,6 +27,13 @@
     "discontinued" : "Date d'abandon",
     "company" : "Compagnie",
     "jully" : "Juillet",
+    "back" : "Retour",
+    "next" : "Suivant",
+    "clear" : "Vider",
+    "none" : "Rien",
+    "required" : "Requis",
+    "sumUp" : "Pour résumer",
+
     "username" : "Nom utilisateur ",
     "password" : "Mot de passe ",
     "errorLogin" : "Impossible de se connecter",
@@ -34,6 +41,15 @@
     "successRegister" : "Vous pouvez maintenant vous connecter",
     "successLogout" : "Vous avez été déconnecté",
     "errorAuthorization" : "Vous n'avez pas l'authorisation d'y accéder",
+
+    "addTitle" : "Ajout d'ordinateur",
+    "fillComputerName" : "Renseignez le nom de votre nouvel ordinateur",
+    "fillComputerIntroduced" :"Renseignez la date d'introduction de votre nouvel ordinateur",
+    "fillComputerDiscontinued" : "Renseignez la date d'abandon de votre nouvel ordinateur",
+    "fillComputerCompany" : "Renseignez la compagnie de votre nouvel ordinateur",
+    "done" : "Fini",
+    "doneText" :"Vous en avez fini.",
+
 
     "welcome" : "Bienvenue",
     "homepage" : "Vous avez besoin de vous connecter pour voir les listes et d'être admin pour supprimer quoi que ce soit. Amusez-vous avec ce petit site !",

@@ -1,73 +1,58 @@
 <br>
-<!-- Search bar -->
-<form class="search-form">
-  <mat-form-field class="search-full-width" appearance="fill">
-    <div class="chips" *ngIf="removable">
-      <mat-chip-list #chip>
-        <mat-chip [removable]="removable" (removed)="removeChips()">
-          Delete
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-      </mat-chip-list>
-    </div>
-      <input matInput placeholder="Ex. Apple Inc" 
-        [(ngModel)]=searchword name="search" (input)="searchThis()"
-        >
-      
-    <mat-icon matSuffix>search</mat-icon>
-    
-  </mat-form-field>
-</form>
+<div class="header-form">
+  <form class="search-form">
+    <mat-form-field class="search-full-width" appearance="fill">
+      <input matInput placeholder="Ex. Apple Inc" [(ngModel)]=searchword name="search" (input)="searchThis()">
+      <div class="mat-suffix" matSuffix>
+        <button *ngIf="removable" mat-icon-button (click)="removeSearch()">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <mat-icon>search</mat-icon>
+      </div>
 
-<div class="addButton">
-  <span *ngIf="adminRights"> 
-    <button mat-raised-button color="primary" (click)="addComputer()">Add Computer</button>
+    </mat-form-field>
+  </form>
 
-  </span> 
-  
-
+  <!-- Add computer button-->
+  <div class="addButton">
+    <span *ngIf="adminRights">
+      <button mat-raised-button color="primary" (click)="addComputer()">{{"add" | translate}}</button>
+    </span>
+  </div>
 </div>
-- button add  et delete (visible que par les admins)
-- chips pour delete le contenue de la bar de recherche
+<br>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="computerList" matSort class="mat-elevation-z8"
-  >
+  <table mat-table [dataSource]="computerList" matSort class="mat-elevation-z8">
 
     <!-- Id Column -->
     <div *ngIf="adminRights">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> 
-          
-          <span *ngIf="adminRights;"> </span> 
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+
+          <span *ngIf="adminRights;"> </span>
           <button mat-icon-button aria-label="delete-button" (click)="deleteComputers()">
             <mat-icon>delete</mat-icon>
           </button>
-          <mat-checkbox class="select-all-checkbox-id"
-            (change)="testInitList()"
-            (change)="selectAllCheckboxs()"
-            [checked]="selectAllCheckbox"
-            >
+          <mat-checkbox class="select-all-checkbox-id" (change)="testInitList()" (change)="selectAllCheckboxs()"
+            [checked]="selectAllCheckbox">
             No.
           </mat-checkbox>
-          
+
         </th>
         <td mat-cell *matCellDef="let computer">
-          <span *ngIf="adminRights; else userRights"> </span> 
-          <mat-checkbox class="checkbox-id"
-            (change)="testInitList()"
-            (change)="changeValueCheckbox(computer.id)"
-            [checked]="testIdInDeleteList(computer.id)"
-            >{{computer.id}}</mat-checkbox>
+          <span *ngIf="adminRights; else userRights"> </span>
+          <mat-checkbox class="checkbox-id" (change)="testInitList()" (change)="changeValueCheckbox(computer.id)"
+            [checked]="testIdInDeleteList(computer.id)">{{computer.id}}</mat-checkbox>
           <ng-template #userRights>
-            {{computer.id}} 
+            {{computer.id}}
           </ng-template>
         </td>
       </ng-container>
     </div>
-    
 
-  
+
+
     <!-- Name Column -->
     <ng-container class="name" matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -75,54 +60,54 @@
           <!--<button mat-button (click)="setPageOne()" >
           <mat-icon [inline]="true">home</mat-icon>
            </button> -->
-        
-          <mat-button-toggle (click)="setOrderBy('asc','computer.name')" >
+
+          <mat-button-toggle [checked]='CpNameASC'  (click)="setOrderBy('asc','computer.name')">
             <mat-icon [inline]="true">expand_less</mat-icon>
           </mat-button-toggle>
           <p>{{'name' | translate}} </p>
-          <mat-button-toggle (click)="setOrderBy('desc','computer.name')" >
+          <mat-button-toggle [checked]='CpNameDESC' (click)="setOrderBy('desc','computer.name')">
             <mat-icon [inline]="true">expand_more</mat-icon>
           </mat-button-toggle>
 
         </mat-button-toggle-group>
-        
+
       </th>
       <td mat-cell *matCellDef="let computer">
-          <span *ngIf="adminRights; else userRights"> 
-            <a routerLink="{{computer.id}}"> {{computer.name}}  </a>
-          </span> 
-          <ng-template #userRights>
-            {{computer.name}} 
-          </ng-template>
-        </td>
+        <span *ngIf="adminRights; else userRights">
+          <a routerLink="{{computer.id}}"> {{computer.name}} </a>
+        </span>
+        <ng-template #userRights>
+          {{computer.name}}
+        </ng-template>
+      </td>
     </ng-container>
 
     <!-- Introduced Column -->
     <ng-container matColumnDef="introduced">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-button-toggle-group name="introducedButton" aria-label="buttonOrderByIntroduced">
-          <mat-button-toggle (click)="setOrderBy('asc','computer.introduced')" >
+          <mat-button-toggle [checked]='CpIntASC' (click)="setOrderBy('asc','computer.introduced')">
             <mat-icon [inline]="true">expand_less</mat-icon>
           </mat-button-toggle>
           <p>{{'introduced' | translate}}</p>
-          <mat-button-toggle (click)="setOrderBy('desc','computer.introduced')" >
+          <mat-button-toggle [checked]='CpIntDESC' (click)="setOrderBy('desc','computer.introduced')">
             <mat-icon [inline]="true">expand_more</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
       </th>
       <td mat-cell *matCellDef="let computer"> {{computer.introduced}} </td>
     </ng-container>
-  
+
     <!-- Discontinued Column -->
     <ng-container matColumnDef="discontinued">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-button-toggle-group name="discontinuedButton" aria-label="buttonOrderByDiscontinued">
-         
-          <mat-button-toggle (click)="setOrderBy('asc','computer.discontinued')" >
+
+          <mat-button-toggle [checked]='CpDiscASC' (click)="setOrderBy('asc','computer.discontinued')">
             <mat-icon [inline]="true">expand_less</mat-icon>
           </mat-button-toggle>
           <p>{{'discontinued' | translate}}</p>
-          <mat-button-toggle (click)="setOrderBy('desc','computer.discontinued')" >
+          <mat-button-toggle [checked]='CpDiscDESC' (click)="setOrderBy('desc','computer.discontinued')">
             <mat-icon [inline]="true">expand_more</mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
@@ -132,14 +117,14 @@
 
     <!-- Company Column -->
     <ng-container matColumnDef="company">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> 
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <mat-button-toggle-group name="nameButton" aria-label="buttonOrderByName">
-        
-          <mat-button-toggle (click)="setOrderBy('asc','company.name')" >
+
+          <mat-button-toggle [checked]='CnyNameASC' (click)="setOrderBy('asc','company.name')">
             <mat-icon [inline]="true">expand_less</mat-icon>
           </mat-button-toggle>
           <p>{{'company' | translate }}</p>
-          <mat-button-toggle (click)="setOrderBy('desc','company.name')" >
+          <mat-button-toggle [checked]='CnyNameDESC' (click)="setOrderBy('desc','company.name')">
             <mat-icon [inline]="true">expand_more</mat-icon>
           </mat-button-toggle>
           <!--<button mat-button (click)="deleteComputer()" >
@@ -149,7 +134,7 @@
       </th>
       <td mat-cell *matCellDef="let computer"> {{computer.company ? computer.company.name: '' }} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
@@ -157,11 +142,7 @@
 </div>
 
 
-<mat-paginator [length]="length"
-  [pageIndex]="pageIndex"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="pageEvent = getServerData($event)"
-  aria-label="Select page">
+<mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  (page)="pageEvent = getServerData($event)" aria-label="Select page">
 
 </mat-paginator>

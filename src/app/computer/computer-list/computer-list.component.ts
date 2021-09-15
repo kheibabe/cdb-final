@@ -1,11 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComputerService } from 'src/app/services/computer.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Computer } from '../../model/computer.model';
-import { style } from '@angular/animations';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Router } from '@angular/router';
+import { AuthInfos } from 'src/app/shared/auth-infos.model';
 
 @Component({
   selector: 'app-computer-list',
@@ -14,9 +12,20 @@ import { Router } from '@angular/router';
 })
 export class ComputerListComponent implements OnInit {
 
-  adminRights = true;
+  adminRights = false;
   setAdminRights(){
-    this.adminRights = true;
+    let info = this.authInfo.user?.authority;
+    if( info != undefined){
+      if(info == 'ADMIN'){
+        this.adminRights = true;
+      } else { 
+        this.adminRights = false;
+      }
+      //console.log(info)
+    } else {
+      //console.log('undefined rights')
+    }
+    
   }
 
   removable = false;
@@ -24,10 +33,6 @@ export class ComputerListComponent implements OnInit {
 
 
   listIdPage : Number[] =[];
-  
-
- 
-
   deleteListId : Number[]= [];
 
   testInitList(){
@@ -47,7 +52,7 @@ export class ComputerListComponent implements OnInit {
   }
 
   testIdInDeleteList(id: number) : boolean {
-    console.log("deleteList "+this.deleteListId)
+    //console.log("deleteList "+this.deleteListId)
     for(let j = 0; j<this.deleteListId.length; j++){
       if(this.deleteListId[j]== id){
         return true;
@@ -57,7 +62,7 @@ export class ComputerListComponent implements OnInit {
   }
 
   changeValueCheckbox(id: number){
-    console.log("change value"+id)
+    //console.log("change value"+id)
     let inList = -1;
     for(let j = 0; j<this.deleteListId.length; j++){
       if(this.deleteListId[j]== id){
@@ -86,13 +91,13 @@ export class ComputerListComponent implements OnInit {
       }
     }
     
-    console.log(this.deleteListId)
+    //console.log(this.deleteListId)
   }
 
   deleteComputers(){
-    console.log("delete "+this.deleteListId)
+    //console.log("delete "+this.deleteListId)
     for(let i=0; i< this.deleteListId.length; i++){
-      console.log(this.deleteListId[i]);
+      //console.log(this.deleteListId[i]);
       this.computerService.deleteComputer(this.deleteListId[i]).subscribe(
         response => {
           this.getData();
@@ -100,18 +105,17 @@ export class ComputerListComponent implements OnInit {
           this.deleteListId =  [];
         } ,
          error => {
-           console.log("delete not worked0");
+           console.log("delete not worked");
          }
       );
     }
   }
 
-  addComputer(){
+    addComputer(){
     this.router.navigateByUrl('/computer/add');
   }
 
-  displayedColumns = this.adminRights ? ['id','name','introduced','discontinued','company'] :['name','introduced','discontinued','company'];
-
+  
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
@@ -128,12 +132,18 @@ export class ComputerListComponent implements OnInit {
   direction = 'asc';
   searchword = '';
 
-  constructor(private computerService: ComputerService, private router: Router) { }
+  displayedColumns: any;
+
+  constructor(private authInfo: AuthInfos, private computerService: ComputerService, private router: Router) { }
 
   ngOnInit(): void {
     this.getData();
     this.intialisationListCheckbox(this.computerList.length);
+    this.setAdminRights();
+    this.displayedColumns = this.adminRights ? ['id','name','introduced','discontinued','company'] :['name','introduced','discontinued','company'];
   }
+
+ 
 
 
  getData() {
@@ -143,7 +153,7 @@ export class ComputerListComponent implements OnInit {
         this.computerList = result;
     },
     (error) => {
-      console.log("Il y a eu une erreur lors du chragement des données")
+      console.log("Il y a eu une erreur lors du chargement des données")
   }
   );
 
@@ -178,16 +188,73 @@ export class ComputerListComponent implements OnInit {
           this.computerList = result;
       },
       (error) => {
-        console.log("Il y a eu une erreur lors du chragement des données avec order")
+        console.log("Il y a eu une erreur lors du chargement des données avec order")
     }
     );
     this.computerService.countComputersSearch(this.searchword).subscribe(
       (result: Number) => {this.length = result.valueOf();}
     );
+    switch(order){
+      case 'computer.name': {
+        if(direction == 'asc'){
+          this.CpNameASC = true;
+          this.CpNameDESC = false, this.CpIntASC = false, this.CpIntDESC = false;
+          this.CpDiscASC = false, this.CpDiscDESC = false, this.CnyNameASC = false, this.CnyNameDESC = false;
+        } else {
+          this.CpNameDESC = true
+          this.CpNameASC = false, this.CpIntASC = false, this.CpIntDESC = false;
+          this.CpDiscASC = false, this.CpDiscDESC = false, this.CnyNameASC = false, this.CnyNameDESC = false;
+        }
+        break;
+      }
+      case 'computer.introduced':{
+        if(direction == 'asc'){
+          this.CpIntASC = true;
+          this.CpNameASC = false, this.CpNameDESC = false, this.CpIntDESC = false;
+          this.CpDiscASC = false, this.CpDiscDESC = false, this.CnyNameASC = false, this.CnyNameDESC = false;
+        } else {
+          this.CpIntDESC = true
+          this.CpNameASC = false, this.CpNameDESC = false, this.CpIntASC = false,
+          this.CpDiscASC = false, this.CpDiscDESC = false, this.CnyNameASC = false, this.CnyNameDESC = false;
+        }
+        break;
+      }
+      case 'computer.discontinued':{
+        if(direction == 'asc'){
+          this.CpDiscASC = true;
+          this.CpNameASC = false, this.CpNameDESC = false, this.CpIntASC = false, this.CpIntDESC = false;
+          this.CpDiscDESC = false, this.CnyNameASC = false, this.CnyNameDESC = false;
+        } else {
+          this.CpDiscDESC = true
+          this.CpNameASC = false, this.CpNameDESC = false, this.CpIntASC = false, this.CpIntDESC = false;
+          this.CpDiscASC = false, this.CnyNameASC = false, this.CnyNameDESC = false;
+        }
+        break;
+      }
+      case 'company.name':{
+        if(direction == 'asc'){
+          this.CnyNameASC = true;
+          this.CpNameASC = false, this.CpNameDESC = false, this.CpIntASC = false, this.CpIntDESC = false;
+          this.CpDiscASC = false, this.CpDiscDESC = false, this.CnyNameDESC = false;
+        } else {
+          this.CnyNameDESC = true
+          this.CpNameASC = false, this.CpNameDESC = false, this.CpIntASC = false, this.CpIntDESC = false;
+          this.CpDiscASC = false, this.CpDiscDESC = false, this.CnyNameASC = false;
+        }
+        break;
+      }
+    }
+
   }
 
   searchThis(){
-    this.removable=true;
+
+    if(this.searchword) {
+      this.removable = true;
+    } else {
+      this.removable = false;
+    }
+
     this.intialisationListCheckbox(this.computerList.length);
     this.deleteListId = [];
     this.selectAllCheckbox = false;
@@ -198,7 +265,7 @@ export class ComputerListComponent implements OnInit {
           this.computerList = result;
       },
       (error) => {
-        console.log("Il y a eu une erreur lors du chragement des données avec order")
+        console.log("Il y a eu une erreur lors du chargement des données avec order")
     }
     );
     this.computerService.countComputersSearch(this.searchword).subscribe(
@@ -207,7 +274,7 @@ export class ComputerListComponent implements OnInit {
   }
 
   //supprimer le mot écrit dans la barre de recherche
-  removeChips(): void {
+  removeSearch(): void {
     this.removable = false;
     this.searchword = '';
     //console.log("je veux tout");
@@ -219,7 +286,7 @@ export class ComputerListComponent implements OnInit {
           this.computerList = result;
       },
       (error) => {
-        console.log("Il y a eu une erreur lors du chragement des données avec order")
+        console.log("Il y a eu une erreur lors du chargement des données avec order")
     }
     );
     this.computerService.countComputersSearch(this.searchword).subscribe(
@@ -227,6 +294,15 @@ export class ComputerListComponent implements OnInit {
     );
     }
 
+
+    CpNameASC = false;
+    CpNameDESC = false;
+    CpIntASC = false;
+    CpIntDESC = false;
+    CpDiscASC = false;
+    CpDiscDESC = false;
+    CnyNameASC = false;
+    CnyNameDESC = false;
 
 
 
