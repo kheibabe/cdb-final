@@ -16,6 +16,7 @@ import {Observable} from 'rxjs';
 import { tap, map, catchError, elementAt } from 'rxjs/operators';
 import { User } from "../model/user.model";
 import { AuthInfos } from '../shared/auth-infos.model';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -23,7 +24,7 @@ import { AuthInfos } from '../shared/auth-infos.model';
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  constructor(private authInfos : AuthInfos) {}
+  constructor(private authInfos : AuthInfos,private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request.clone();
@@ -57,6 +58,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         (error:HttpErrorResponse ) => {
 
           const header : string[] | undefined = error.headers.get("WWW-Authenticate")?.split(",");
+          if (error.status == 401)
+          {
+            this.authInfos.authenticated = false;
+            this.router.navigateByUrl('/login');
+          }
           this.updateCredentials(header,request.urlWithParams);
           return error;
           
