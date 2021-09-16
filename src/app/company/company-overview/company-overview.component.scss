@@ -24,6 +24,8 @@ table{
 .orderby {
     display: flex;
     flex-direction: row;
+    border-style: none;
+    border-left-style: double;
 }
 
 .mat-column-name {
@@ -54,8 +56,6 @@ mat-paginator {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    border-top-style: dashed;
-    border-top-color: bisque;
 }
 
 .cell-name, .mat-loop
@@ -66,5 +66,9 @@ mat-paginator {
 .mat-cell
 {
     padding:10px;
+}
+
+.id {
+    text-align: center;
 }
 
