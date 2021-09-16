@@ -22,7 +22,7 @@
 </div>
 <br>
 
-<div class="mat-elevation-z8">
+<div >
   <table mat-table [dataSource]="computerList" matSort class="mat-elevation-z8">
 
     <!-- Id Column -->
@@ -117,7 +117,7 @@
 
     <!-- Company Column -->
     <ng-container matColumnDef="company">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      <th mat-header-cell *matHeaderCellDef>
         <mat-button-toggle-group name="nameButton" aria-label="buttonOrderByName">
 
           <mat-button-toggle [checked]='CnyNameASC' (click)="setOrderBy('asc','company.name')">
