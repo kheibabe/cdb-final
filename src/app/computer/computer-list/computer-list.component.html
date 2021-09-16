@@ -1,7 +1,7 @@
 <br>
 <div class="header-form">
   <form class="search-form">
-    <mat-form-field class="search-full-width" appearance="fill">
+    <mat-form-field class="search-full-width">
       <input matInput placeholder="Ex. Apple Inc" [(ngModel)]=searchword name="search" (input)="searchThis()">
       <div class="mat-suffix" matSuffix>
         <button *ngIf="removable" mat-icon-button (click)="removeSearch()">

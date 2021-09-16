@@ -1,9 +1,15 @@
-<h2 mat-dialog-title>Confirmation</h2>
-<div mat-dialog-content class="mat-typography">
+<mat-card>
+  <mat-card-header>
+    <mat-card-title class="title"> Confirmation</mat-card-title>
+</mat-card-header>
+<mat-card-content>
     {{"dialogDelete" | translate}}
-    <p></p>
-</div>
-<div mat-dialog-actions align="end">
-  <button mat-button (click)="onClickCancel()" >Cancel</button>
-  <button mat-button (click)="onClickDelete()" cdkFocusInitial>Delete</button>
-</div>
+   
+</mat-card-content>
+<mat-card-actions align="end">
+  <button mat-raised-button color="primary"(click)="onClickDelete()" cdkFocusInitial>{{"delete" | translate}}</button>
+  <button mat-raised-button color="warn" (click)="onClickCancel()" >{{"cancel" | translate}}</button>
+</mat-card-actions> 
+</mat-card>
+
+
