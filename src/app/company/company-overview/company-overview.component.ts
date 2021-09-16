@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort, SortDirection } from '@angular/material/sort';
@@ -13,54 +13,76 @@ import { CompanyAddComponent } from '../company-add/company-add.component';
   templateUrl: './company-overview.component.html',
   styleUrls: ['./company-overview.component.scss']
 })
-export class CompanyOverviewComponent implements OnInit, OnChanges {
+export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChanges {
 
   companyList: Company[] = [];
-  // sortedData: Company[];
-  displayedColumns: string[] = ['id', 'name', 'add'];
-  dataSource: MatTableDataSource<Company>;
   
+  
+  // sortedData: Company[];
+  displayedColumns: any;
+  dataSource = new MatTableDataSource(this.companyList)
+
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
   
   @Input()
   company!: Company;
 
+ 
+  adminRights = false;
 
   length = 0;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageIndex = 0;
   searchword = '';
+  removable = false;
+  order = 'company.id';
+  direction = 'asc';
   
-  
+ 
   
   constructor( private readonly companyService: CompanyService, public dialog: MatDialog, private authInfos : AuthInfos) {
-    this.dataSource = new MatTableDataSource(this.companyList);
+    // const company = Array.from({length: 100}, (_, k) => this.createNewCompany(k + 1));
+    //this.dataSource = new MatTableDataSource(this.companyList);
     //this.sortedData = this.companyList.slice();
    }
 
-   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  
 
   ngOnInit(): void {
     this.getCompanies();
     this.getData();
     console.log(this.authInfos.authenticated);
     console.log(this.authInfos.user?.authority);
+    console.log(this.dataSource.sort)
+    this.setAdminRights();
+    this.displayedColumns = !this.adminRights ? ['name'] : ['id','name','add']; 
 
   }
-  
+
+   ngAfterViewInit() {
+     console.log(this.dataSource.sort);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
   
   ngOnChanges(): void {
   console.log(this.company);
   }
 
-  
+  setAdminRights() {
+    let infos = this.authInfos.user?.authority;
+    if (infos == 'ADMIN') {
+      this.adminRights = true;
+    } 
+    else {
+      this.adminRights = false;
+    }
+  }
+
   
   getData() {
     this.companyService.getCompanies(this.pageSize, this.pageIndex+1).subscribe(
@@ -112,66 +134,71 @@ export class CompanyOverviewComponent implements OnInit, OnChanges {
   
   openDialog() {
     const dialogRef = this.dialog.open(CompanyAddComponent);
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      console.log(`Dialog result: ${result}`)
     });
+    this.getCompanies();
   }
    
  
 
     applyFilter() {
+      if(this.searchword){
+        this.removable = true;
+      } else {
+        this.removable = false ;
+      }
+
       this.companyService.getCompaniesSearch(this.searchword).subscribe(
         (result: Company[]) => {
           console.log("Tadaaaam: ", result);
             this.companyList = result;
         },
         (error) => {
-          console.log("Il y a eu une erreur lors du chargement des données avec order")
+          console.log("Il y a eu une erreur lors du chargement des données avec le filter")
       }
       );
-      /*this.companyService.countCompanies().subscribe(
+      this.companyService.countCompaniesSearch(this.searchword).subscribe(
         (result: Number) => {this.length = result.valueOf();}
-      );*/
-    }
-  }
-     /*
-    sortData(sort: Sort) {
-    const data = this.companyList.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
+      );
     }
 
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        default: return 0;
+    removeSearch(){
+      this.removable = false;
+      this.searchword = '';
+
+      this.pageIndex = 0;
+      this.pageSize = 10;
+
+      this.companyService.getCompaniesSearch(this.searchword).subscribe(
+        (result: Company[]) => {
+          console.log("Tadaaaam: ", result);
+            this.companyList = result;
+        },
+        (error) => {
+          console.log("Il y a eu une erreur lors du chargement des données avec le remove")
       }
-    });
+      );
+    }
+
+    setOrderBy(direction: string, order: string) {
+      this.pageIndex = 0;
+      this.direction = direction;
+      this.order = order;
+      this.companyService.getCompaniesOrdered(direction, order, this.pageSize).subscribe(
+        (result: Company[]) => {
+            this.companyList = result;
+        },
+        (error) => {
+          console.log("Souci avec order")
+      }
+      );
+      this.companyService.countCompaniesSearch(this.searchword).subscribe(
+        (result: Number) => {this.length = result.valueOf();}
+      );
+    }
+    
   }
-  
-}
-
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-
-   
-
-
-    <mat-paginator [length]="length" //nbre companie
-  [pageIndex]="pageIndex" // l'index de la page courante
-  [pageSize]="pageSize" // taille de la page actuelle
-  [pageSizeOptions]="pageSizeOptions"
-  (page)="pageEvent = getServerData($event)" // pageevent event qui permet d'actualiser les données suite à une action de l'utilisateur
-  aria-label="Select page">
-
-matSort (matSortChange)="sortData($event)"
-
-</mat-paginator>
-*/
 
   
 

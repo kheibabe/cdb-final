@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { Company } from '../../model/company.model';
 
@@ -16,7 +17,7 @@ export class CompanyAddComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private readonly companyService: CompanyService, public dialogRef: MatDialogRef<CompanyAddComponent>, @Inject(MAT_DIALOG_DATA) public data: Company) { }
+  constructor(private readonly companyService: CompanyService, public dialogRef: MatDialogRef<CompanyAddComponent>, @Inject(MAT_DIALOG_DATA) public data: Company, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -25,18 +26,34 @@ export class CompanyAddComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  saveCompany(): void {
-    this.companyService.addCompany(this.company).subscribe(
-      response => {
-        this.submitted = true;
-      },
-      error => {
-        console.log(error);
-      }
-    )
+
+
+
+saveCompany(): void {
+  const data = {
+    name: this.company.name,
+  };
+  
+  if (!data.name) {
+    alert('Please add a name');
+    return;
   }
 
+  this.companyService.addCompany(this.company).subscribe(
+    response => {
+      this.submitted = true;
+      
+    },
+    error => {
+      console.log("il y a un souci dans le post");
+    }
+  )
   
-
 }
 
+redirect(): void {
+  console.log("il se passe un truc");
+  this.router.navigateByUrl('/companies');
+}
+
+}

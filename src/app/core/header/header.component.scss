@@ -2,11 +2,16 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  background-color: rgb(219, 203, 224);
+  background-color: black;
   border-color: black;
   margin: 0px 0px 10px 0px;
   padding: 0px 10px 0px 10px;
   height:fit-content;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  color: #1f996e;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
 }
 .logo {
   display: block;
@@ -30,4 +35,8 @@
   //width: 30%;
   height: 82px;
   width:auto;
+}
+
+.nav-btn {
+  color: aqua;
 }

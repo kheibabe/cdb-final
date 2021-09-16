@@ -8,6 +8,7 @@ import { CompanyAddComponent } from './company-add/company-add.component';
 import { CompanyOverviewComponent } from './company-overview/company-overview.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { EditCompanyComponent } from './edit-company/edit-company.component';
 
 
 
@@ -16,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
     CompanyDetailComponent,
     CompanyAddComponent,
     CompanyOverviewComponent,
+    EditCompanyComponent,
   ],
   imports: [
     CommonModule,

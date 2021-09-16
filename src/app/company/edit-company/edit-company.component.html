@@ -1,0 +1,22 @@
+<div mat-dialog-content class="edit-component">
+   <form>
+        <div class="submit-form">
+            <div class="form-group">
+              <input matInput placeholder="Company's name" required [(ngModel)]=nameCompany
+                name="name">
+              <label for="id" class="title.label">Id</label><br>
+              </div>
+        </div>
+          <div class="btn-submit">
+            <button (click)="editCompany()">Submit</button>
+          </div>
+          <div *ngIf="submitted" class="congrats">
+            <p> Le nom de l'entreprise a bien été mis à jour.</p>
+          </div>
+    </form>
+    
+      <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button [mat-dialog-close]="company.name" cdkFocusInitial (click)="redirect()">Ok</button>
+      </div>
+  </div>

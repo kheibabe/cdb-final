@@ -7,7 +7,14 @@
   <mat-card-content>
     <p>
       {{ company.name }}
+     
     </p>
+   <button mat-icon-button (click)="openDialog()">
+    <a routerLink="/companies/{{ company.id }}"></a>
+        <mat-icon>
+          edit
+        </mat-icon> 
+      </button>
 
   </mat-card-content>
 

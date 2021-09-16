@@ -1,0 +1,35 @@
+.edit-component {
+    background-color: black;
+    color: rgb(14, 130, 114);
+    font-weight: bold;
+    display: flex;
+}
+
+.mat-dialog-container {
+    background-color: black;
+    color: rgb(14, 130, 114);
+    font-weight: bold;
+}
+
+.congrats {
+    color: rgb(14, 130, 114);
+}
+
+.label.title.label {
+    font-weight: bold;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-submit {
+    margin-top: 10px;
+    align-self: center;
+    align-items: center;
+}
+
+.mat-dialog-actions {
+    border-color: white;
+}
