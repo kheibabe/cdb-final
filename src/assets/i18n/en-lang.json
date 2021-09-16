@@ -46,6 +46,7 @@
     "successLogout" : "You have been logged out",
     "errorAuthorization" : "You don't have the authorization to access",
 
+    "editTitle" : "Edit Computer",
     "addTitle" : "Add Computer",
     "fillComputerName" : "Fill out your New Computer's name",
     "fillComputerIntroduced" :"Fill out your Computer's introduced date",
@@ -53,10 +54,14 @@
     "fillComputerCompany" : "Fill out your Computer's company",
     "done" : "Done",
     "doneText" :"You are now done.",
+    "not defined" : "not defined",
 
-    "welcome" : "Welcome",
-    "homepage" : "You need to be connected to see the lists and to be admin to delete anything. Please enjoy this little website!",
-
+    "welcome" : "Bienvenue",
+    "visiteIndication1" : "To visit our website, please log in using this ",
+    "visiteIndication2" : " button.",
+    "adminIndication" : "Only Adminisatrators can add, edit or delete a Computer or a Company.",
+    "homepage" : "After that, you 'll be able to search computers and companies in one click just below ! ",
+    
     "alertName" : "The name is empty!",
     "alertIntroduced" : "Wrong introduced date format! The format must be yyyy-MM-dd.",
     "alertEmptyIntroduce" : "The introduced date can't be empty if the discontinued date isn't!",

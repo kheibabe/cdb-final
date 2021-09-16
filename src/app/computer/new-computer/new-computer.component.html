@@ -1,4 +1,8 @@
-<h1 class="title">{{ "addTitle" | translate}}</h1>
+<div>
+  <h1 class="title">{{ "addTitle" | translate}}</h1>
+  <button class="addButton" mat-raised-button color="primary" (click)="redirect()">{{"cancel" | translate}}</button>
+</div>
+
 <mat-grid-list cols="2" rowHeight="500px">
   <mat-grid-tile>
 
@@ -23,8 +27,8 @@
           <ng-template matStepLabel>{{"fillComputerIntroduced" | translate}}</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>{{ "introduced" | translate}}</mat-label>
-            <input matInput [matDatepicker]="dp3" [hidden]='isIntroducedDate' [(ngModel)]=dateIntroduced [ngModelOptions]="{standalone: true}"
-              [min]="firstDate" [max]="todayDate" disabled>
+            <input matInput [matDatepicker]="dp3" [hidden]='isIntroducedDate' [(ngModel)]=dateIntroduced
+              [ngModelOptions]="{standalone: true}" [min]="firstDate" [max]="todayDate" disabled>
             <div class="mat-suffix" matSuffix>
               <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
               <mat-datepicker #dp3 disabled="false"></mat-datepicker>
@@ -46,8 +50,8 @@
           <ng-template matStepLabel>{{"fillComputerDiscontinued" | translate}}</ng-template>
           <mat-form-field appearance="fill">
             <mat-label>{{"discontinued" | translate }}</mat-label>
-            <input matInput [matDatepicker]="dp2" [hidden]='isDiscontinuedDate' [(ngModel)]=dateDiscontinued [ngModelOptions]="{standalone: true}"
-              [min]="dateIntroduced" [max]="todayDate" disabled>
+            <input matInput [matDatepicker]="dp2" [hidden]='isDiscontinuedDate' [(ngModel)]=dateDiscontinued
+              [ngModelOptions]="{standalone: true}" [min]="dateIntroduced" [max]="todayDate" disabled>
             <div class="mat-suffix" matSuffix>
               <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
               <mat-datepicker #dp2 disabled="false"></mat-datepicker>
@@ -99,11 +103,15 @@
   <mat-grid-tile>
     <mat-card>
       <h1 class="sumup">{{"sumUp" | translate}} :</h1>
-      <h1>{{"name" | translate}} : {{nameComputer ? nameComputer : 'not defined'}}</h1>
-      <h1>{{"introduced" | translate}} : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? newDate(dateIntroduced,'introduced') : 'not defined'}}</h1>
-      <h1>{{"discontinued" | translate}} : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? newDate(dateDiscontinued,'discontinued') : 'not defined'}}</h1>
-      <h1>{{"company" | translate}}: {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
+      <h1>{{"name" | translate}} : {{nameComputer ? nameComputer : "not defined" | translate}}</h1>
+      <h1>{{"introduced" | translate}} : {{getAllDate(dateIntroduced) != getAllDate(initDate) ?
+        newDate(dateIntroduced,'introduced') : "not defined" | translate}}</h1>
+      <h1>{{"discontinued" | translate}} : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ?
+        newDate(dateDiscontinued,'discontinued') : "not defined" | translate}}</h1>
+      <h1>{{"company" | translate}}: {{companySelect != null ? companySelect.name : "not defined" | translate}}</h1>
     </mat-card>
+
+
   </mat-grid-tile>
 
 </mat-grid-list>
