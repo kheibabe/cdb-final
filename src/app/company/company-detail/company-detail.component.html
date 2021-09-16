@@ -1,15 +1,15 @@
 <mat-card *ngIf = "company" class="example-card">
   <mat-card-header>
-    <mat-card-title> {{"name" | translate}} :</mat-card-title>
-    
+    <mat-card-title class="title"> Mettre à jour le nom de l'entreprise :</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <input matInput placeholder="Insert a company name" required [(ngModel)]="company.name"
+    <input matInput class="input" placeholder="Insert a company name" required [(ngModel)]="company.name"
               name="name">
-  
-        <button mat-button (click)="onClickCancel()" >{{"cancel" | translate}}</button>
-        <button mat-button (click)="onClickEdit()" cdkFocusInitial>{{"edit" | translate}}</button>
   </mat-card-content>
 
+  <mat-card-actions align="end">
+        <button mat-raised-button color="primary" (click)="onClickEdit()" cdkFocusInitial>{{"edit" | translate}}</button>
+        <button mat-raised-button color="warn" (click)="onClickCancel()" >{{"cancel" | translate}}</button>
+  </mat-card-actions>      
 </mat-card>
