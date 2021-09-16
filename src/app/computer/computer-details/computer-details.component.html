@@ -1,100 +1,89 @@
-<h1 class="title"> Edit Computer</h1>
+<div>
+  <h1 class="title">{{ "editTitle" | translate}}</h1>
+  <button class="addButton" mat-raised-button color="primary" (click)="redirect()">{{"cancel" | translate}}</button>
+</div>
 <mat-grid-list cols="2" rowHeight="500px">
 
-    <mat-grid-tile>
+  <mat-grid-tile>
 
-      <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-        <mat-step [stepControl]="firstFormGroup">
-          <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel>{{"fillComputerName" | translate}}</ng-template>
-            <mat-form-field appearance="fill">
-              <mat-label>{{'name' | translate}} ({{"required" | translate}})</mat-label>
-              <input matInput placeholder="Computer's name" formControlName="firstCtrl" required [(ngModel)]=nameComputer
-                name="name">
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperNext>{{"next" | translate}}</button>
-            </div>
-          </form>
-        </mat-step>
-  
-  
-        <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
-          <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel>{{"fillComputerIntroduced" | translate}}</ng-template>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "introduced" | translate}}</mat-label>
-              <input matInput [matDatepicker]="dp3" [hidden]='isIntroducedDate' [(ngModel)]=dateIntroduced [ngModelOptions]="{standalone: true}"
-                [min]="firstDate" [max]="todayDate" disabled>
-              <div class="mat-suffix" matSuffix>
-                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-                <button mat-icon-button (click)="removeDate(cdbDate.INTRODUCED)">
-                  <mat-icon>clear</mat-icon>
-                </button>
-              </div>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>{{"back" | translate}}</button>
-              <button mat-button matStepperNext>{{"next" | translate}}</button>
-            </div>
-          </form>
-        </mat-step>
-  
-  
-        <mat-step [stepControl]="thirdFormGroup" [optional]="isOptional">
-          <form [formGroup]="thirdFormGroup">
-            <ng-template matStepLabel>{{"fillComputerDiscontinued" | translate}}</ng-template>
-            <mat-form-field appearance="fill">
-              <mat-label>{{"discontinued" | translate }}</mat-label>
-              <input matInput [matDatepicker]="dp2" [hidden]='isDiscontinuedDate' [(ngModel)]=dateDiscontinued [ngModelOptions]="{standalone: true}"
-                [min]="dateIntroduced" [max]="todayDate" disabled>
-              <div class="mat-suffix" matSuffix>
-                <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
-                <mat-datepicker #dp2 disabled="false"></mat-datepicker>
-                <button mat-icon-button (click)="removeDate(cdbDate.DISCONTINUED)">
-                  <mat-icon>clear</mat-icon>
-                </button>
-              </div>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>{{"back" | translate}}</button>
-              <button mat-button matStepperNext>{{"next" | translate}}</button>
-            </div>
-          </form>
-        </mat-step>
-  
-  
-        <mat-step [stepControl]="fourthFormGroup" [optional]="isOptional">
-          <form [formGroup]="fourthFormGroup">
-            <ng-template matStepLabel>{{"fillComputerCompany" | translate}}</ng-template>
-            <mat-form-field appearance="fill">
-              <mat-label>{{"name" | translate}}</mat-label>
-              <mat-select [(ngModel)]=companySelect [ngModelOptions]="{standalone: true}" (selectionChange)="onChange()">
-                <mat-option>{{"none" | translate}}</mat-option>
-                <mat-option *ngFor="let company of companyList" [value]="company.id">{{company.name}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>{{"back" | translate}}</button>
-              <button mat-button matStepperNext>{{"next" | translate}}</button>
-            </div>
-          </form>
-        </mat-step>
-  
-  
-        <mat-step>
-          <ng-template matStepLabel>{{"done" | translate}}</ng-template>
-          <p>{{"doneText" | translate}}</p>
+    <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>{{"fillComputerName" | translate}}</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>{{'name' | translate}} ({{"required" | translate}})</mat-label>
+            <input matInput placeholder="Computer's name" formControlName="firstCtrl" required [(ngModel)]=nameComputer
+              name="name">
+          </mat-form-field>
           <div>
-            <button mat-raised-button color="primary" (click)="editComputer()">{{"editComputer" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
           </div>
-        </mat-step>
-      </mat-stepper>
-  
-  
-  
-    </mat-grid-tile>
+        </form>
+      </mat-step>
+
+
+      <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>{{"fillComputerIntroduced" | translate}}</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>{{ "introduced" | translate}}</mat-label>
+            <input matInput [matDatepicker]="dp3" [hidden]='isIntroducedDate' [(ngModel)]=dateIntroduced
+              [ngModelOptions]="{standalone: true}" [min]="firstDate" [max]="todayDate" disabled>
+            <div class="mat-suffix" matSuffix>
+              <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+              <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+              <button mat-icon-button (click)="removeDate(cdbDate.INTRODUCED)">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>{{"back" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+
+
+      <mat-step [stepControl]="thirdFormGroup" [optional]="isOptional">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>{{"fillComputerDiscontinued" | translate}}</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>{{"discontinued" | translate }}</mat-label>
+            <input matInput [matDatepicker]="dp2" [hidden]='isDiscontinuedDate' [(ngModel)]=dateDiscontinued
+              [ngModelOptions]="{standalone: true}" [min]="dateIntroduced" [max]="todayDate" disabled>
+            <div class="mat-suffix" matSuffix>
+              <mat-datepicker-toggle matSuffix [for]="dp2"></mat-datepicker-toggle>
+              <mat-datepicker #dp2 disabled="false"></mat-datepicker>
+              <button mat-icon-button (click)="removeDate(cdbDate.DISCONTINUED)">
+                <mat-icon>clear</mat-icon>
+              </button>
+            </div>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>{{"back" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
+          </div>
+        </form>
+      </mat-step>
+
+
+      <mat-step [stepControl]="fourthFormGroup" [optional]="isOptional">
+        <form [formGroup]="fourthFormGroup">
+          <ng-template matStepLabel>{{"fillComputerCompany" | translate}}</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>{{"name" | translate}}</mat-label>
+            <mat-select [(ngModel)]=companySelect [ngModelOptions]="{standalone: true}" (selectionChange)="onChange()">
+              <mat-option>{{"none" | translate}}</mat-option>
+              <mat-option *ngFor="let company of companyList" [value]="company.id">{{company.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>{{"back" | translate}}</button>
+            <button mat-button matStepperNext>{{"next" | translate}}</button>
+          </div>
+        </form>
+      </mat-step>
 
   <mat-grid-tile>
     <mat-card class="sum-panel">
@@ -106,8 +95,29 @@
     </mat-card>
   </mat-grid-tile>
 
+      <mat-step>
+        <ng-template matStepLabel>{{"done" | translate}}</ng-template>
+        <p>{{"doneText" | translate}}</p>
+        <div>
+          <button mat-raised-button color="primary" (click)="editComputer()">{{"editComputer" | translate}}</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+
+
+  </mat-grid-tile>
+
+  <mat-grid-tile>
+    <mat-card>
+      <h1 class="sumup">{{"sumUp" | translate}} :</h1>
+      <h1>{{"name" | translate}} : {{nameComputer ? nameComputer : "not defined" | translate}}</h1>
+      <h1>{{"introduced" | translate}} : {{getAllDate(dateIntroduced) != getAllDate(initDate) ?
+        newDate(dateIntroduced,'introduced') : "not defined" | translate}}</h1>
+      <h1>{{"discontinued" | translate}} : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ?
+        newDate(dateDiscontinued,'discontinued') : "not defined" | translate}}</h1>
+      <h1>{{"company" | translate}}: {{companySelect != null ? companyName : "not defined" | translate}}</h1>
+    </mat-card>
+  </mat-grid-tile>
+
 </mat-grid-list>
-
-
-
-

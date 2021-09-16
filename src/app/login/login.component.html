@@ -1,7 +1,7 @@
 
 <mat-card>
 	<mat-card-content>
-		<form role="form" (submit)="login()">
+		<form role="form" >
 
 			<h2>Connexion</h2>
 
@@ -14,8 +14,8 @@
 				<input matInput type="password"
 					class="form-control" placeholder="{{'password' | translate}}" id="password" name="password" required [(ngModel)]="credentials.password"/>
 			</mat-form-field>
-
-			<button mat-raised-button color="primary">Connexion</button>
+			<button mat-raised-button color="primary" (click)="register()" [attr.aria-label]="'register' | translate" >{{'register' | translate}}</button>
+			<button mat-raised-button (click)="login()" color="primary">Connexion</button>
 
 		</form>
 	</mat-card-content>

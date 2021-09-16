@@ -7,6 +7,9 @@ import { ComputerDetailsComponent } from './computer-details/computer-details.co
 import { CustomMaterialModule } from '../custom-material/custom-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { NewComputerComponent } from './new-computer/new-computer.component';
+import { ValidationEditDialogContent } from './computer-details/validation-edit-dialog';
+import { DialogContent } from './computer-list/dialog-content';
+import { ValidationAddDialogContent } from './new-computer/validation-add-dialog';
 
 
 
@@ -15,6 +18,9 @@ import { NewComputerComponent } from './new-computer/new-computer.component';
     ComputerDetailsComponent,
     NewComputerComponent,
     ComputerListComponent,
+    ValidationEditDialogContent,
+    ValidationAddDialogContent,
+    DialogContent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +33,9 @@ import { NewComputerComponent } from './new-computer/new-computer.component';
     ComputerDetailsComponent,
     NewComputerComponent,
     ComputerListComponent,
+    ValidationEditDialogContent,
+    DialogContent,
+    ValidationAddDialogContent,
 
   ]
 })

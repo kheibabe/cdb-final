@@ -16,7 +16,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import { RouteGuard} from './shared/route-guard';
 import { RegisterModule } from './register/register.module';
-import { StoreModule } from '@ngrx/store';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'http://localhost:4200/assets/i18n/', '-lang.json');

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComputerService } from 'src/app/services/computer.service';
 import { CompanyService } from 'src/app/services/company.service'
 import { Computer } from 'src/app/model/computer.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, NumberValueAccessor, Validators } from '@angular/forms'
 import { Company } from 'src/app/model/company.model';
 import { CDBDate } from 'src/app/model/date.enum';
+import { MatDialog } from '@angular/material/dialog';
+import { ValidationEditDialogContent } from './validation-edit-dialog';
 
 @Component({
   selector: 'app-computer-details',
@@ -17,6 +19,7 @@ export class ComputerDetailsComponent implements OnInit {
   isLinear = true;
   isOptional = true;
   firstFormGroup!: FormGroup;
+  idComputer: number = 0;
   nameComputer = '';
   secondFormGroup!: FormGroup;
   dateIntroduced = new Date();
@@ -25,23 +28,23 @@ export class ComputerDetailsComponent implements OnInit {
   fourthFormGroup!: FormGroup;
   companySelect!: any;
   companyName = '';
-  
-  companyList : Company[] = []
+
+  companyList: Company[] = []
   computerAdd!: Computer;
   companyId!: number;
   initDate = new Date();
-  todayDate:Date = new Date();
+  todayDate: Date = new Date();
   firstDate: Date = new Date();
 
   isDiscontinuedDate = true;
   isIntroducedDate = true;
 
   public get cdbDate(): typeof CDBDate {
-    return CDBDate; 
+    return CDBDate;
   }
 
-  constructor(private _formBuilder: FormBuilder, private route : ActivatedRoute, private computerService : ComputerService, private companyService : CompanyService) {}
-  
+  constructor(private router: Router, public dialog: MatDialog, private _formBuilder: FormBuilder, private route: ActivatedRoute, private computerService: ComputerService, private companyService: CompanyService) { }
+
   computerEdit!: Computer;
   ngOnInit() {
 
@@ -49,16 +52,17 @@ export class ComputerDetailsComponent implements OnInit {
     this.computerService.getComputerById(id).subscribe(
       (result: Computer) => {
         //console.log("J'ai reçu les computers suivantes ", result);
-          this.computerEdit = result;
-          this.nameComputer = this.computerEdit.name;
-          console.log(this.computerEdit.company)
-          this.dateIntroduced = this.computerEdit.introduced != null ? this.setNewDate(this.computerEdit.introduced.toString()) : this.initDate;
-          this.dateDiscontinued = this.computerEdit.discontinued != null ? this.setNewDate(this.computerEdit.discontinued.toString()) : this.initDate;
-          this.companySelect = this.computerEdit.company ;
+        this.computerEdit = result;
+        this.idComputer = this.computerEdit.id?.valueOf() == undefined ? 0 : this.computerEdit.id.valueOf();
+        this.nameComputer = this.computerEdit.name;
+        this.dateIntroduced = this.computerEdit.introduced != null ? this.setNewDate(this.computerEdit.introduced.toString()) : this.initDate;
+        this.dateDiscontinued = this.computerEdit.discontinued != null ? this.setNewDate(this.computerEdit.discontinued.toString()) : this.initDate;
+        this.companySelect = this.computerEdit.company.name;
+        this.companyName = this.computerEdit.company.name;
 
       },
       (error) => {
-          console.log("Il y a eu une erreur lors du chargement des données")
+        console.log("Il y a eu une erreur lors du chargement des données")
       }
     );
 
@@ -74,132 +78,159 @@ export class ComputerDetailsComponent implements OnInit {
     this.fourthFormGroup = this._formBuilder.group({
       fourthCtrl: ['', Validators.required]
     });
-    
+
     this.firstDate.setDate(7);
     this.firstDate.setMonth(7);
     this.firstDate.setFullYear(1944);
-    this.dateIntroduced.setDate(this.dateIntroduced.getDate()+1);
-    this.dateDiscontinued.setDate(this.dateDiscontinued.getDate()+1);
-    this.initDate.setDate(this.initDate.getDate()+1);
+    this.dateIntroduced.setDate(this.dateIntroduced.getDate() + 1);
+    this.dateDiscontinued.setDate(this.dateDiscontinued.getDate() + 1);
+    this.initDate.setDate(this.initDate.getDate() + 1);
 
     this.companyService.getCompaniesAll().subscribe(
       (result: Company[]) => {
-        
+
         this.companyList = result;
-      }, 
+      },
       (error) => {
         console.log("Il y a eu une erreur lors du chargement des données de companyList")
-    }
+      }
     )
-    
-    
-  } 
 
-  setNewDate(date: String) : Date{
+  }
+
+  setNewDate(date: String): Date {
+    console.log(date)
+    date = date + '-'
     let dateTmp = new Date();
-    let tmp =''
+    let tmp = ''
     let count = 0;
     let year = '';
     let month = '';
     let day = '';
-    for(let j = 0; j< date.length; j++){
-      
-      if(date[j] == '-'){
-        if(count == 0){
+    for (let j = 0; j < date.length; j++) {
+
+      if (date[j] == '-') {
+        if (count == 0) {
           year = tmp;
         }
-        if(count == 1){
+        if (count == 1) {
           month = tmp;
         }
-        if(count == 2){
+        if (count == 2) {
           day = tmp;
         }
         tmp = '';
-        count ++;
+        count++;
       }
-      else{
+      else {
         tmp = tmp + date[j];
       }
 
     }
-    dateTmp.setDate(parseInt(day))
-    dateTmp.setMonth(parseInt(month))
+    console.log('day : '+day+', month : '+month+', year : '+year)
+    
     dateTmp.setFullYear(parseInt(year))
+    dateTmp.setMonth(parseInt(month)-1)
+    dateTmp.setDate(parseInt(day))
+    console.log(dateTmp)
     return dateTmp;
 
   }
 
-  newDate(date: Date, type : string) : string{
-    if(type == 'introduced'){
+  newDate(date: Date, type: string): string {
+    if (type == 'introduced') {
       this.isIntroducedDate = false;
-    } else{
+    } else {
       this.isDiscontinuedDate = false
     }
     return this.getAllDate(date);
   }
-  
-  getAllDate(date: Date) : string{
-    return date.getDate() + ' ' + this.getMonth(date.getMonth()) + ' ' + date.getFullYear() ;
-  } 
 
-  getMonth(month : number) : String{
-    var months  = new Array ('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+  getAllDate(date: Date): string {
+    return date.getDate() + ' ' + this.getMonth(date.getMonth()) + ' ' + date.getFullYear();
+  }
+
+  getMonth(month: number): String {
+    var months = new Array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
     return months[month];
   }
-   
 
 
-  onChange(){
-    let id =  this.companySelect;
-    for(let i = 0; i<this.companyList.length; i++){
-      if( this.companyList[i].id == id){
+
+  onChange() {
+    let id = this.companySelect;
+    for (let i = 0; i < this.companyList.length; i++) {
+      if (this.companyList[i].id == id) {
         this.companySelect = this.companyList[i];
+        this.companyName = this.companyList[i].name;
         this.companyId = id;
       }
     }
 
   }
 
-  editComputer(){
-    this.computerAdd = {
-      name : this.nameComputer,
-      introduced : this.isIntroducedDate? "" : this.dateIntroduced.toISOString().split("T")[0],
-      discontinued : this.isIntroducedDate? "" : this.dateDiscontinued.toISOString().split("T")[0],
-      company : {
-        id : this.companyId,
-        name : this.companySelect
-      }
+  editComputer() {
+    const dialogRef = this.dialog.open(ValidationEditDialogContent, {
+      width: '250px',
+      data: { value: false }
+    });
 
-    }
-    if (this.isIntroducedDate)
-    {
-      this.computerAdd.introduced = "";
-    }
-    if (this.isDiscontinuedDate)
-    {
-      this.computerAdd.discontinued = "";
-    }
-    //console.log(this.computerAdd);
-    this.computerService.editComputer(this.computerAdd).subscribe(
-    );
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result) {
+        this.dateIntroduced.setDate(this.dateIntroduced.getDate() + 1);
+        this.dateDiscontinued.setDate(this.dateDiscontinued.getDate() + 1);
+        this.computerAdd = {
+          id: this.idComputer,
+          name: this.nameComputer,
+          introduced: this.dateIntroduced.toISOString().split("T")[0],
+          discontinued: this.dateDiscontinued.toISOString().split("T")[0],
+          company: {
+            id: this.companyId,
+            name: this.companyName
+          }
+
+        }
+        if (this.isIntroducedDate) {
+          this.computerAdd.introduced = "";
+        }
+        if (this.isDiscontinuedDate) {
+          this.computerAdd.discontinued = "";
+        }
+        console.log(this.computerAdd);
+        this.computerService.editComputer(this.computerAdd).subscribe();
+        this.router.navigateByUrl('/computers');
+      }
+    });
 
   }
 
-  removeDate(cdbDate : CDBDate){
+  removeDate(cdbDate: CDBDate) {
 
-    switch(cdbDate){
+    switch (cdbDate) {
       case CDBDate.INTRODUCED:
         this.dateIntroduced.setDate(this.initDate.getDate());
-        this.isIntroducedDate = true
-        break;
-      case CDBDate.DISCONTINUED :
+        this.dateIntroduced.setMonth(this.initDate.getMonth())
+        this.dateIntroduced.setFullYear(this.initDate.getFullYear())
+        this.isIntroducedDate = true;
         this.dateDiscontinued.setDate(this.initDate.getDate());
-        this.isDiscontinuedDate = true
+        this.dateDiscontinued.setMonth(this.initDate.getMonth())
+        this.dateDiscontinued.setFullYear(this.initDate.getFullYear())
+        this.isDiscontinuedDate = true;
+        break;
+      case CDBDate.DISCONTINUED:
+        this.dateDiscontinued.setDate(this.initDate.getDate());
+        this.dateDiscontinued.setMonth(this.initDate.getMonth())
+        this.dateDiscontinued.setFullYear(this.initDate.getFullYear())
+        this.isDiscontinuedDate = true;
         break;
 
     }
 
   }
 
+  redirect(){
+    this.router.navigateByUrl('/computers')
+  }
 
 }

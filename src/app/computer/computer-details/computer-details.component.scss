@@ -25,11 +25,15 @@
   align-items: center;
 }
 
-
-
 .mat-grid-tile
 {
     min-width:415px;
+}
+
+.addButton
+{
+    position:sticky;
+    left : 100%;
 }
 
 @media only screen and (max-width: 800px) {

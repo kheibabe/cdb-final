@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Output, EventEmitter, Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ComputerService } from 'src/app/services/computer.service';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import { Computer } from '../../model/computer.model';
 import { Router } from '@angular/router';
 import { AuthInfos } from 'src/app/shared/auth-infos.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogContent } from './dialog-content';
+
 
 @Component({
   selector: 'app-computer-list',
@@ -94,25 +97,37 @@ export class ComputerListComponent implements OnInit {
     //console.log(this.deleteListId)
   }
 
+  
   deleteComputers(){
-    //console.log("delete "+this.deleteListId)
-    for(let i=0; i< this.deleteListId.length; i++){
-      //console.log(this.deleteListId[i]);
-      this.computerService.deleteComputer(this.deleteListId[i]).subscribe(
-        response => {
-          this.getData();
-          this.intialisationListCheckbox(this.computerList.length);
-          this.deleteListId =  [];
-        } ,
-         error => {
-           console.log("delete not worked");
-         }
-      );
+    const dialogRef = this.dialog.open(DialogContent, {
+      width: '250px',
+      data :{value: false}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+      for(let i=0; i< this.deleteListId.length; i++){
+        //console.log(this.deleteListId[i]);
+        this.computerService.deleteComputer(this.deleteListId[i]).subscribe(
+          response => {
+            this.getData();
+            this.intialisationListCheckbox(this.computerList.length);
+            this.deleteListId =  [];
+          } ,
+           error => {
+             console.log("delete not worked");
+           }
+        );
+      } 
     }
+    });
+
+    
   }
 
     addComputer(){
-    this.router.navigateByUrl('/computer/add');
+      this.router.navigateByUrl('/computer/add');
   }
 
   
@@ -134,10 +149,12 @@ export class ComputerListComponent implements OnInit {
 
   displayedColumns: any;
 
-  constructor(private authInfo: AuthInfos, private computerService: ComputerService, private router: Router) { }
+  constructor(public dialog: MatDialog, private authInfo: AuthInfos, private computerService: ComputerService, private router: Router) { }
+ 
 
   ngOnInit(): void {
-    this.getData();
+    this.searchword='';
+    this.searchThis();
     this.intialisationListCheckbox(this.computerList.length);
     this.setAdminRights();
     this.displayedColumns = this.adminRights ? ['id','name','introduced','discontinued','company'] :['name','introduced','discontinued','company'];

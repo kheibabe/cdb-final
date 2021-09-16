@@ -31,6 +31,11 @@ export class LoginComponent implements OnInit {
     
   }
 
+  register()
+  {
+    this.router.navigateByUrl('/register');
+  }
+
   ngOnInit(): void {
   }
 

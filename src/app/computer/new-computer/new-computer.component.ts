@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComputerService } from 'src/app/services/computer.service';
 import { CompanyService } from 'src/app/services/company.service'
 import { Computer } from 'src/app/model/computer.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { Company } from 'src/app/model/company.model';
 import { CDBDate } from 'src/app/model/date.enum';
+import { MatDialog } from '@angular/material/dialog';
+import { ValidationAddDialogContent } from './validation-add-dialog';
 
 @Component({
   selector: 'app-new-computer-component',
@@ -25,7 +27,7 @@ export class NewComputerComponent implements OnInit {
   fourthFormGroup!: FormGroup;
   companySelect!: any;
   companyName = '';
-  computer!: Computer;
+
   companyList: Company[] = []
   computerAdd!: Computer;
   companyId!: number;
@@ -41,7 +43,7 @@ export class NewComputerComponent implements OnInit {
     return CDBDate;
   }
 
-  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private computerService: ComputerService, private companyService: CompanyService) { }
+  constructor(private router: Router,public dialog: MatDialog, private _formBuilder: FormBuilder, private route: ActivatedRoute, private computerService: ComputerService, private companyService: CompanyService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -101,6 +103,7 @@ export class NewComputerComponent implements OnInit {
     for (let i = 0; i < this.companyList.length; i++) {
       if (this.companyList[i].id == id) {
         this.companySelect = this.companyList[i];
+        this.companyName = this.companyList[i].name;
         this.companyId = id;
       }
     }
@@ -108,30 +111,43 @@ export class NewComputerComponent implements OnInit {
   }
 
   addComputer() {
-    this.computerAdd = {
-      name: this.nameComputer,
-      introduced: this.dateIntroduced.toISOString().split("T")[0],
-      discontinued: this.dateDiscontinued.toISOString().split("T")[0],
-      company: {
-        id: this.companyId,
-        name: this.companySelect
-      }
+    const dialogRef = this.dialog.open(ValidationAddDialogContent, {
+      width: '250px',
+      data :{value: false}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.dateIntroduced.setDate(this.dateIntroduced.getDate() + 1);
+        this.dateDiscontinued.setDate(this.dateDiscontinued.getDate() + 1);
+        this.computerAdd = {
+          name: this.nameComputer,
+          introduced: this.dateIntroduced.toISOString().split("T")[0],
+          discontinued: this.dateDiscontinued.toISOString().split("T")[0],
+          company: {
+            id: this.companyId,
+            name: this.companyName
+          }
+    
+        }
+        if (this.isIntroducedDate)
+        {
+          this.computerAdd.introduced = "";
+        }
+        if (this.isDiscontinuedDate)
+        {
+          this.computerAdd.discontinued = "";
+        }
+        console.log(this.computerAdd);
+        this.computerService.addComputer(this.computerAdd).subscribe();
+        this.router.navigateByUrl('/computers');
     }
-    if (this.isIntroducedDate)
-    {
-      this.computerAdd.introduced = "";
-    }
-    if (this.isDiscontinuedDate)
-    {
-      this.computerAdd.discontinued = "";
-    }
-    //console.log(this.computerAdd);
-    this.computerService.addComputer(this.computerAdd).subscribe(
-  
-    );
+    });
 
-  }
+    
+
+  } 
 
     removeDate(cdbDate : CDBDate){
 
@@ -139,6 +155,8 @@ export class NewComputerComponent implements OnInit {
       case CDBDate.INTRODUCED:
         this.dateIntroduced.setDate(this.initDate.getDate());
         this.isIntroducedDate = true;
+        this.dateDiscontinued.setDate(this.initDate.getDate());
+        this.isDiscontinuedDate = true;
         break;
       case CDBDate.DISCONTINUED :
         this.dateDiscontinued.setDate(this.initDate.getDate());
@@ -149,4 +167,7 @@ export class NewComputerComponent implements OnInit {
 
   }
 
+  redirect(){
+    this.router.navigateByUrl('/computers')
+  }
 }
