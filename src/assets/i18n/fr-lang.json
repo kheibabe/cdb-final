@@ -46,6 +46,10 @@
     "successLogout" : "Vous avez été déconnecté",
     "errorAuthorization" : "Vous n'avez pas l'authorisation d'y accéder",
 
+    "dialogEdit" : "Êtes-vous sûr de m'être à jour ?",
+    "dialogAdd" : "Êtes-vous sûr d'ajouter ?",
+    "dialogDelete" : "Êtes-vous sûr de supprimer ?",
+
     "editTitle" : "Édition d'un ordinateur",
     "addTitle" : "Ajout d'un ordinateur",
     "fillComputerName" : "Renseignez le nom de votre nouvel ordinateur",
@@ -58,11 +62,13 @@
 
 
     "welcome" : "Bienvenue",
-    "visiteIndication1" : "Pour visiter notre site, veuillez-vous connecter par ce ",
+    "visiteIndication1" : "Pour visiter notre site, veuillez vous connecter par ce ",
     "visiteIndication2" : " bouton.",
-    "adminIndication" : "Seul les administrateurs peuvent ajouter, modifier et supprimer un ordinateur et une entreprise.",
-    "homepage" : "Après cela, vous pouvez rechercher des ordinateurs ou des entreprises en un clique juste en dessous ! ",
-    
+    "adminIndication" : "Seuls les administrateurs peuvent ajouter, modifier et supprimer un ordinateur et une entreprise.",
+    "homepage" : "Après cela, vous pouvez rechercher des ordinateurs ou des entreprises en un clic juste en dessous ! ",
+    "showCompanies" : "Afficher les entreprises",
+    "showComputers" : "Afficher les ordinateurs",
+
     "alertName" : "Le nom est vide !",
     "alertIntroduced" : "Mauvais format de date d'introduction ! Le format doit être aaaa-mm-jj.",
     "alertEmptyIntroduce" : "La date d'introduction ne peut être vide si la date d'abandon ne l'est pas !",

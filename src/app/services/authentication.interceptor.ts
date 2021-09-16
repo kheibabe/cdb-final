@@ -10,7 +10,6 @@ import {
   HttpProgressEvent
 } from '@angular/common/http';
 import { HttpHeaders } from "@angular/common/http";
-import { Store } from '@ngrx/store';
 import { Md5 } from 'ts-md5/dist/md5';
 import {Observable} from 'rxjs';
 import { tap, map, catchError, elementAt } from 'rxjs/operators';
