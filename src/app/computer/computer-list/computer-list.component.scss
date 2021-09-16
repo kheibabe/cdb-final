@@ -10,7 +10,6 @@ table{
     width: 400px;
     height: 52px;
     height:min-content;
-    margin-left: 441px;
   }
 
   //affichage des entêtes de colonnes
@@ -46,10 +45,11 @@ table{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .addButton{
-  margin: auto;
+  margin: 10px;
 }
 
 .mat-column-id{

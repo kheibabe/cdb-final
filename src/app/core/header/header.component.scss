@@ -1,7 +1,9 @@
 .navigation {
   display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+  justify-content: center;
+  flex-direction:row;
+  flex-wrap: wrap;
+  align-items: center;
   background-color: black;
   border-color: black;
   margin: 0px 0px 10px 0px;
@@ -23,20 +25,33 @@
   flex-direction: row;
 }
 
+.main-title
+{
+  flex-grow: 4;
+  text-align: center;
+}
+
 .right-side
 {
   display: flex;
   flex-direction: right;
   flex-wrap: nowrap;
   align-items: center;
+  flex-grow: 1;
 }
 
 .oxyl-logo {
   //width: 30%;
   height: 82px;
   width:auto;
+  flex-grow: 1;
 }
 
 .nav-btn {
+  flex-grow: 1;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex-wrap: nowrap;
   color: aqua;
 }

@@ -26,7 +26,6 @@
     
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-<<<<<<< HEAD
       <th mat-header-cell *matHeaderCellDef   >
           <mat-button-toggle-group name="nameButton" aria-label="buttonOrderByName" class="orderby">
          
@@ -41,12 +40,9 @@
           </mat-button-toggle-group>
       </th>
    
-=======
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header="name"> {{"name" | translate}} </th>
->>>>>>> dev
 
       <td mat-cell *matCellDef="let company" class="tdbox"> 
-        <div  *ngIf="adminRights; else userRights">
+        <div  *ngIf="adminRights; else userRights" class="cell-name" >
           <button mat-icon-button (click)="deleteCompanies(company.id)">
             <mat-icon>
               delete
@@ -54,8 +50,6 @@
           </button>
           {{ company.name }}
         </div>
-        
-       
 
         <ng-template #userRights>
           {{ company.name }}

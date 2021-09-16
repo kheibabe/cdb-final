@@ -24,3 +24,38 @@
   flex-direction: row;
   align-items: center;
 }
+
+
+
+.mat-grid-tile
+{
+    min-width:415px;
+}
+
+@media only screen and (max-width: 800px) {
+	
+	.mat-grid-tile
+    {
+        display:block;
+        position:static;
+        margin:10px;
+        padding:10px;
+    }
+
+    .sum-panel
+    {
+        display:block;
+        position:relative;
+        top:500px;
+        margin:10px;
+        padding:10px;
+    }
+
+    :host
+    {
+        height:1000px;
+        display:block;
+        
+    }
+
+}
