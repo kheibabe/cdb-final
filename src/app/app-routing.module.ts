@@ -33,7 +33,8 @@ const routes: Routes = [
   {
     path: 'computer/add',
     component: NewComputerComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate : [RouteGuard],
   },
 
 
