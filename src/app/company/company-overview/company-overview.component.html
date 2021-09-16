@@ -18,7 +18,7 @@
     <div *ngIf="adminRights">
     <ng-container *ngIf="adminRights" matColumnDef="id" class="id" >
       <th mat-header-cell *matHeaderCellDef >
-        No.
+        <p>{{"id" | translate}}</p>
         </th>
       <td mat-cell *matCellDef="let company"> {{company.id}} </td>
     </ng-container>

@@ -24,6 +24,7 @@
     "editComputer" : "Edit a computer",
     "view" : "View",
     "name" : "Name",
+    "id" : "Id",
     "introduced" : "Introduced date",
     "discontinued" : "Discontinued date",
     "company" : "Company",

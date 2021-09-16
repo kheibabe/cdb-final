@@ -24,6 +24,7 @@
     "editComputer" : "Mettre à jour l'ordinateur",
     "view" : "Vue",
     "name" : "Nom",
+    "id" : "No.",
     "introduced" : "Date d'introduction",
     "discontinued" : "Date d'abandon",
     "company" : "Entreprise",
