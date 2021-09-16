@@ -1,5 +1,5 @@
 table{
-    width: 75%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -23,3 +23,34 @@ table{
     flex-direction: row;
 }
 
+.mat-column-name {
+    text-align: center;
+    width: auto;
+}
+
+
+.mat-column-id {
+    text-align: center;
+    width: 10%;
+}
+
+
+.mat-column-add {
+    text-align: center;
+    width: 10%;
+}
+
+p {
+margin-top: auto;
+margin-bottom: auto;
+margin-left: 10px;
+margin-right: 10pxs;
+}
+
+mat-paginator {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    border-top-style: dashed;
+    border-top-color: bisque;
+}

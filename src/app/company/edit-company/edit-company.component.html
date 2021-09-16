@@ -2,26 +2,10 @@
    <form>
         <div class="submit-form">
             <div class="form-group">
+              <input matInput placeholder="Company's name" required [(ngModel)]=nameCompany
+                name="name">
               <label for="id" class="title.label">Id</label><br>
-              <input
-                type="text"
-                class="form-control"
-                id="id"
-                [(ngModel)]="company.id"
-                name="id"
-              />
-            </div>
-            <div class="form-group">
-              <label for="name" class="title.label">Name</label><br>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                required
-                [(ngModel)]="company.name"
-                name="name"
-              />
-            </div>
+              </div>
         </div>
           <div class="btn-submit">
             <button (click)="editCompany()">Submit</button>

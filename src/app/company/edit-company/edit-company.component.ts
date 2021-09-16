@@ -10,41 +10,43 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./edit-company.component.scss']
 })
 export class EditCompanyComponent implements OnInit {
-
-  company: Company = {
-   
-    name: "",
-  };
-
+  nameCompany = "";
+  company! : Company;
   submitted = false;
 
   constructor(private readonly companyService: CompanyService, public dialogRef: MatDialogRef<EditCompanyComponent>, @Inject(MAT_DIALOG_DATA) public data: Company, private router: Router, private route: ActivatedRoute) { }
 
+  companyEdit! : Company
+
   ngOnInit(): void {
-    const id = Number(this.company.id);
-    this.getCompany(id);
+    const id = Number(this.route.snapshot.paramMap.get('id'))
+    this.companyService.getCompany(id).subscribe(
+      (result: Company) => {
+        this.nameCompany = this.companyEdit.name;
+        console.log(this.companyEdit.name)
+      },
+      (error) => {
+        console.log("putain encore loupé")
+      }
+    )
   }
+
+
+
+
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  getCompany(id: number): void {
-    this.companyService.getCompany(id).subscribe(
-      (result: Company) => {
-        this.company = result;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+ 
+
+
+
+editCompany() {
+  this.company = {
+    name : this.nameCompany,
   }
-
-
-
-
-editCompany(): void {
-  //this.message = '';
   
   this.companyService.updateCompany(this.company)
     .subscribe(
@@ -57,6 +59,11 @@ editCompany(): void {
         console.log(error);
       });
 }
+
+
+
+
+
 
 redirect(): void {
   console.log("il se passe un truc");

@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import { RouteGuard} from './shared/route-guard';
+import { RegisterModule } from './register/register.module';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'http://localhost:4200/assets/i18n/', '-lang.json');
@@ -24,7 +25,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   declarations: [
     AppComponent,
     LogoutComponent,
-    RegisterComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -41,7 +41,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BrowserAnimationsModule,
     CompanyModule,
     LoginModule,
-    
+    RegisterModule,
     FormsModule,
 
   ],

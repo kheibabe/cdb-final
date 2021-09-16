@@ -47,7 +47,7 @@ export class CompanyDetailComponent implements OnInit {
  
 
   openDialog() {
-    const dialogRef = this.dialog.open(EditCompanyComponent);
+    const dialogRef = this.dialog.open(EditCompanyComponent, { width: '250px', data: {company: {id: this.company.id, name: this.company.name}}     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`)
     });
