@@ -17,7 +17,7 @@ export class LogoutComponent implements OnInit {
     this.authInfos.authenticated = false;
     this.authInfos.user = undefined;
     this.router.navigateByUrl('/');
-
+    this.authInfos.updateAuthenticate();
     this.translate.get('successLogout').subscribe((res: string) => {
       this.snackBar.open(res, "Ok");
     });

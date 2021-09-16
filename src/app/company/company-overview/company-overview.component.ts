@@ -53,8 +53,8 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
   
 
   ngOnInit(): void {
+    this.getCompanies();
     this.getData();
-    console.log(this.length)
     console.log(this.authInfos.authenticated);
     console.log(this.authInfos.user?.authority);
     console.log(this.dataSource.sort)

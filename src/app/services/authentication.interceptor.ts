@@ -9,19 +9,22 @@ import {
   HttpHeaderResponse,
   HttpProgressEvent
 } from '@angular/common/http';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { User } from "../model/user.model";
+import { HttpHeaders } from "@angular/common/http";
+import { Store } from '@ngrx/store';
 import { Md5 } from 'ts-md5/dist/md5';
 import {Observable} from 'rxjs';
 import { tap, map, catchError, elementAt } from 'rxjs/operators';
+import { User } from "../model/user.model";
 import { AuthInfos } from '../shared/auth-infos.model';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-  constructor(private authInfos : AuthInfos) {}
+  constructor(private authInfos : AuthInfos,private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request.clone();
@@ -34,7 +37,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         headers: this.getHeader(request.method)
       });
     }
-
+    this.authInfos.uri = request.urlWithParams;
     return next.handle(authReq).pipe(
       tap((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
@@ -55,6 +58,11 @@ export class AuthenticationInterceptor implements HttpInterceptor {
         (error:HttpErrorResponse ) => {
 
           const header : string[] | undefined = error.headers.get("WWW-Authenticate")?.split(",");
+          if (error.status == 401)
+          {
+            this.authInfos.authenticated = false;
+            this.router.navigateByUrl('/login');
+          }
           this.updateCredentials(header,request.urlWithParams);
           return error;
           
@@ -112,6 +120,8 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       this.updateAttributs(tuple[0],tuple[1]);     
     });
     this.authInfos.uri = newUrl;
+    this.authInfos.updateStorage();
+    //this.store.dispatch(updateData({authInfos : this.authInfos}));
   }
 
   updateAttributs(key : string, value : string)

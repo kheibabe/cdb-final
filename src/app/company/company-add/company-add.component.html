@@ -3,7 +3,7 @@
     <div class="submit-form">
   
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">{{"name" | translate}}</label>
           <input
             type="text"
             class="form-control"
@@ -15,16 +15,25 @@
         </div>
      
     </div>
-        <button (click)="saveCompany()">Submit</button>
+        <button (click)="saveCompany()">{{"submit" | translate}}</button>
       
       <div *ngIf="submitted">
+<<<<<<< HEAD
         <p> Une entreprise a bien été ajoutée ! </p>
+=======
+        <p>{{"companySent" | translate}}</p>
+>>>>>>> dev
       </div>
   
   </form>
 </div>
   <div mat-dialog-actions>
+<<<<<<< HEAD
     <button mat-button (click)="onNoClick()">Cancel</button>
     <button mat-button [mat-dialog-close]="company.name" cdkFocusInitial (click)="redirect()">Ok</button>
+=======
+    <button mat-button (click)="onNoClick()">{{"cancel" | translate}}</button>
+    <button mat-button [mat-dialog-close]="company.name" cdkFocusInitial>Ok</button>
+>>>>>>> dev
   </div>
   
