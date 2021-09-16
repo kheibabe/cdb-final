@@ -1,10 +1,10 @@
 <mat-card *ngIf = "company" class="example-card">
   <mat-card-header>
-    <mat-card-title class="title"> Mettre à jour le nom de l'entreprise :</mat-card-title>
+    <mat-card-title class="title">{{"editCompany" | translate}} :</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <input matInput class="input" placeholder="Insert a company name" required [(ngModel)]="company.name"
+    <input matInput class="input" placeholder="Insert a company name" required autofocus [(ngModel)]="company.name"
               name="name">
   </mat-card-content>
 

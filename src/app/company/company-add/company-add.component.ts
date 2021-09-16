@@ -14,13 +14,11 @@ export class CompanyAddComponent implements OnInit {
   company: Company = {
     name: "",
   };
-
   submitted = false;
 
   constructor(private readonly companyService: CompanyService, public dialogRef: MatDialogRef<CompanyAddComponent>, @Inject(MAT_DIALOG_DATA) public data: Company, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onNoClick(): void {
     this.dialogRef.close();

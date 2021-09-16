@@ -1,18 +1,21 @@
 <mat-card mat-dialog-content>
 
   <mat-card-header>
-    <mat-card-title class="title"> Ajouter une entreprise :</mat-card-title>
+    <mat-card-title class="title"> {{"addCompany" | translate}} :</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-    <label for="name">{{"name" | translate}} :</label>
+    <div>
+      <label for="name">{{"name" | translate}} :</label>
       <input matInput class="input"
             type="text"
             id="name"
             required
+            autofocus
             [(ngModel)]="company.name"
             name="name"
       />   
+    </div>
       <div class="submitted" *ngIf="submitted">
         <p>{{"companySent" | translate}}</p>
       </div>
@@ -20,7 +23,7 @@
 
 
   <mat-card-actions align="end">
-    <button mat-raised-button color="primary" (click)="saveCompany()">{{"submit" | translate}}</button>
+    <button mat-raised-button color="primary" (click)="saveCompany()">{{"addShort" | translate}}</button>
     <button mat-raised-button color="warn" (click)="onNoClick()">{{"cancel" | translate}}</button>
   </mat-card-actions>
 
