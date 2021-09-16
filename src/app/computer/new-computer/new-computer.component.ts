@@ -119,6 +119,8 @@ export class NewComputerComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       if(result){
+        this.dateIntroduced.setDate(this.dateIntroduced.getDate() + 1);
+        this.dateDiscontinued.setDate(this.dateDiscontinued.getDate() + 1);
         this.computerAdd = {
           name: this.nameComputer,
           introduced: this.dateIntroduced.toISOString().split("T")[0],

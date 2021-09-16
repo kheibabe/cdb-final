@@ -1,5 +1,12 @@
 section
 {
     padding:10px;
-    background-color: #c7e3e3
+    background-color: #c7e3e3;
+    height:fit-content;
+    width:fit-content;
+    min-width:fill;
+}
+
+.title{
+    text-align: center;
 }

@@ -28,6 +28,7 @@ export class LoginService {
 
         this.http.get<Authority>(this.baseUrl + this.apiUrl +this.urlLogin + user.username,).subscribe(response => {    
             if (this.authInfos.user) this.authInfos.user.authority =response.authority;
+            this.authInfos.updateStorage();
             return callbackSuccess && callbackSuccess();
         },
         (error: HttpErrorResponse) => {
@@ -35,6 +36,7 @@ export class LoginService {
             {
                 this.http.get<Authority>(this.baseUrl + this.apiUrl + this.urlLogin + user.username).subscribe(nextResponse => { 
                     if (this.authInfos.user) this.authInfos.user.authority =nextResponse.authority;
+                    this.authInfos.updateStorage();
                     return callbackSuccess && callbackSuccess();
                     
                 },
@@ -42,13 +44,16 @@ export class LoginService {
                     if (nextError.status == 401)
                     {
                        this.authInfos.authenticated = false; 
+                       this.authInfos.updateStorage();
                        return callbackFailure && callbackFailure();
                     }
+                    this.authInfos.updateStorage();
                     return callbackSuccess && callbackSuccess();
                 }
                 )
 
             }
+            this.authInfos.updateStorage();
             return callbackSuccess && callbackSuccess();
         }
             

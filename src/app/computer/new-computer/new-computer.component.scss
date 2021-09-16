@@ -1,11 +1,42 @@
-.title{
-    margin-left: 45%;
-}
-
 .sumup{
     margin-left: 15%;
 }
 
-.addButton{
-    margin-left: 1000px;
+.mat-grid-tile
+{
+    min-width:415px;
+}
+
+.addButton
+{
+    position:sticky;
+    left : 100%;
+}
+
+@media only screen and (max-width: 800px) {
+	
+	.mat-grid-tile
+    {
+        display:block;
+        position:static;
+        margin:10px;
+        padding:10px;
+    }
+
+    .sum-panel
+    {
+        display:block;
+        position:relative;
+        top:500px;
+        margin:10px;
+        padding:10px;
+    }
+
+    :host
+    {
+        height:1000px;
+        display:block;
+        
+    }
+
 }

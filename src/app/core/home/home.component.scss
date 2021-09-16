@@ -6,12 +6,12 @@
 
 .mat-button{
     font-size: 45px;
-    font-family: Verdana, sans-sherif;
+    font-family: Verdana, sans-serif;
     font-weight: bolder;
 }
 .mat-card{
     
-    font-family: Verdana, sans-sherif;
+    font-family: Verdana, sans-serif;
     text-align: center;
     align-items: center;
     margin-left: 15%;
@@ -44,6 +44,7 @@ p.explication{
     font-size: large;
 }
 
-.mat-icon.login{
-
+.mat-grid-tile
+{
+    max-width: 48%;
 }

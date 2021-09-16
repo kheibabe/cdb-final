@@ -5,8 +5,11 @@ table{
 }
 
 .filter {
-    align-items: flex-end;
-}
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
 
 .mat-suffix{
     display : flex;
@@ -15,7 +18,7 @@ table{
 }
 
 .tdbox {
-    display: flex;
+    text-align: left;
 }
 
 .orderby {
@@ -24,7 +27,7 @@ table{
 }
 
 .mat-column-name {
-    text-align: center;
+    text-align: left;
     width: auto;
 }
 
@@ -54,3 +57,14 @@ mat-paginator {
     border-top-style: dashed;
     border-top-color: bisque;
 }
+
+.cell-name, .mat-loop
+{
+    display:inline-block;
+}
+
+.mat-cell
+{
+    padding:10px;
+}
+

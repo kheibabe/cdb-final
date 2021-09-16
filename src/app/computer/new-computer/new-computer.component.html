@@ -101,14 +101,14 @@
 
 
   <mat-grid-tile>
-    <mat-card>
+    <mat-card class="sum-panel">
       <h1 class="sumup">{{"sumUp" | translate}} :</h1>
       <h1>{{"name" | translate}} : {{nameComputer ? nameComputer : "not defined" | translate}}</h1>
       <h1>{{"introduced" | translate}} : {{getAllDate(dateIntroduced) != getAllDate(initDate) ?
         newDate(dateIntroduced,'introduced') : "not defined" | translate}}</h1>
       <h1>{{"discontinued" | translate}} : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ?
         newDate(dateDiscontinued,'discontinued') : "not defined" | translate}}</h1>
-      <h1>{{"company" | translate}}: {{companySelect != null ? companySelect.name : "not defined" | translate}}</h1>
+      <h1>{{"company" | translate}}: {{companySelect != null ? companyName : "not defined" | translate}}</h1>
     </mat-card>
 
 

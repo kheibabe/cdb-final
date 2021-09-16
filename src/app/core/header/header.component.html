@@ -10,9 +10,10 @@
     <app-menu></app-menu>
   </div>
   
-  <span>{{'appName' | translate }}</span>
+  <span class="main-title">{{'appName' | translate }}</span>
   <div class="nav-btn">
-    <span *ngIf="authInfos.authenticated">{{authInfos.user?.username}} ({{authInfos.user?.authority}}) </span>
+    <span class="username" *ngIf="authInfos.authenticated">{{authInfos.user?.username}} ({{authInfos.user?.authority}}) </span>
+    <a *ngIf="!authInfos.authenticated" routerLink="/register" [attr.aria-label]="'register' | translate" >{{'register' | translate}}</a>
     <button mat-icon-button routerLink="{{authInfos.authenticated? '/logout' : '/login'}}" [attr.aria-label]="authInfos.authenticated? ('login' | translate): ('logout'| translate)" >
       <mat-icon >{{authInfos.authenticated ? 'logout'  : 'login'}}</mat-icon>
     </button>

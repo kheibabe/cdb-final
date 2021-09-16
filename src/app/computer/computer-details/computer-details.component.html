@@ -85,6 +85,15 @@
         </form>
       </mat-step>
 
+  <mat-grid-tile>
+    <mat-card class="sum-panel">
+      <h1 class="sumup">To sum up :</h1>
+      <h1>Computer's name : {{nameComputer ? nameComputer : 'not defined'}}</h1>
+      <h1>Introduced Date : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? newDate(dateIntroduced, 'introduced') : 'not defined'}}</h1>
+      <h1>Discontinued Date : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? newDate(dateDiscontinued, 'discontinued') : 'not defined'}}</h1>
+      <h1>Company's name : {{companySelect != null ? companySelect.name : 'not defined'}}</h1>
+    </mat-card>
+  </mat-grid-tile>
 
       <mat-step>
         <ng-template matStepLabel>{{"done" | translate}}</ng-template>
@@ -101,13 +110,13 @@
 
   <mat-grid-tile>
     <mat-card>
-      <h1 class="sumup">To sum up :</h1>
-      <h1>Computer's name : {{nameComputer ? nameComputer : "not defined"| translate}}</h1>
-      <h1>Introduced Date : {{getAllDate(dateIntroduced) != getAllDate(initDate) ? newDate(dateIntroduced, 'introduced')
-        : "not defined"|translate}}</h1>
-      <h1>Discontinued Date : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ? newDate(dateDiscontinued,
-        'discontinued') : "not defined"|translate}}</h1>
-      <h1>Company's name : {{companySelect != null ? companyName : "not defined" | translate}}</h1>
+      <h1 class="sumup">{{"sumUp" | translate}} :</h1>
+      <h1>{{"name" | translate}} : {{nameComputer ? nameComputer : "not defined" | translate}}</h1>
+      <h1>{{"introduced" | translate}} : {{getAllDate(dateIntroduced) != getAllDate(initDate) ?
+        newDate(dateIntroduced,'introduced') : "not defined" | translate}}</h1>
+      <h1>{{"discontinued" | translate}} : {{getAllDate(dateDiscontinued) != getAllDate(initDate) ?
+        newDate(dateDiscontinued,'discontinued') : "not defined" | translate}}</h1>
+      <h1>{{"company" | translate}}: {{companySelect != null ? companyName : "not defined" | translate}}</h1>
     </mat-card>
   </mat-grid-tile>
 

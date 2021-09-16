@@ -37,6 +37,7 @@
     "submit" : "Submit",
     "companySent" : "A company has been added!",
 
+    "register" : "Register",
     "username" : "Username",
     "password" : "Password",
     "errorLogin" : "Impossible to log in",
@@ -45,6 +46,10 @@
     "successRegister" : "You can now log in",
     "successLogout" : "You have been logged out",
     "errorAuthorization" : "You don't have the authorization to access",
+
+    "dialogEdit" : "Are you sur to update ?",
+    "dialogAdd" : "Are you sur to add ?",
+    "dialogDelete" : "Are you sur to delete ?",
 
     "editTitle" : "Edit Computer",
     "addTitle" : "Add Computer",
@@ -61,7 +66,9 @@
     "visiteIndication2" : " button.",
     "adminIndication" : "Only Adminisatrators can add, edit or delete a Computer or a Company.",
     "homepage" : "After that, you 'll be able to search computers and companies in one click just below ! ",
-    
+    "showCompanies" : "Show Companies",
+    "showCOmputers" : "Show Computers",
+
     "alertName" : "The name is empty!",
     "alertIntroduced" : "Wrong introduced date format! The format must be yyyy-MM-dd.",
     "alertEmptyIntroduce" : "The introduced date can't be empty if the discontinued date isn't!",
