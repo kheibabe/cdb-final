@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit } from '@angular/core';
+import { NumberValueAccessor } from '@angular/forms';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from 'src/app/services/company.service';
 import { Company } from '../../model/company.model';
@@ -11,31 +12,37 @@ import { EditCompanyComponent } from '../edit-company/edit-company.component';
   styleUrls: ['./company-detail.component.scss']
 })
 
-
-
 export class CompanyDetailComponent implements OnInit {
 
 
-
-  company: Company = {
-    name: '',
-  };
+  @Input() childCompany : Company | undefined;
+  anyP : any;
+  company!: Company;
   message = '';
+  id! : number;
   
-  constructor(private readonly companyService: CompanyService,
+  constructor(public dialogRef : MatDialogRef<CompanyDetailComponent>, @Inject(MAT_DIALOG_DATA) public data: Company, private readonly companyService: CompanyService,
     private route: ActivatedRoute,  public dialog: MatDialog) {
+      this.anyP = {...data}
+      this.company = this.anyP.company;
+      console.log(this.company)
 
   }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'))
-    this.getCompany(id);
+    console.log("mon id : "+this.company.id)
+    this.id = this.company.id != undefined ? this.company.id : 0,
+    this.getCompany(this.id);
     this.message = '';
   }
 
   getCompany(id: number): void {
     this.companyService.getCompany(id).subscribe(
       (result: Company) => {
+        this.company = {
+          id,
+          name: result.name,
+        };
         this.company = result;
       },
       (error) => {
@@ -45,16 +52,13 @@ export class CompanyDetailComponent implements OnInit {
   }
 
  
+  onClickCancel(){
+    this.dialogRef.close(false);
+}
 
-  openDialog() {
-    const dialogRef = this.dialog.open(EditCompanyComponent, { width: '250px', data: {company: {id: this.company.id, name: this.company.name}}     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`)
-    });
-  }
-
-
-   
+onClickEdit(){
+    this.dialogRef.close(this.company);
+}
 
 }
 

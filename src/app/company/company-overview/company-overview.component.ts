@@ -1,12 +1,14 @@
 import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort, SortDirection } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Company } from 'src/app/model/company.model';
 import { CompanyService } from 'src/app/services/company.service';
 import { AuthInfos } from 'src/app/shared/auth-infos.model';
 import { CompanyAddComponent } from '../company-add/company-add.component';
+import { CompanyDetailComponent } from '../company-detail/company-detail.component';
 
 @Component({
   selector: 'app-company-overview',
@@ -28,10 +30,12 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
 
   
   @Input()
-  company!: Company;
+  companyEdit!: Company;
 
+ // parentCompanyId :  any;
  
   adminRights = false;
+  dialogOpen = false;
 
   length = 0;
   pageSize = 10;
@@ -44,10 +48,7 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
   
  
   
-  constructor( private readonly companyService: CompanyService, public dialog: MatDialog, private authInfos : AuthInfos) {
-    // const company = Array.from({length: 100}, (_, k) => this.createNewCompany(k + 1));
-    //this.dataSource = new MatTableDataSource(this.companyList);
-    //this.sortedData = this.companyList.slice();
+  constructor(private router : Router,private readonly companyService: CompanyService, public dialog: MatDialog, private authInfos : AuthInfos) {
    }
 
   
@@ -70,7 +71,7 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
   }
   
   ngOnChanges(): void {
-  console.log(this.company);
+  console.log(this.companyEdit);
   }
 
   setAdminRights() {
@@ -197,8 +198,55 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
         (result: Number) => {this.length = result.valueOf();}
       );
     }
-    
+
+    openDialogEdit(company: Company) {
+      this.dialogOpen = true;
+      this.companyEdit = {
+        id: company.id,
+        name : company.name,
+      }
+      console.log(this.companyEdit)
+      const dialogRef = this.dialog.open(CompanyDetailComponent, {data: {company: {id: company.id, name: company.name}}} );
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`)
+        if (result != false) {
+          console.log("edit moi")
+          this.companyEdit = {
+            id: result.id,
+            name : result.name,
+          }
+  
+          this.companyService.updateCompany(this.companyEdit).subscribe();
+        }
+
+      }, error => {
+        console.log(error);
+      });
+      this.dialogOpen = false;
+      this.getCompanies();   
+      this.getData(); 
   }
+
+  editCompany() {
+    this.companyEdit = {
+      id: this.companyEdit.id,
+      name : this.companyEdit.name,
+    }
+    
+    this.companyService.updateCompany(this.companyEdit)
+      .subscribe(
+        response => {
+          console.log(response);
+          //this.message = response.message ? response.message : 'This tutorial was updated successfully!';
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+
+}
 
   
 

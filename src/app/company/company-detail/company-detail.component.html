@@ -1,21 +1,15 @@
 <mat-card *ngIf = "company" class="example-card">
   <mat-card-header>
-    <mat-card-title>{{ company.name }}</mat-card-title>
-    <mat-card-subtitle>{{company.id}}</mat-card-subtitle>
+    <mat-card-title> {{"name" | translate}} :</mat-card-title>
+    
   </mat-card-header>
 
   <mat-card-content>
-    <p>
-      {{ company.name }}
-     
-    </p>
-   <button mat-icon-button (click)="openDialog()">
-    <a routerLink="/companies/{{ company.id }}"></a>
-        <mat-icon>
-          edit
-        </mat-icon> 
-      </button>
-
+    <input matInput placeholder="Insert a company name" required [(ngModel)]="company.name"
+              name="name">
+  
+        <button mat-button (click)="onClickCancel()" >Cancel</button>
+        <button mat-button (click)="onClickEdit()" cdkFocusInitial>Edit</button>
   </mat-card-content>
 
 </mat-card>

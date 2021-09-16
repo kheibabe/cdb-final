@@ -44,6 +44,8 @@ export class EditCompanyComponent implements OnInit {
 
 
 editCompany() {
+
+  this.companyService.getCompany(this.companyEdit.id == undefined? 0 :this.companyEdit.id);
   this.company = {
     name : this.nameCompany,
   }
