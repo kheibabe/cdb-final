@@ -20,6 +20,20 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    if (this.credentials.username.length === 0)
+    {
+      this.translate.get('errorUsername').subscribe((res: string) => {
+        this.snackBar.open(res, "Ok");
+      });
+      return;
+    }
+    else if (this.credentials.username.length === 0)
+    {
+      this.translate.get('errorPassword').subscribe((res: string) => {
+        this.snackBar.open(res, "Ok");
+      });
+      return;
+    }
     this.loginService.login(this.credentials, () => {
         this.router.navigateByUrl('/');
     }, () =>

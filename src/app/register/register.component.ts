@@ -18,6 +18,22 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+
+    if (this.credentials.username.length === 0)
+    {
+      this.translate.get('errorUsername').subscribe((res: string) => {
+        this.snackBar.open(res, "Ok");
+      });
+      return;
+    }
+    else if (this.credentials.username.length === 0)
+    {
+      this.translate.get('errorPassword').subscribe((res: string) => {
+        this.snackBar.open(res, "Ok");
+      });
+      return;
+    }
+
     this.loginService.register(this.credentials, () => {
         this.translate.get('successRegister').subscribe((res: string) => {
         this.snackBar.open(res, "Ok");
