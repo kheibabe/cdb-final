@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
       });
       return;
     }
-    else if (this.credentials.username.length === 0)
+    else if (this.credentials.password.length === 0)
     {
       this.translate.get('errorPassword').subscribe((res: string) => {
         this.snackBar.open(res, "Ok");
