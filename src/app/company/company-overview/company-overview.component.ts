@@ -1,3 +1,4 @@
+import { AutofillMonitor } from '@angular/cdk/text-field';
 import { AfterViewInit, Component, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -9,6 +10,7 @@ import { CompanyService } from 'src/app/services/company.service';
 import { AuthInfos } from 'src/app/shared/auth-infos.model';
 import { CompanyAddComponent } from '../company-add/company-add.component';
 import { CompanyDetailComponent } from '../company-detail/company-detail.component';
+import { DeleteDialog } from './delete-dialog';
 
 @Component({
   selector: 'app-company-overview',
@@ -123,18 +125,33 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
   }
 
   deleteCompanies(id: number): void {
-    this.companyService.deleteCompany(id).subscribe(
+    const dialogRef = this.dialog.open(DeleteDialog, {
+      width: '250px',
+      data :{value: false},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result) {
+          this.companyService.deleteCompany(id).subscribe(
       response => {
         this.getCompanies();
       },
       error => {
         console.log("je suis nulle");
       }
-    )
-  }
+      );
+      }  
+    } 
+  
+  );
+  
+}
   
   openDialog() {
-    const dialogRef = this.dialog.open(CompanyAddComponent);
+    const dialogRef = this.dialog.open(CompanyAddComponent, {
+      width: '250px',
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`)
     });

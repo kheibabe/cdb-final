@@ -61,8 +61,8 @@
     "fillComputerIntroduced" :"Renseignez la date d'introduction de votre nouvel ordinateur",
     "fillComputerDiscontinued" : "Renseignez la date d'abandon de votre nouvel ordinateur",
     "fillComputerCompany" : "Renseignez l'entreprise de votre nouvel ordinateur",
-    "done" : "Fini",
-    "doneText" :"Vous en avez fini.",
+    "done" : "Fin",
+    "doneText" :"Vous avez rempli tous les champs avec succès !",
     "not defined" : "non renseigné",
 
 

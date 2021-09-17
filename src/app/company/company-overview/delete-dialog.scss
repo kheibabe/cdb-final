@@ -1,10 +1,11 @@
 .mat-card {
-    
+    width: auto;
     display: flex;
     flex-direction: column;
     border-style: none;
     box-shadow: none;
 }
+
 
 
 .title {
@@ -18,8 +19,4 @@
     padding: 2pt;
     margin: 1pt;
     background-color: rgb(233, 238, 238);
-}
-
-.submitted {
-    color: green;
 }

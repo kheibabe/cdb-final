@@ -9,6 +9,8 @@ import { CompanyOverviewComponent } from './company-overview/company-overview.co
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { EditCompanyComponent } from './edit-company/edit-company.component';
+import { DialogContent } from '../computer/computer-list/dialog-content';
+import { DeleteDialog } from './company-overview/delete-dialog';
 
 
 
@@ -18,6 +20,7 @@ import { EditCompanyComponent } from './edit-company/edit-company.component';
     CompanyAddComponent,
     CompanyOverviewComponent,
     EditCompanyComponent,
+    DeleteDialog,
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import { EditCompanyComponent } from './edit-company/edit-company.component';
   exports: [
     CompanyDetailComponent,
     CompanyAddComponent,
-    CompanyOverviewComponent
+    CompanyOverviewComponent,
+    DeleteDialog,
   ]
 })
 export class CompanyModule { }
