@@ -23,7 +23,7 @@ export class LoginService {
     login(user : User, callbackSuccess : any, callbackFailure : any)
     {
         
-        this.authInfos.authenticated = true;
+        this.authInfos.authenticated = false;
         this.authInfos.user = user;
 
         this.http.get<Authority>(this.baseUrl + this.apiUrl +this.urlLogin + user.username,).subscribe(response => {    
@@ -34,6 +34,7 @@ export class LoginService {
         (error: HttpErrorResponse) => {
             if (error.status == 401)
             {
+                this.authInfos.authenticated = true;
                 this.http.get<Authority>(this.baseUrl + this.apiUrl + this.urlLogin + user.username).subscribe(nextResponse => { 
                     if (this.authInfos.user) this.authInfos.user.authority =nextResponse.authority;
                     this.authInfos.updateStorage();
