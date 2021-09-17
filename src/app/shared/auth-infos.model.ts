@@ -21,14 +21,35 @@ export class AuthInfos
     constructor()
     {
         this.authenticated = this.getItem("authenticated");
-        this.realm = this.getItem("realm");
-        this.nonce = this.getItem("nonce");
-        this.qop = this.getItem("qop");
+        if (this.getItem("realm"))
+        {
+            this.realm = this.getItem("realm");
+        }
+        if (this.getItem("nonce"))
+        {
+            this.nonce = this.getItem("nonce");
+        }
+        if (this.getItem("qop"))
+        {
+            this.qop = this.getItem("qop");
+        }
         this.uri = this.getItem("uri");
-        this.cnonce = this.getItem("cnonce");
-        this.useCount = this.getItem("useCount");
-        this.algorithm = this.getItem("algorithm");
-        this.user = this.getItem("user");
+        if (this.getItem("cnonce"))
+        {
+            this.cnonce = this.getItem("cnonce");
+        }
+        if (this.getItem("useCount"))
+        {
+            this.useCount = this.getItem("useCount");
+        }
+        if (this.getItem("algorithm"))
+        {
+            this.algorithm = this.getItem("algorithm");
+        }
+        if (this.getItem("user"))
+        {
+            this.user = this.getItem("user");
+        }
     }
 
     updateStorage()
