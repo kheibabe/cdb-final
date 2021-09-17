@@ -54,6 +54,9 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
   
 
   ngOnInit(): void {
+    this.searchword = '';
+    this.pageIndex = 0;
+    this.pageSize = 10;
     this.getCompanies();
     this.getData();
     console.log(this.authInfos.authenticated);
@@ -131,6 +134,11 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
         console.log("je suis nulle");
       }
     )
+    this.searchword = '';
+    this.pageIndex = 0;
+    this.pageSize = 10;
+    this.getCompanies();
+    this.getData(); 
   }
   
   openDialog() {
@@ -138,7 +146,11 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`)
     });
+    this.searchword = '';
+    this.pageIndex = 0;
+    this.pageSize = 10;
     this.getCompanies();
+    this.getData();
   }
    
  
@@ -218,14 +230,18 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
           }
   
           this.companyService.updateCompany(this.companyEdit).subscribe();
+         
+          this.searchword = '';
+          this.pageIndex = 0;
+          this.pageSize = 10;
+          this.getCompanies();   
+          this.getData(); 
         }
 
       }, error => {
         console.log(error);
       });
       this.dialogOpen = false;
-      this.getCompanies();   
-      this.getData(); 
   }
 
   editCompany() {
