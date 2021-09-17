@@ -46,7 +46,7 @@ saveCompany(): void {
       console.log("il y a un souci dans le post");
     }
   )
-  
+  this.dialogRef.close();
 }
 
 redirect(): void {
