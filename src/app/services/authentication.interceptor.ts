@@ -91,7 +91,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
 
   encodeResponse(user : User,method : string) : string
   {
-      const password = Md5.hashStr( user.username+":" +this.authInfos.realm + ":"+user.password);
+      const password = user.password;
       const cryptedUri = Md5.hashStr(method +":"+this.authInfos.uri?.trim());
       console.log(method);
       let nc = "";

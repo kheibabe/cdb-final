@@ -25,6 +25,7 @@ export class LoginService {
         
         this.authInfos.authenticated = false;
         this.authInfos.user = user;
+        this.authInfos.user.password = Md5.hashStr( user.username+":" +this.authInfos.realm + ":"+user.password);
 
         this.http.get<Authority>(this.baseUrl + this.apiUrl +this.urlLogin + user.username,).subscribe(response => {    
             if (this.authInfos.user) this.authInfos.user.authority =response.authority;
