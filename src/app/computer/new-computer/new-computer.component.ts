@@ -119,7 +119,7 @@ export class NewComputerComponent implements OnInit {
 
   addComputer() {
     const dialogRef = this.dialog.open(ValidationAddDialogContent, {
-      width: '250px',
+     
       data :{value: false}
     });
 

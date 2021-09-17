@@ -177,7 +177,7 @@ export class ComputerDetailsComponent implements OnInit {
 
   editComputer() {
     const dialogRef = this.dialog.open(ValidationEditDialogContent, {
-      width: '250px',
+     
       data: { value: false }
     });
 
