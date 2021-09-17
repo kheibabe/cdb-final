@@ -79,6 +79,9 @@
     "alertEmptyIntroduce" : "La date d'introduction ne peut être vide si la date d'abandon ne l'est pas !",
     "alertDiscontinued" : "Mauvais format de date d'abandon ! Le format doit être aaaa-mm-jj.",
 
+    "errorUsername" : "Le nom utilisateur ne peut pas être vide !",
+    "errorPassword" : "Le mot de passe ne peut pas être vide !",
+
     "error401" : "Erreur 401: Authentification requise !",
     "error403" : "Erreur 403: Accés refusé !",
     "error404" : "Erreur 404: Page non trouvée. Dommage femme de petite vertu !",
