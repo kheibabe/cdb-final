@@ -56,6 +56,9 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
   
 
   ngOnInit(): void {
+    this.searchword = '';
+    this.pageIndex = 0;
+    this.pageSize = 10;
     this.getCompanies();
     this.getData();
     console.log(this.authInfos.authenticated);
@@ -134,28 +137,35 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
       console.log(`Dialog result: ${result}`);
       if(result) {
           this.companyService.deleteCompany(id).subscribe(
-      response => {
-        this.getCompanies();
-      },
-      error => {
-        console.log("je suis nulle");
+          response => {
+            this.getCompanies();
+            this.searchword = '';
+            this.pageIndex = 0;
+            this.pageSize = 10;
+            this.getCompanies();
+            this.getData(); 
+          },
+          error => {
+            console.log("je suis nulle");
+          }) 
       }
-      );
-      }  
-    } 
-  
-  );
-  
-}
+    }
+    )
+    
+  }
   
   openDialog() {
     const dialogRef = this.dialog.open(CompanyAddComponent, {
-      width: '250px',
+      
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`)
     });
+    this.searchword = '';
+    this.pageIndex = 0;
+    this.pageSize = 10;
     this.getCompanies();
+    this.getData();
   }
    
  
@@ -235,14 +245,18 @@ export class CompanyOverviewComponent implements OnInit, AfterViewInit, OnChange
           }
   
           this.companyService.updateCompany(this.companyEdit).subscribe();
+         
+          this.searchword = '';
+          this.pageIndex = 0;
+          this.pageSize = 10;
+          this.getCompanies();   
+          this.getData(); 
         }
 
       }, error => {
         console.log(error);
       });
       this.dialogOpen = false;
-      this.getCompanies();   
-      this.getData(); 
   }
 
   editCompany() {

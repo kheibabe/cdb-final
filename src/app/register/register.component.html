@@ -10,6 +10,7 @@
 				<input matInput type="password"
 					class="form-control" placeholder="{{'password' | translate}}" id="password" name="password" required [(ngModel)]="credentials.password"/>
 			</mat-form-field>
+			<div>{{'proposeConnect' | translate}} <a routerLink="/login" [attr.aria-label]="'linkConnect' | translate" >{{'linkConnect' | translate}}</a></div>
 			<button mat-raised-button color="primary">Inscription</button>
 		</form>
 	</mat-card-content>

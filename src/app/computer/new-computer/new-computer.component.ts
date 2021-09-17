@@ -8,6 +8,7 @@ import { Company } from 'src/app/model/company.model';
 import { CDBDate } from 'src/app/model/date.enum';
 import { MatDialog } from '@angular/material/dialog';
 import { ValidationAddDialogContent } from './validation-add-dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-new-computer-component',
@@ -43,7 +44,7 @@ export class NewComputerComponent implements OnInit {
     return CDBDate;
   }
 
-  constructor(private router: Router,public dialog: MatDialog, private _formBuilder: FormBuilder, private route: ActivatedRoute, private computerService: ComputerService, private companyService: CompanyService) { }
+  constructor(private translate: TranslateService, private router: Router,public dialog: MatDialog, private _formBuilder: FormBuilder, private route: ActivatedRoute, private computerService: ComputerService, private companyService: CompanyService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
@@ -92,8 +93,14 @@ export class NewComputerComponent implements OnInit {
   }
 
   getMonth(month: number): String {
-    var months = new Array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
-    return months[month];
+    var monthsfr = new Array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+    var monthsen = new Array('January','February','March','April','May','June','July','August','September','October','November','December');
+    if(this.translate.currentLang == 'fr'){
+      return monthsfr[month];
+    } else {
+      return monthsen[month];
+    }
+    
   }
 
 
@@ -112,7 +119,7 @@ export class NewComputerComponent implements OnInit {
 
   addComputer() {
     const dialogRef = this.dialog.open(ValidationAddDialogContent, {
-      width: '250px',
+     
       data :{value: false}
     });
 

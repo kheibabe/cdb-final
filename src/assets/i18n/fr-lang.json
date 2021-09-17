@@ -9,6 +9,12 @@
     "login" : "Connexion",
     "logout" : "Deconnexion",
 
+    "proposeConnect" : "Déjà un compte ?",
+    "linkConnect" :"Connectez-vous !",
+
+    "proposeInscription" : "Pas de compte ?",
+    "linkInscription" :"Inscrivez-vous !",
+
     "computersFound" : "Ordinateurs trouvés",
     "search" : "Chercher le nom",
     "filterName" : "Filtrer par nom",
@@ -78,6 +84,9 @@
     "alertIntroduced" : "Mauvais format de date d'introduction ! Le format doit être aaaa-mm-jj.",
     "alertEmptyIntroduce" : "La date d'introduction ne peut être vide si la date d'abandon ne l'est pas !",
     "alertDiscontinued" : "Mauvais format de date d'abandon ! Le format doit être aaaa-mm-jj.",
+
+    "errorUsername" : "Le nom utilisateur ne peut pas être vide !",
+    "errorPassword" : "Le mot de passe ne peut pas être vide !",
 
     "error401" : "Erreur 401: Authentification requise !",
     "error403" : "Erreur 403: Accés refusé !",

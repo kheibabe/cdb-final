@@ -28,7 +28,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let authReq = request.clone();
 
-    this.authInfos.uri = request.urlWithParams;
+    this.authInfos.uri = request.urlWithParams.trim();
 
     if(this.authInfos.authenticated)
     {
@@ -92,7 +92,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
   encodeResponse(user : User,method : string) : string
   {
       const password = Md5.hashStr( user.username+":" +this.authInfos.realm + ":"+user.password);
-      const cryptedUri = Md5.hashStr(method +":"+this.authInfos.uri);
+      const cryptedUri = Md5.hashStr(method +":"+this.authInfos.uri?.trim());
       console.log(method);
       let nc = "";
       for (let i = this.authInfos.useCount.toString().length; i < 8; i++)
@@ -118,7 +118,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       }
       this.updateAttributs(tuple[0],tuple[1]);     
     });
-    this.authInfos.uri = newUrl;
+    this.authInfos.uri = newUrl.trim();
     this.authInfos.updateStorage();
     //this.store.dispatch(updateData({authInfos : this.authInfos}));
   }

@@ -41,6 +41,11 @@
     "submit" : "Submit",
     "companySent" : "A company has been added !",
 
+    "proposeConnect" : "Already an account?",
+    "linkConnect" :"Let's connect!",
+    "proposeInscription" : "Having no account?",
+    "linkInscription" :"Let's register!",
+
     "register" : "Register",
     "username" : "Username",
     "password" : "Password",
@@ -77,6 +82,9 @@
     "alertIntroduced" : "Wrong introduced date format ! The format must be yyyy-MM-dd.",
     "alertEmptyIntroduce" : "The introduced date can't be empty if the discontinued date isn't !",
     "alertDiscontinued" : "Wrong discontinued date format ! The format must be yyyy-MM-dd.",
+
+    "errorUsername" : "The username cannot be empty!",
+    "errorPassword" : "The password cannot be empty!",
 
     "error401" : "Error 401: Authentication required !",
     "error403" : "Error 403: Access denied !",

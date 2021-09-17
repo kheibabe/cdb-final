@@ -10,7 +10,7 @@
     <app-menu></app-menu>
   </div>
   
-  <span class="main-title">{{'appName' | translate }}</span>
+  <div class="main-title">{{'appName' | translate }}</div>
   <div class="nav-btn">
     <span class="username" *ngIf="authInfos.authenticated">{{authInfos.user?.username}} ({{authInfos.user?.authority}}) </span>
     <a *ngIf="!authInfos.authenticated" routerLink="/register" [attr.aria-label]="'register' | translate" >{{'register' | translate}}</a>
