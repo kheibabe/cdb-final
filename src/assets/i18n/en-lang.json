@@ -41,6 +41,11 @@
     "submit" : "Submit",
     "companySent" : "A company has been added !",
 
+    "proposeConnect" : "Already an account?",
+    "linkConnect" :"Let's connect!",
+    "proposeInscription" : "Having no account?",
+    "linkInscription" :"Let's register!",
+
     "register" : "Register",
     "username" : "Username",
     "password" : "Password",

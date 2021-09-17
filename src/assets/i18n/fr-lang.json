@@ -9,6 +9,12 @@
     "login" : "Connexion",
     "logout" : "Deconnexion",
 
+    "proposeConnect" : "Déjà un compte ?",
+    "linkConnect" :"Connectez-vous !",
+
+    "proposeInscription" : "Pas de compte ?",
+    "linkInscription" :"Inscrivez-vous !",
+
     "computersFound" : "Ordinateurs trouvés",
     "search" : "Chercher le nom",
     "filterName" : "Filtrer par nom",
